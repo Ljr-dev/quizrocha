@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Rocha</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER FIXO -->
+<header class="header">
+  <h2>Quiz Rocha</h2>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Seu negócio está perdendo clientes na internet?</h1>
+  <p>Descubra em 2 minutos com um diagnóstico gratuito</p>
+  <button onclick="iniciarQuiz()">Fazer diagnóstico grátis</button>
+</section>
+
+<!-- SERVIÇOS -->
+<section class="servicos">
+  <h2>Serviços que eu ofereço</h2>
+
+  <div class="cards fade">
+    <div class="card">
+      <h3>Criação de Sites</h3>
+      <p>Sites modernos que geram clientes automaticamente</p>
+    </div>
+
+    <div class="card">
+      <h3>Hospedagem</h3>
+      <p>Seu site rápido, seguro e sempre online</p>
+    </div>
+
+    <div class="card">
+      <h3>Quiz Inteligente</h3>
+      <p>Transforme visitantes em clientes com diagnóstico automático</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" class="quiz">
+  <div id="pergunta"></div>
+  <div id="opcoes"></div>
+  <button id="proximoBtn" onclick="proximaPergunta()">Próximo</button>
+</section>
+
+<!-- CONTATO -->
+<section class="contato">
+  <h2>Pronto para atrair mais clientes?</h2>
+
+  <a href="https://wa.me/5519982144043?text=Concluí%20o%20diagnóstico%20e%20gostaria%20de%20um%20orçamento%20para%20um%20site%20profissional%20focado%20em%20geração%20de%20clientes" target="_blank">
+    Solicitar orçamento
+  </a>
+</section>
+
+<!-- BOTÃO FLUTUANTE -->
+<a class="whatsapp-float" 
+   href="https://wa.me/5519982144043?text=Concluí%20o%20diagnóstico%20e%20gostaria%20de%20um%20orçamento%20para%20um%20site%20profissional%20focado%20em%20geração%20de%20clientes" 
+   target="_blank">
+   💬
+</a>
+
+<script src="script.js"></script>
+
+</body>
+</html>
