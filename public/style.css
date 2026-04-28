@@ -5,46 +5,63 @@ body {
   color: white;
 }
 
-/* HEADER FIXO */
+/* HEADER */
 .header {
+  text-align: center;
+  padding: 15px;
+  background: #020617;
   position: fixed;
   width: 100%;
   top: 0;
-  background: #020617;
-  text-align: center;
-  padding: 15px;
   z-index: 1000;
 }
 
-/* HERO */
+/* HERO COM IMAGEM */
 .hero {
   margin-top: 60px;
-  text-align: center;
-  padding: 80px 20px;
-  background: linear-gradient(135deg, #0f172a, #1e293b);
+  height: 100vh;
+
+  background: linear-gradient(rgba(15,23,42,0.85), rgba(15,23,42,0.9)),
+              url("img/hero-quiz-marketing.jpg");
+
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+}
+
+/* CONTEÚDO HERO */
+.hero-content {
+  max-width: 600px;
 }
 
 .hero h1 {
-  font-size: 36px;
+  font-size: 42px;
+  line-height: 1.2;
 }
 
 .hero p {
+  margin-top: 10px;
   color: #cbd5e1;
 }
 
 .hero button {
   margin-top: 25px;
-  padding: 14px 25px;
+  padding: 15px 30px;
   background: #22c55e;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  font-size: 16px;
 }
 
 /* SERVIÇOS */
 .servicos {
   text-align: center;
-  padding: 50px 20px;
+  padding: 60px 20px;
 }
 
 .cards {
@@ -66,22 +83,6 @@ body {
   transform: translateY(-5px);
 }
 
-/* ANIMAÇÃO */
-.fade {
-  animation: fadeIn 1s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* QUIZ */
 .quiz {
   max-width: 500px;
@@ -91,84 +92,41 @@ body {
   border-radius: 10px;
 
   display: none;
-  opacity: 0;
-  transition: 0.5s;
 }
 
-.quiz.show {
-  display: block;
-  opacity: 1;
-}
-
-#pergunta {
-  font-size: 20px;
-  margin-bottom: 20px;
-}
-
-.opcao {
-  background: #334155;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 8px;
-  cursor: pointer;
-  text-align: center;
-}
-
-.opcao:hover {
-  background: #475569;
-}
-
-#proximoBtn {
-  margin-top: 20px;
-  width: 100%;
-  padding: 15px;
-  background: #22c55e;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-/* CONTATO */
+/* CTA */
 .contato {
   text-align: center;
-  padding: 50px 20px;
+  padding: 60px 20px;
 }
 
 .contato a {
   background: #22c55e;
-  padding: 15px 25px;
+  padding: 15px 30px;
   border-radius: 8px;
   text-decoration: none;
   color: black;
   font-weight: bold;
 }
 
-/* BOTÃO WHATSAPP FLUTUANTE */
-.whatsapp-float {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #22c55e;
-  color: black;
-  font-size: 24px;
-  padding: 15px;
-  border-radius: 50%;
-  text-decoration: none;
-}
-
 /* RESPONSIVO */
 @media (max-width: 768px) {
 
+  .hero {
+    justify-content: center;
+    text-align: center;
+  }
+
   .hero h1 {
-    font-size: 26px;
+    font-size: 28px;
+  }
+
+  .hero-content {
+    max-width: 100%;
   }
 
   .card {
     width: 100%;
     max-width: 320px;
-  }
-
-  .quiz {
-    margin: 20px;
   }
 }
