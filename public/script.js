@@ -2,6 +2,10 @@ let etapa = 0;
 let score = 0;
 let respostaSelecionada = null;
 
+const mensagemWhatsApp = encodeURIComponent(
+  "Concluí o diagnóstico e gostaria de um orçamento para um site profissional focado em geração de clientes."
+);
+
 const perguntas = [
   {
     pergunta: "Você tem site hoje?",
@@ -25,21 +29,6 @@ const perguntas = [
       { texto: "Às vezes", valor: 1 },
       { texto: "Não", valor: 2 }
     ]
-  },
-  {
-    pergunta: "Você usa WhatsApp para vender?",
-    opcoes: [
-      { texto: "Sim", valor: 2 },
-      { texto: "Não", valor: 0 }
-    ]
-  },
-  {
-    pergunta: "Você quer mais clientes?",
-    opcoes: [
-      { texto: "Sim, urgente", valor: 0 },
-      { texto: "Sim, mas sem pressa", valor: 1 },
-      { texto: "Estou ok", valor: 2 }
-    ]
   }
 ];
 
@@ -47,9 +36,10 @@ function iniciarQuiz() {
   const quiz = document.getElementById("quiz");
   quiz.classList.add("show");
 
-  setTimeout(() => {
-    quiz.scrollIntoView({ behavior: "smooth" });
-  }, 100);
+  quiz.scrollIntoView({ behavior: "smooth" });
+
+  etapa = 0;
+  score = 0;
 
   carregarPergunta();
 }
@@ -73,10 +63,10 @@ function carregarPergunta() {
       respostaSelecionada = op.valor;
 
       document.querySelectorAll(".opcao").forEach(o => {
-        o.style.background = "#334155";
+        o.classList.remove("selected");
       });
 
-      div.style.background = "#22c55e";
+      div.classList.add("selected");
     };
 
     opcoesDiv.appendChild(div);
@@ -100,21 +90,11 @@ function proximaPergunta() {
 }
 
 function mostrarResultado() {
-  let mensagem = "";
-
-  if (score <= 3) {
-    mensagem = "⚠️ Seu negócio está perdendo muitos clientes!";
-  } else if (score <= 6) {
-    mensagem = "🚀 Você pode melhorar e crescer mais!";
-  } else {
-    mensagem = "🔥 Seu negócio está bem posicionado!";
-  }
-
   document.getElementById("quiz").innerHTML = `
-    <h2>${mensagem}</h2>
-    <p>Eu posso criar um sistema que gera clientes automaticamente para o seu negócio.</p>
+    <h2>⚠️ Seu negócio está perdendo clientes!</h2>
+    <p>Eu posso resolver isso pra você.</p>
     <br>
-    <a href="https://wa.me/5519982144043?text=Concluí%20o%20diagnóstico%20e%20gostaria%20de%20um%20orçamento%20para%20um%20site%20profissional%20focado%20em%20geração%20de%20clientes" target="_blank">
+    <a href="https://wa.me/5519982144043?text=${mensagemWhatsApp}" target="_blank">
       👉 Solicitar orçamento
     </a>
   `;

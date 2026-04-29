@@ -1,12 +1,13 @@
 const express = require("express");
+const path = require("path");
+
 const app = express();
 
-app.use(express.json());
-app.use(express.static("public"));
+// SERVIR ARQUIVOS ESTÁTICOS
+app.use(express.static(path.join(__dirname, "public")));
 
-app.post("/lead", (req, res) => {
-  console.log("Lead recebido:", req.body);
-  res.json({ status: "ok" });
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
 app.listen(3000, () => {
