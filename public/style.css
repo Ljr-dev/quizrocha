@@ -7,8 +7,8 @@
 
 /* BASE */
 body {
-  font-family: Arial, sans-serif;
-  background: #0f172a;
+  font-family: "Segoe UI", sans-serif;
+  background: #020617;
   color: white;
 }
 
@@ -29,22 +29,21 @@ body {
   display: flex;
   align-items: center;
   padding: 40px;
-  padding-top: 100px; /* evita ficar escondido atrás do header */
+  padding-top: 100px;
 
   background-image: linear-gradient(
       to right,
-      rgba(2, 6, 23, 0.95) 20%,
-      rgba(2, 6, 23, 0.7) 45%,
-      rgba(2, 6, 23, 0.2) 75%,
+      rgba(2, 6, 23, 0.95),
+      rgba(2, 6, 23, 0.5),
       transparent
     ),
     url("img/hero-quiz-marketing.jpg");
 
   background-size: cover;
-  background-position: right center;
+  background-position: center;
 }
 
-/* TEXTO HERO */
+/* TEXTO */
 .hero-text {
   max-width: 520px;
 }
@@ -52,27 +51,47 @@ body {
 .hero-text h1 {
   font-size: 42px;
   margin-bottom: 10px;
-  line-height: 1.2;
 }
 
 .hero-text p {
   color: #cbd5e1;
 }
 
-/* BOTÃO */
-.hero-text button {
+/* BOTÕES */
+.botoes {
   margin-top: 20px;
-  padding: 15px 25px;
-  background: #22c55e;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.hero-text button:hover {
+.btn {
+  padding: 14px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* BOTÃO PRINCIPAL */
+.btn.principal {
+  background: #22c55e;
+  color: black;
+}
+
+.btn.principal:hover {
+  background: #16a34a;
   transform: scale(1.05);
+}
+
+/* BOTÃO SECUNDÁRIO */
+.btn.secundario {
+  background: #1e293b;
+  color: white;
+}
+
+.btn.secundario:hover {
+  background: #334155;
 }
 
 /* SERVIÇOS */
@@ -91,70 +110,47 @@ body {
   background: #1e293b;
   padding: 25px;
   margin: 10px;
-  border-radius: 10px;
+  border-radius: 12px;
   width: 260px;
-  transition: 0.2s;
+  transition: 0.3s;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
 }
 
-/* QUIZ */
-.quiz {
-  max-width: 500px;
-  margin: 60px auto;
-  background: #1e293b;
-  padding: 30px;
-  border-radius: 12px;
-  display: none;
+.card.destaque {
+  border: 2px solid #22c55e;
 }
 
-.quiz.show {
-  display: block;
-}
-
-/* PERGUNTA */
-#pergunta {
-  font-size: 20px;
-  margin-bottom: 20px;
-}
-
-/* OPÇÕES */
-.opcao {
-  background: #334155;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 8px;
-  cursor: pointer;
+/* QUIZZES */
+.quizzes {
   text-align: center;
-  transition: 0.2s;
+  padding: 80px 20px;
 }
 
-.opcao:hover {
-  background: #475569;
+.quiz-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.opcao.selected {
+.quiz-card {
+  background: #1e293b;
+  padding: 25px;
+  margin: 10px;
+  border-radius: 12px;
+  width: 260px;
+}
+
+.quiz-card a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
   background: #22c55e;
   color: black;
-}
-
-/* BOTÃO */
-#proximoBtn {
-  width: 100%;
-  margin-top: 20px;
-  padding: 15px;
-  background: #22c55e;
-  border: none;
+  text-decoration: none;
   border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-#proximoBtn:hover {
-  transform: scale(1.02);
 }
 
 /* CTA */
@@ -170,26 +166,22 @@ body {
   text-decoration: none;
   color: black;
   font-weight: bold;
-  display: inline-block;
-  margin-top: 20px;
 }
 
 /* MOBILE */
 @media (max-width: 768px) {
 
   .hero {
-    justify-content: center;
     text-align: center;
-    background-position: center;
-    padding: 20px;
-    padding-top: 120px;
+    justify-content: center;
   }
 
   .hero-text h1 {
     font-size: 28px;
   }
 
-  .card {
+  .card,
+  .quiz-card {
     width: 100%;
     max-width: 320px;
   }
