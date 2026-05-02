@@ -1,11 +1,9 @@
-/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* BASE */
 body {
   font-family: "Segoe UI", sans-serif;
   background: #020617;
@@ -21,6 +19,7 @@ body {
   text-align: center;
   padding: 15px;
   z-index: 1000;
+  border-bottom: 1px solid #1e293b;
 }
 
 /* HERO */
@@ -31,11 +30,10 @@ body {
   padding: 40px;
   padding-top: 100px;
 
-  background-image: linear-gradient(
+  background: linear-gradient(
       to right,
       rgba(2, 6, 23, 0.95),
-      rgba(2, 6, 23, 0.5),
-      transparent
+      rgba(2, 6, 23, 0.6)
     ),
     url("img/hero-quiz-marketing.jpg");
 
@@ -43,7 +41,6 @@ body {
   background-position: center;
 }
 
-/* TEXTO */
 .hero-text {
   max-width: 520px;
 }
@@ -59,7 +56,7 @@ body {
 
 /* BOTÕES */
 .botoes {
-  margin-top: 20px;
+  margin-top: 25px;
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
@@ -73,7 +70,7 @@ body {
   transition: 0.3s;
 }
 
-/* BOTÃO PRINCIPAL */
+/* PRINCIPAL */
 .btn.principal {
   background: #22c55e;
   color: black;
@@ -84,7 +81,7 @@ body {
   transform: scale(1.05);
 }
 
-/* BOTÃO SECUNDÁRIO */
+/* SECUNDÁRIO */
 .btn.secundario {
   background: #1e293b;
   color: white;
@@ -92,6 +89,40 @@ body {
 
 .btn.secundario:hover {
   background: #334155;
+}
+
+/* PORTFÓLIO */
+.portfolio {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.portfolio-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.portfolio-card {
+  background: #1e293b;
+  padding: 25px;
+  margin: 10px;
+  border-radius: 12px;
+  width: 260px;
+}
+
+.portfolio-card a {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: #22c55e;
+  color: black;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.portfolio-card.destaque {
+  border: 2px solid #22c55e;
 }
 
 /* SERVIÇOS */
@@ -123,36 +154,6 @@ body {
   border: 2px solid #22c55e;
 }
 
-/* QUIZZES */
-.quizzes {
-  text-align: center;
-  padding: 80px 20px;
-}
-
-.quiz-cards {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.quiz-card {
-  background: #1e293b;
-  padding: 25px;
-  margin: 10px;
-  border-radius: 12px;
-  width: 260px;
-}
-
-.quiz-card a {
-  display: inline-block;
-  margin-top: 15px;
-  padding: 10px 20px;
-  background: #22c55e;
-  color: black;
-  text-decoration: none;
-  border-radius: 8px;
-}
-
 /* CTA */
 .contato {
   text-align: center;
@@ -166,11 +167,12 @@ body {
   text-decoration: none;
   color: black;
   font-weight: bold;
+  display: inline-block;
+  margin-top: 20px;
 }
 
 /* MOBILE */
 @media (max-width: 768px) {
-
   .hero {
     text-align: center;
     justify-content: center;
@@ -181,7 +183,7 @@ body {
   }
 
   .card,
-  .quiz-card {
+  .portfolio-card {
     width: 100%;
     max-width: 320px;
   }
