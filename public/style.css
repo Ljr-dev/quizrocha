@@ -32,13 +32,12 @@ body {
 
   background: linear-gradient(
       to right,
-      rgba(2, 6, 23, 0.95),
-      rgba(2, 6, 23, 0.6)
+      rgba(2, 6, 23, 0.98),
+      rgba(2, 6, 23, 0.85)
     ),
     url("img/hero-quiz-marketing.jpg");
 
   background-size: cover;
-  background-position: center;
 }
 
 .hero-text {
@@ -46,12 +45,19 @@ body {
 }
 
 .hero-text h1 {
-  font-size: 42px;
+  font-size: 40px;
   margin-bottom: 10px;
 }
 
 .hero-text p {
   color: #cbd5e1;
+}
+
+.micro-copy {
+  display: block;
+  margin-top: 10px;
+  color: #94a3b8;
+  font-size: 14px;
 }
 
 /* BOTÕES */
@@ -70,40 +76,53 @@ body {
   transition: 0.3s;
 }
 
-/* PRINCIPAL */
 .btn.principal {
   background: #22c55e;
   color: black;
 }
 
 .btn.principal:hover {
-  background: #16a34a;
   transform: scale(1.05);
 }
 
-/* SECUNDÁRIO */
 .btn.secundario {
   background: #1e293b;
-  color: white;
 }
 
-.btn.secundario:hover {
-  background: #334155;
-}
-
-/* PORTFÓLIO */
-.portfolio {
+/* PROVA */
+.prova {
   text-align: center;
   padding: 80px 20px;
 }
 
-.portfolio-cards {
+.sub {
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+.numeros {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.numeros strong {
+  font-size: 28px;
+  color: #22c55e;
+}
+
+/* CARDS */
+.portfolio-cards,
+.cards {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.portfolio-card {
+.portfolio-card,
+.card {
   background: #1e293b;
   padding: 25px;
   margin: 10px;
@@ -112,45 +131,16 @@ body {
 }
 
 .portfolio-card a {
-  display: inline-block;
   margin-top: 15px;
-  padding: 10px 20px;
+  display: inline-block;
   background: #22c55e;
+  padding: 10px 20px;
   color: black;
   border-radius: 8px;
   text-decoration: none;
 }
 
-.portfolio-card.destaque {
-  border: 2px solid #22c55e;
-}
-
-/* SERVIÇOS */
-.servicos {
-  text-align: center;
-  padding: 80px 20px;
-}
-
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.card {
-  background: #1e293b;
-  padding: 25px;
-  margin: 10px;
-  border-radius: 12px;
-  width: 260px;
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-}
-
-.card.destaque {
+.destaque {
   border: 2px solid #22c55e;
 }
 
@@ -167,8 +157,15 @@ body {
   text-decoration: none;
   color: black;
   font-weight: bold;
-  display: inline-block;
-  margin-top: 20px;
+}
+
+/* SEO */
+.seo {
+  padding: 60px 20px;
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+  color: #cbd5e1;
 }
 
 /* MOBILE */
@@ -179,52 +176,6 @@ body {
   }
 
   .hero-text h1 {
-    font-size: 28px;
+    font-size: 26px;
   }
-
-  .card,
-  .portfolio-card {
-    width: 100%;
-    max-width: 320px;
-  }
-}
-
-.prova {
-  text-align: center;
-  padding: 80px 20px;
-}
-
-.numeros {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin: 30px 0;
-  flex-wrap: wrap;
-}
-
-.numeros div {
-  text-align: center;
-}
-
-.numeros strong {
-  font-size: 28px;
-  color: #22c55e;
-}
-
-.numeros span {
-  display: block;
-  color: #cbd5e1;
-}
-
-.beneficios {
-  text-align: center;
-  padding: 80px 20px;
-}
-
-.seo {
-  padding: 60px 20px;
-  max-width: 800px;
-  margin: auto;
-  text-align: center;
-  color: #cbd5e1;
 }
