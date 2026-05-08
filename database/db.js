@@ -8,66 +8,70 @@ new sqlite3.Database(
 
 
 
-// USERS
-db.prepare(`
-  CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    email TEXT UNIQUE,
-    password TEXT
-  )
-`).run();
+db.serialize(() => {
+
+  // USERS
+  db.run(`
+    CREATE TABLE IF NOT EXISTS users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT,
+      email TEXT UNIQUE,
+      password TEXT
+    )
+  `);
 
 
 
-// QUIZZES
-db.prepare(`
-  CREATE TABLE IF NOT EXISTS quizzes (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER,
-    title TEXT,
-    slug TEXT UNIQUE,
-    is_public INTEGER DEFAULT 1,
-    password TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )
-`).run();
+  // QUIZZES
+  db.run(`
+    CREATE TABLE IF NOT EXISTS quizzes (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER,
+      title TEXT,
+      slug TEXT UNIQUE,
+      is_public INTEGER DEFAULT 1,
+      password TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
 
 
 
-// QUESTIONS
-db.prepare(`
-  CREATE TABLE IF NOT EXISTS questions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    quiz_id INTEGER,
-    question TEXT
-  )
-`).run();
+  // QUESTIONS
+  db.run(`
+    CREATE TABLE IF NOT EXISTS questions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      quiz_id INTEGER,
+      question TEXT
+    )
+  `);
 
 
 
-// OPTIONS
-db.prepare(`
-  CREATE TABLE IF NOT EXISTS options (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    question_id INTEGER,
-    text TEXT,
-    is_correct INTEGER
-  )
-`).run();
+  // OPTIONS
+  db.run(`
+    CREATE TABLE IF NOT EXISTS options (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      question_id INTEGER,
+      text TEXT,
+      is_correct INTEGER
+    )
+  `);
 
 
 
-// RESULTS
-db.prepare(`
-  CREATE TABLE IF NOT EXISTS results (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    quiz_id INTEGER,
-    player_name TEXT,
-    score INTEGER,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )
-`).run();
+  // RESULTS
+  db.run(`
+    CREATE TABLE IF NOT EXISTS results (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      quiz_id INTEGER,
+      player_name TEXT,
+      score INTEGER,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+});
 
 
 
