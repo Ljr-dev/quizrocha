@@ -1,123 +1,334 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-  <!-- SEO -->
-  <title>Gerar Clientes com Sites e Quiz Inteligente | Quiz Rocha</title>
-  <meta name="description" content="Descubra por que seu negócio não gera clientes. Faça um diagnóstico gratuito e aumente suas vendas com sites e quizzes inteligentes.">
+<!-- SEO -->
+<title>
+Quiz Rocha - Plataforma de Quiz Inteligente
+</title>
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Diagnóstico gratuito para gerar mais clientes">
-  <meta property="og:description" content="Descubra o que está travando suas vendas em 2 minutos">
-  <meta property="og:type" content="website">
+<meta
+name="description"
+content="
+Crie quizzes profissionais,
+gere leads e compartilhe
+com qualquer pessoa.
+"
+/>
 
-  <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.login-buttons{
+  margin-top:30px;
+
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.login-btn{
+  padding:15px 25px;
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:bold;
+  transition:0.2s;
+}
+
+.login{
+  background:#22c55e;
+  color:black;
+}
+
+.register{
+  background:#1e293b;
+  color:white;
+}
+
+.login-btn:hover{
+  transform:scale(1.03);
+}
+
+
+
+/* FEATURES */
+
+.features{
+  padding:80px 20px;
+  text-align:center;
+}
+
+.feature-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+  gap:20px;
+
+  margin-top:30px;
+}
+
+.feature{
+  background:#1e293b;
+  padding:25px;
+  border-radius:16px;
+}
+
+.feature h3{
+  margin-bottom:10px;
+}
+
+
+
+/* PLATFORM */
+
+.platform{
+  padding:80px 20px;
+  text-align:center;
+}
+
+.platform-box{
+  max-width:900px;
+  margin:auto;
+  background:#1e293b;
+  padding:40px;
+  border-radius:20px;
+}
+
+.platform-box h2{
+  margin-bottom:20px;
+}
+
+.platform-box p{
+  color:#cbd5e1;
+  line-height:1.7;
+}
+
+
+
+/* CTA FINAL */
+
+.final-cta{
+  padding:80px 20px;
+  text-align:center;
+}
+
+.final-cta a{
+  display:inline-block;
+  margin-top:20px;
+  background:#22c55e;
+  color:black;
+  padding:16px 30px;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+</style>
+
 </head>
+
 <body>
 
+
+
 <header class="header">
-  <h2>Quiz Rocha</h2>
+
+  <h2>
+    Quiz Rocha
+  </h2>
+
 </header>
 
+
+
 <!-- HERO -->
+
 <section class="hero">
+
   <div class="hero-text">
 
-    <h1>Seu negócio pode estar perdendo clientes todos os dias sem você perceber</h1>
+    <h1>
+      Crie quizzes profissionais
+      e compartilhe com qualquer pessoa
+    </h1>
 
     <p>
-      Faça um diagnóstico gratuito em menos de 2 minutos e descubra exatamente o que está travando suas vendas
+      Plataforma moderna para criar
+      quizzes públicos, privados,
+      educativos e interativos.
     </p>
 
-    <div class="botoes">
-      <a href="https://quiznegocio.quizrocha.com.br" class="btn principal">
-        🚀 Fazer diagnóstico grátis agora
+
+
+    <div class="login-buttons">
+
+      <a
+        href="/login.html"
+        class="login-btn login"
+      >
+        🚀 Entrar
       </a>
 
-      <a href="#prova" class="btn secundario">
-        👇 Ver exemplo real
+
+
+      <a
+        href="/register.html"
+        class="login-btn register"
+      >
+        👤 Criar Conta
       </a>
+
     </div>
 
+
+
     <span class="micro-copy">
-      ⚡ Resultado imediato • 100% gratuito
+      ⚡ Plataforma online • Ranking • Timer • Privacidade
     </span>
 
   </div>
+
 </section>
 
-<!-- PROVA -->
-<section class="prova" id="prova">
-  <h2>Veja funcionando na prática</h2>
 
-  <p class="sub">
-    Empresas que usam esse método identificam falhas invisíveis no processo de vendas
-  </p>
 
-  <div class="numeros">
-    <div><strong>+50</strong><span>diagnósticos realizados</span></div>
-    <div><strong>+20</strong><span>negócios analisados</span></div>
-    <div><strong>+90%</strong><span>identificam problemas ocultos</span></div>
-  </div>
+<!-- FEATURES -->
 
-  <div class="portfolio-cards">
+<section class="features">
 
-    <div class="portfolio-card destaque">
-      <h3>📊 Diagnóstico de Negócio</h3>
-      <p>Descubra automaticamente o que está impedindo você de vender mais</p>
-      <a href="https://quiznegocio.quizrocha.com.br">Fazer diagnóstico</a>
+  <h2>
+    Recursos da Plataforma
+  </h2>
+
+  <div class="feature-grid">
+
+
+
+    <div class="feature">
+
+      <h3>
+        📚 Quiz Educacional
+      </h3>
+
+      <p>
+        Ideal para escolas,
+        igrejas e cursos online.
+      </p>
+
     </div>
 
-    <div class="portfolio-card">
-      <h3>📖 Quiz Bíblico</h3>
-      <p>Exemplo real de quiz interativo com alta retenção</p>
-      <a href="https://quiz.quizrocha.com.br">Ver exemplo</a>
+
+
+    <div class="feature">
+
+      <h3>
+        🔒 Quiz Privado
+      </h3>
+
+      <p>
+        Proteja quizzes com senha
+        e compartilhe apenas com
+        quem quiser.
+      </p>
+
     </div>
 
+
+
+    <div class="feature">
+
+      <h3>
+        🏆 Ranking
+      </h3>
+
+      <p>
+        Veja quem teve melhor
+        desempenho em tempo real.
+      </p>
+
+    </div>
+
+
+
+    <div class="feature">
+
+      <h3>
+        ⏱️ Timer
+      </h3>
+
+      <p>
+        Cronômetro automático
+        para tornar o quiz mais
+        competitivo.
+      </p>
+
+    </div>
+
+
+
   </div>
+
 </section>
 
-<!-- BENEFÍCIOS -->
-<section class="beneficios">
-  <h2>O que você ganha com isso</h2>
 
-  <div class="cards">
-    <div class="card">
-      <h3>Mais clientes</h3>
-      <p>Transforme visitantes em leads automaticamente</p>
-    </div>
 
-    <div class="card">
-      <h3>Diagnóstico claro</h3>
-      <p>Saiba exatamente o que está errado no seu negócio</p>
-    </div>
+<!-- PLATFORM -->
 
-    <div class="card destaque">
-      <h3>Automação</h3>
-      <p>Sistema trabalhando para você 24h por dia</p>
-    </div>
+<section class="platform">
+
+  <div class="platform-box">
+
+    <h2>
+      Plataforma Completa de Quizzes
+    </h2>
+
+    <p>
+
+      O Quiz Rocha permite criar
+      quizzes modernos com perguntas,
+      alternativas, ranking, timer,
+      revisão de respostas e proteção
+      por senha.
+
+      <br><br>
+
+      Ideal para professores,
+      igrejas, treinamentos,
+      empresas e criadores
+      de conteúdo.
+
+    </p>
+
   </div>
+
 </section>
+
+
 
 <!-- CTA -->
-<section class="contato">
-  <h2>Quer aplicar isso no seu negócio?</h2>
-  <p>Fale comigo agora e receba um plano personalizado</p>
 
-  <a href="https://wa.me/5519982144043?text=Quero%20gerar%20mais%20clientes%20com%20quiz" target="_blank">
-    💬 Quero mais clientes
-  </a>
-</section>
+<section class="final-cta">
 
-<!-- SEO -->
-<section class="seo">
-  <h2>Criação de sites e geração de clientes pela internet</h2>
-  <p>
-    Criamos sites profissionais e sistemas de quiz inteligente focados em gerar clientes.
-    Utilizando estratégias de marketing digital e automação, ajudamos empresas a aumentar suas vendas e transformar visitantes em oportunidades reais.
+  <h2>
+    Comece Agora Gratuitamente
+  </h2>
+
+  <p style="margin-top:15px;color:#94a3b8;">
+
+    Crie sua conta e publique
+    seu primeiro quiz em minutos.
+
   </p>
+
+  <a href="/register.html">
+    Criar Conta
+  </a>
+
 </section>
 
 </body>
