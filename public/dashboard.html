@@ -1,52 +1,62 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+/>
 
 <title>Dashboard - Quiz Rocha</title>
 
 <style>
 
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
 body{
-  font-family:Arial;
   background:#020617;
   color:white;
-  padding:20px;
+  font-family:Arial;
 }
 
 .container{
+  width:100%;
   max-width:1200px;
   margin:auto;
+  padding:40px 20px;
 }
 
-.topbar{
+.top{
   display:flex;
   justify-content:space-between;
   align-items:center;
   margin-bottom:30px;
-  flex-wrap:wrap;
-  gap:20px;
 }
 
 .logout{
   background:#ef4444;
-  color:white;
   border:none;
-  padding:12px 20px;
+  color:white;
+  padding:12px 18px;
   border-radius:10px;
   cursor:pointer;
 }
 
-.create-box,
-.quiz{
+.card{
   background:#1e293b;
-  padding:20px;
-  border-radius:16px;
+  padding:25px;
+  border-radius:15px;
+  margin-bottom:30px;
 }
 
-.create-box{
-  margin-bottom:30px;
+.card h2{
+  margin-bottom:20px;
 }
 
 input,
@@ -55,43 +65,54 @@ select{
   padding:15px;
   border:none;
   border-radius:10px;
-  margin-top:15px;
+  margin-bottom:15px;
 }
 
 button{
-  padding:14px;
+  width:100%;
+  padding:15px;
   border:none;
   border-radius:10px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
-.create-btn{
-  width:100%;
-  margin-top:15px;
   background:#22c55e;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 .quiz-grid{
   display:grid;
   grid-template-columns:
-    repeat(auto-fit,minmax(320px,1fr));
+  repeat(auto-fit,minmax(280px,1fr));
   gap:20px;
 }
 
-.stats{
-  margin-top:10px;
+.quiz{
+  background:#1e293b;
+  padding:20px;
+  border-radius:15px;
+}
+
+.quiz h3{
+  margin-bottom:10px;
+}
+
+.quiz p{
   color:#94a3b8;
-  display:flex;
-  flex-direction:column;
-  gap:5px;
+  margin-bottom:15px;
 }
 
 .actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
+  display:flex;
   gap:10px;
-  margin-top:20px;
+  flex-wrap:wrap;
+}
+
+.actions a{
+  flex:1;
+  text-align:center;
+  text-decoration:none;
+  padding:10px;
+  border-radius:8px;
+  font-weight:bold;
 }
 
 .edit{
@@ -104,218 +125,224 @@ button{
   color:black;
 }
 
-.delete{
-  background:#ef4444;
-  color:white;
-}
-
 .copy{
   background:#0f172a;
   color:white;
 }
 
-a{
-  text-decoration:none;
+.empty{
+  background:#1e293b;
+  padding:20px;
+  border-radius:15px;
   text-align:center;
-  padding:14px;
-  border-radius:10px;
-  font-weight:bold;
+  color:#94a3b8;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<div class="topbar">
+  <div class="top">
 
-<div>
-<h1>Quiz Rocha</h1>
-<p>
-👋 Olá,
-<span id="username"></span>
-</p>
-</div>
+    <div>
 
-<button
-class="logout"
-onclick="logout()"
->
-Sair
-</button>
+      <h1>Quiz Rocha</h1>
 
-</div>
+      <p id="welcome"></p>
 
+    </div>
 
+    <button
+      class="logout"
+      onclick="logout()"
+    >
+      Sair
+    </button>
 
-<div class="create-box">
-
-<h2>Criar Quiz</h2>
-
-<input
-type="text"
-id="title"
-placeholder="Título do quiz"
->
-
-<select id="visibility">
-
-<option value="1">
-🌎 Público
-</option>
-
-<option value="0">
-🔒 Privado
-</option>
-
-</select>
-
-<input
-type="text"
-id="password"
-placeholder="Senha do quiz (opcional)"
->
-
-<button
-class="create-btn"
-onclick="criarQuiz()"
->
-Criar Quiz
-</button>
-
-</div>
+  </div>
 
 
 
-<div
-id="lista"
-class="quiz-grid"
-></div>
+  <div class="card">
+
+    <h2>Criar Quiz</h2>
+
+    <input
+      type="text"
+      id="title"
+      placeholder="Título do quiz"
+    >
+
+    <select id="visibility">
+
+      <option value="1">
+        🌎 Público
+      </option>
+
+      <option value="0">
+        🔒 Privado
+      </option>
+
+    </select>
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Senha do quiz (opcional)"
+    >
+
+    <button onclick="criarQuiz()">
+      Criar Quiz
+    </button>
+
+  </div>
+
+
+
+  <div
+    id="lista"
+    class="quiz-grid"
+  ></div>
 
 </div>
 
 <script>
 
+const user =
+JSON.parse(
+  localStorage.getItem("user")
+);
+
 const token =
 localStorage.getItem("token");
 
-const user =
-JSON.parse(
-localStorage.getItem("user")
-);
 
-if(!token || !user){
 
-window.location.href =
-"/login.html";
+if(!user || !token){
+
+  window.location.href =
+  "/login.html";
 
 }
 
+
+
 document.getElementById(
-"username"
-).innerText = user.name;
+  "welcome"
+).innerHTML =
+`👋 Olá, ${user.name}`;
 
 
 
 async function carregarQuizzes(){
 
-const res = await fetch(
-"/api/quizzes",
-{
-headers:{
-Authorization:`Bearer ${token}`
-}
-}
-);
+  const res = await fetch(
 
-const quizzes = await res.json();
+    `/api/quizzes/${user.id}`,
 
-const lista =
-document.getElementById("lista");
+    {
+      headers:{
+        Authorization:
+        `Bearer ${token}`
+      }
+    }
 
-lista.innerHTML = "";
+  );
 
 
 
-quizzes.forEach(q => {
-
-const link =
-`${window.location.origin}/play.html?id=${q.id}`;
-
-lista.innerHTML += `
-
-<div class="quiz">
-
-<input
-id="title-${q.id}"
-value="${q.title}"
->
-
-<div class="stats">
-
-<p>
-🆔 ${q.id}
-</p>
-
-<p>
-❓ ${q.total_questions || 0}
-perguntas
-</p>
-
-<p>
-🔘 ${q.total_options || 0}
-alternativas
-</p>
-
-<p>
-${q.is_public == 1
-? '🌎 Público'
-: '🔒 Privado'}
-</p>
-
-</div>
+  const quizzes =
+    await res.json();
 
 
 
-<div class="actions">
+  const lista =
+    document.getElementById("lista");
 
-<button
-class="edit"
-onclick="editarQuiz(${q.id})"
->
-💾 Salvar
-</button>
 
-<a
-class="play"
-href="/play.html?id=${q.id}"
->
-▶️ Jogar
-</a>
 
-<button
-class="copy"
-onclick="copiar('${link}')"
->
-🔗 Copiar
-</button>
+  lista.innerHTML = "";
 
-<button
-class="delete"
-onclick="deletar(${q.id})"
->
-🗑️ Excluir
-</button>
 
-</div>
 
-</div>
+  if(!Array.isArray(quizzes)){
 
-`;
+    lista.innerHTML = `
+      <div class="empty">
+        Erro ao carregar quizzes
+      </div>
+    `;
 
-});
+    return;
+
+  }
+
+
+
+  if(quizzes.length === 0){
+
+    lista.innerHTML = `
+      <div class="empty">
+        Nenhum quiz criado ainda
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+
+  quizzes.forEach(q => {
+
+    const playLink =
+    `${window.location.origin}/play/${q.slug}`;
+
+    lista.innerHTML += `
+
+      <div class="quiz">
+
+        <h3>${q.title}</h3>
+
+        <p>
+          Slug: ${q.slug}
+        </p>
+
+        <div class="actions">
+
+          <a
+            class="edit"
+            href="/quiz.html?id=${q.id}"
+          >
+            ✏️ Editar
+          </a>
+
+          <a
+            class="play"
+            href="${playLink}"
+          >
+            ▶️ Jogar
+          </a>
+
+          <a
+            class="copy"
+            href="#"
+            onclick="copiar('${playLink}')"
+          >
+            🔗 Copiar
+          </a>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
 
 }
 
@@ -323,95 +350,86 @@ onclick="deletar(${q.id})"
 
 async function criarQuiz(){
 
-const title =
-document.getElementById("title").value;
-
-const is_public =
-document.getElementById("visibility").value;
-
-const password =
-document.getElementById("password").value;
-
-await fetch(
-"/api/quizzes",
-{
-method:"POST",
-
-headers:{
-"Content-Type":"application/json",
-Authorization:`Bearer ${token}`
-},
-
-body: JSON.stringify({
-title,
-is_public,
-password
-})
-}
-);
-
-document.getElementById(
-"title"
-).value = "";
-
-document.getElementById(
-"password"
-).value = "";
-
-carregarQuizzes();
-
-}
+  const title =
+  document.getElementById(
+    "title"
+  ).value;
 
 
 
-async function editarQuiz(id){
-
-const title =
-document.getElementById(
-`title-${id}`
-).value;
-
-await fetch(
-`/api/quizzes/${id}`,
-{
-method:"PUT",
-
-headers:{
-"Content-Type":"application/json",
-Authorization:`Bearer ${token}`
-},
-
-body: JSON.stringify({
-title
-})
-}
-);
-
-alert("Quiz atualizado");
-
-}
+  const is_public =
+  document.getElementById(
+    "visibility"
+  ).value;
 
 
 
-async function deletar(id){
+  const password =
+  document.getElementById(
+    "password"
+  ).value;
 
-const confirmar =
-confirm("Excluir quiz?");
 
-if(!confirmar) return;
 
-await fetch(
-`/api/quizzes/${id}`,
-{
-method:"DELETE",
+  if(!title){
 
-headers:{
-Authorization:`Bearer ${token}`
-}
-}
-);
+    return alert(
+      "Digite o título"
+    );
 
-carregarQuizzes();
+  }
+
+
+
+  await fetch(
+
+    "/api/quizzes",
+
+    {
+
+      method:"POST",
+
+      headers:{
+
+        "Content-Type":
+        "application/json",
+
+        Authorization:
+        `Bearer ${token}`
+
+      },
+
+      body:JSON.stringify({
+
+        user_id:user.id,
+
+        title,
+
+        is_public,
+
+        password
+
+      })
+
+    }
+
+  );
+
+
+
+  document.getElementById(
+    "title"
+  ).value = "";
+
+
+
+  document.getElementById(
+    "password"
+  ).value = "";
+
+
+
+  carregarQuizzes();
 
 }
 
@@ -419,9 +437,10 @@ carregarQuizzes();
 
 function copiar(link){
 
-navigator.clipboard.writeText(link);
+  navigator.clipboard
+  .writeText(link);
 
-alert("Link copiado!");
+  alert("Link copiado");
 
 }
 
@@ -429,12 +448,10 @@ alert("Link copiado!");
 
 function logout(){
 
-localStorage.removeItem("token");
+  localStorage.clear();
 
-localStorage.removeItem("user");
-
-window.location.href =
-"/login.html";
+  window.location.href =
+  "/login.html";
 
 }
 

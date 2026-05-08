@@ -90,8 +90,28 @@ router.post(
 
             }
 
+
+
+            const token =
+              jwt.sign(
+                {
+                  id:this.lastID
+                },
+                "quizrocha"
+              );
+
+
+
             res.json({
-              message:"Conta criada"
+
+              token,
+
+              user:{
+                id:this.lastID,
+                name,
+                email
+              }
+
             });
 
           }
