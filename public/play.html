@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Responder Quiz</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial;
+  background:#020617;
+  color:white;
+  padding:20px;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+}
+
+.top{
+  margin-bottom:30px;
+}
+
+.subtitle{
+  color:#94a3b8;
+  margin-top:10px;
+}
+
+
+
+/* TIMER */
+
+.timer{
+  margin-top:15px;
+  font-size:18px;
+  font-weight:bold;
+  color:#22c55e;
+}
+
+
+
+/* PASSWORD */
+
+.password-area{
+  display:none;
+  background:#1e293b;
+  padding:25px;
+  border-radius:16px;
+  margin-bottom:20px;
+}
+
+.password-area p{
+  margin-top:10px;
+  color:#94a3b8;
+}
+
+
+
+/* INPUT */
+
+input{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:10px;
+  margin-top:20px;
+  background:#f1f5f9;
+  font-size:16px;
+}
+
+
+
+/* QUESTIONS */
+
+.question{
+  background:#1e293b;
+  padding:20px;
+  border-radius:16px;
+  margin-top:20px;
+}
+
+.question h2{
+  margin-bottom:15px;
+}
+
+
+
+/* OPTIONS */
+
+.option{
+  background:#0f172a;
+  padding:15px;
+  border-radius:10px;
+  margin-top:10px;
+  cursor:pointer;
+  border:2px solid transparent;
+  transition:0.2s;
+}
+
+.option:hover{
+  background:#1e293b;
+}
+
+.selected{
+  border:2px solid #22c55e;
+}
+
+
+
+/* BUTTON */
+
+button{
+  width:100%;
+  padding:16px;
+  border:none;
+  border-radius:12px;
+  background:#22c55e;
+  margin-top:20px;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:16px;
+}
+
+button:hover{
+  opacity:0.9;
+}
+
+
+
+/* RESULT */
+
+.result{
+  margin-top:40px;
+}
+
+.score-box{
+  background:#1e293b;
+  padding:25px;
+  border-radius:16px;
+  text-align:center;
+}
+
+.score{
+  font-size:40px;
+  margin-top:10px;
+  color:#22c55e;
+}
+
+
+
+/* REVIEW */
+
+.review{
+  padding:15px;
+  border-radius:12px;
+  margin-top:15px;
+}
+
+.correct-review{
+  background:#052e16;
+}
+
+.wrong-review{
+  background:#450a0a;
+}
+
+.review h3{
+  margin-bottom:10px;
+}
+
+
+
+/* RANKING */
+
+.ranking{
+  margin-top:30px;
+}
+
+.ranking-item{
+  background:#1e293b;
+  padding:15px;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+.top1{
+  border:2px solid gold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+
+
+  <!-- PASSWORD -->
+
+  <div
+    id="password-area"
+    class="password-area"
+  >
+
+    <h2>
+      🔒 Quiz Privado
+    </h2>
+
+    <p>
+      Digite a senha para acessar
+    </p>
+
+    <input
+      type="password"
+      id="quiz-password"
+      placeholder="Senha do quiz"
+    >
+
+    <button onclick="validarSenha()">
+      Entrar no Quiz
+    </button>
+
+  </div>
+
+
+
+  <!-- TOP -->
+
+  <div class="top">
+
+    <h1 id="quiz-title">
+      Carregando Quiz...
+    </h1>
+
+    <p class="subtitle">
+      Responda as perguntas e veja seu resultado
+    </p>
+
+    <div
+      id="timer"
+      class="timer"
+    >
+      ⏱️ 00:00
+    </div>
+
+  </div>
+
+
+
+  <!-- PLAYER -->
+
+  <input
+    type="text"
+    id="player"
+    placeholder="Digite seu nome"
+  >
+
+
+
+  <!-- QUIZ -->
+
+  <div id="quiz"></div>
+
+
+
+  <!-- BUTTON -->
+
+  <button onclick="finalizarQuiz()">
+    Finalizar Quiz
+  </button>
+
+
+
+  <!-- RESULT -->
+
+  <div id="resultado"></div>
+
+</div>
+
+<script>
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const quizId =
+  params.get("id");
+
+
+
+let respostas = {};
+
+let perguntasGlobais = [];
+
+let quizPrivado = false;
+
+let segundos = 0;
+
+let intervalo;
+
+
+
+/* =========================
+   TIMER
+========================= */
+
+function iniciarTimer(){
+
+  intervalo = setInterval(() => {
+
+    segundos++;
+
+    const minutos =
+      String(
+        Math.floor(segundos / 60)
+      ).padStart(2,"0");
+
+    const secs =
+      String(
+        segundos % 60
+      ).padStart(2,"0");
+
+    document.getElementById(
+      "timer"
+    ).innerText =
+      `⏱️ ${minutos}:${secs}`;
+
+  },1000);
+
+}
+
+
+
+/* =========================
+   TÍTULO
+========================= */
+
+async function carregarTitulo(){
+
+  const res = await fetch(
+    `/api/quizzes/quiz/${quizId}`
+  );
+
+  const quiz = await res.json();
+
+  document.getElementById(
+    "quiz-title"
+  ).innerText = quiz.title;
+
+}
+
+
+
+/* =========================
+   PRIVACIDADE
+========================= */
+
+async function verificarPrivacidade(){
+
+  const res = await fetch(
+    `/api/quizzes/quiz/${quizId}`
+  );
+
+  const quiz = await res.json();
+
+  if(quiz.is_public == 0){
+
+    quizPrivado = true;
+
+    document.getElementById(
+      "password-area"
+    ).style.display = "block";
+
+    document.getElementById(
+      "quiz"
+    ).style.display = "none";
+
+    return false;
+
+  }
+
+  return true;
+
+}
+
+
+
+/* =========================
+   VALIDAR SENHA
+========================= */
+
+async function validarSenha(){
+
+  const password =
+    document.getElementById(
+      "quiz-password"
+    ).value;
+
+  const res = await fetch(
+    `/api/quizzes/${quizId}/validate-password`,
+    {
+      method:"POST",
+
+      headers:{
+        "Content-Type":"application/json"
+      },
+
+      body: JSON.stringify({
+        password
+      })
+    }
+  );
+
+  const data = await res.json();
+
+  if(!data.success){
+
+    return alert(
+      "Senha incorreta"
+    );
+
+  }
+
+  document.getElementById(
+    "password-area"
+  ).style.display = "none";
+
+  document.getElementById(
+    "quiz"
+  ).style.display = "block";
+
+  carregarQuiz();
+
+}
+
+
+
+/* =========================
+   CARREGAR QUIZ
+========================= */
+
+async function carregarQuiz(){
+
+  const res = await fetch(
+    `/api/quizzes/${quizId}/full`
+  );
+
+  const perguntas =
+    await res.json();
+
+  perguntasGlobais =
+    perguntas;
+
+  const quiz =
+    document.getElementById("quiz");
+
+  quiz.innerHTML = "";
+
+
+
+  perguntas.forEach(p => {
+
+    quiz.innerHTML += `
+
+      <div class="question">
+
+        <h2>
+          ${p.question}
+        </h2>
+
+        <div id="options-${p.id}">
+
+          ${p.options.map(op => `
+
+            <div
+              class="option"
+              onclick="
+                selecionar(
+                  ${p.id},
+                  ${op.id},
+                  this
+                )
+              "
+            >
+              ${op.text}
+            </div>
+
+          `).join("")}
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+
+/* =========================
+   SELECIONAR
+========================= */
+
+function selecionar(
+  questionId,
+  optionId,
+  el
+){
+
+  respostas[questionId] =
+    optionId;
+
+  const container =
+    document.getElementById(
+      `options-${questionId}`
+    );
+
+  container
+    .querySelectorAll(".option")
+    .forEach(op => {
+      op.classList.remove(
+        "selected"
+      );
+    });
+
+  el.classList.add("selected");
+
+}
+
+
+
+/* =========================
+   FINALIZAR
+========================= */
+
+async function finalizarQuiz(){
+
+  clearInterval(intervalo);
+
+  const player_name =
+    document.getElementById(
+      "player"
+    ).value;
+
+  if(!player_name){
+
+    return alert(
+      "Digite seu nome"
+    );
+
+  }
+
+  let score = 0;
+
+  let detalhes = "";
+
+
+
+  for(const questionId in respostas){
+
+    const optionId =
+      respostas[questionId];
+
+
+
+    const check =
+      await fetch(
+        `/api/quizzes/check/${optionId}`
+      );
+
+    const checkData =
+      await check.json();
+
+
+
+    const correta =
+      await fetch(
+        `/api/quizzes/questions/${questionId}/correct`
+      );
+
+    const corretaData =
+      await correta.json();
+
+
+
+    const pergunta =
+      perguntasGlobais.find(
+        p => p.id == questionId
+      );
+
+
+
+    const respostaUsuario =
+      pergunta.options.find(
+        o => o.id == optionId
+      );
+
+
+
+    if(checkData.correct){
+
+      score++;
+
+      detalhes += `
+
+        <div class="
+          review
+          correct-review
+        ">
+
+          <h3>
+            ✅ ${pergunta.question}
+          </h3>
+
+          <p>
+            Sua resposta:
+            ${respostaUsuario.text}
+          </p>
+
+        </div>
+
+      `;
+
+    }else{
+
+      detalhes += `
+
+        <div class="
+          review
+          wrong-review
+        ">
+
+          <h3>
+            ❌ ${pergunta.question}
+          </h3>
+
+          <p>
+            Sua resposta:
+            ${respostaUsuario.text}
+          </p>
+
+          <p>
+            Resposta correta:
+            ${corretaData.text}
+          </p>
+
+        </div>
+
+      `;
+
+    }
+
+  }
+
+
+
+  await fetch(
+    `/api/quizzes/${quizId}/result`,
+    {
+      method:"POST",
+
+      headers:{
+        "Content-Type":"application/json"
+      },
+
+      body: JSON.stringify({
+        player_name,
+        score
+      })
+    }
+  );
+
+
+
+  document.getElementById(
+    "resultado"
+  ).innerHTML = `
+
+    <div class="result">
+
+      <div class="score-box">
+
+        <h2>
+          ${player_name},
+          seu resultado
+        </h2>
+
+        <div class="score">
+          ${score}
+        </div>
+
+        <p
+          style="
+            margin-top:15px;
+            color:#94a3b8;
+          "
+        >
+          ⏱️ Tempo:
+          ${Math.floor(segundos / 60)}
+          min e
+          ${segundos % 60}
+          seg
+        </p>
+
+      </div>
+
+
+
+      <div
+        id="ranking"
+        class="ranking"
+      ></div>
+
+
+
+      <div
+        style="
+          margin-top:30px;
+        "
+      >
+
+        <h2>
+          Revisão das Respostas
+        </h2>
+
+        ${detalhes}
+
+      </div>
+
+    </div>
+
+  `;
+
+
+
+  carregarRanking();
+
+}
+
+
+
+/* =========================
+   RANKING
+========================= */
+
+async function carregarRanking(){
+
+  const res = await fetch(
+    `/api/quizzes/${quizId}/ranking`
+  );
+
+  const ranking =
+    await res.json();
+
+  const div =
+    document.getElementById(
+      "ranking"
+    );
+
+  div.innerHTML = `
+    <h2>
+      Ranking
+    </h2>
+  `;
+
+
+
+  ranking.forEach((r,index) => {
+
+    div.innerHTML += `
+
+      <div class="
+        ranking-item
+        ${index === 0 ? 'top1' : ''}
+      ">
+
+        <strong>
+          #${index + 1}
+        </strong>
+
+        — ${r.player_name}
+
+        <br><br>
+
+        ${r.score} pontos
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+
+/* =========================
+   START
+========================= */
+
+async function iniciar(){
+
+  carregarTitulo();
+
+  const liberar =
+    await verificarPrivacidade();
+
+  if(liberar){
+
+    carregarQuiz();
+
+  }
+
+  iniciarTimer();
+
+}
+
+iniciar();
+
+</script>
+
+</body>
+</html>

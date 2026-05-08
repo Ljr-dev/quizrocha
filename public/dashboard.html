@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard - Quiz Rocha</title>
+
+<style>
+
+body{
+  font-family:Arial;
+  background:#020617;
+  color:white;
+  padding:20px;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+  flex-wrap:wrap;
+  gap:20px;
+}
+
+.logout{
+  background:#ef4444;
+  color:white;
+  border:none;
+  padding:12px 20px;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.create-box,
+.quiz{
+  background:#1e293b;
+  padding:20px;
+  border-radius:16px;
+}
+
+.create-box{
+  margin-bottom:30px;
+}
+
+input,
+select{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:10px;
+  margin-top:15px;
+}
+
+button{
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.create-btn{
+  width:100%;
+  margin-top:15px;
+  background:#22c55e;
+}
+
+.quiz-grid{
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(320px,1fr));
+  gap:20px;
+}
+
+.stats{
+  margin-top:10px;
+  color:#94a3b8;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:20px;
+}
+
+.edit{
+  background:#334155;
+  color:white;
+}
+
+.play{
+  background:#22c55e;
+  color:black;
+}
+
+.delete{
+  background:#ef4444;
+  color:white;
+}
+
+.copy{
+  background:#0f172a;
+  color:white;
+}
+
+a{
+  text-decoration:none;
+  text-align:center;
+  padding:14px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="topbar">
+
+<div>
+<h1>Quiz Rocha</h1>
+<p>
+👋 Olá,
+<span id="username"></span>
+</p>
+</div>
+
+<button
+class="logout"
+onclick="logout()"
+>
+Sair
+</button>
+
+</div>
+
+
+
+<div class="create-box">
+
+<h2>Criar Quiz</h2>
+
+<input
+type="text"
+id="title"
+placeholder="Título do quiz"
+>
+
+<select id="visibility">
+
+<option value="1">
+🌎 Público
+</option>
+
+<option value="0">
+🔒 Privado
+</option>
+
+</select>
+
+<input
+type="text"
+id="password"
+placeholder="Senha do quiz (opcional)"
+>
+
+<button
+class="create-btn"
+onclick="criarQuiz()"
+>
+Criar Quiz
+</button>
+
+</div>
+
+
+
+<div
+id="lista"
+class="quiz-grid"
+></div>
+
+</div>
+
+<script>
+
+const token =
+localStorage.getItem("token");
+
+const user =
+JSON.parse(
+localStorage.getItem("user")
+);
+
+if(!token || !user){
+
+window.location.href =
+"/login.html";
+
+}
+
+document.getElementById(
+"username"
+).innerText = user.name;
+
+
+
+async function carregarQuizzes(){
+
+const res = await fetch(
+"/api/quizzes",
+{
+headers:{
+Authorization:`Bearer ${token}`
+}
+}
+);
+
+const quizzes = await res.json();
+
+const lista =
+document.getElementById("lista");
+
+lista.innerHTML = "";
+
+
+
+quizzes.forEach(q => {
+
+const link =
+`${window.location.origin}/play.html?id=${q.id}`;
+
+lista.innerHTML += `
+
+<div class="quiz">
+
+<input
+id="title-${q.id}"
+value="${q.title}"
+>
+
+<div class="stats">
+
+<p>
+🆔 ${q.id}
+</p>
+
+<p>
+❓ ${q.total_questions || 0}
+perguntas
+</p>
+
+<p>
+🔘 ${q.total_options || 0}
+alternativas
+</p>
+
+<p>
+${q.is_public == 1
+? '🌎 Público'
+: '🔒 Privado'}
+</p>
+
+</div>
+
+
+
+<div class="actions">
+
+<button
+class="edit"
+onclick="editarQuiz(${q.id})"
+>
+💾 Salvar
+</button>
+
+<a
+class="play"
+href="/play.html?id=${q.id}"
+>
+▶️ Jogar
+</a>
+
+<button
+class="copy"
+onclick="copiar('${link}')"
+>
+🔗 Copiar
+</button>
+
+<button
+class="delete"
+onclick="deletar(${q.id})"
+>
+🗑️ Excluir
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+
+async function criarQuiz(){
+
+const title =
+document.getElementById("title").value;
+
+const is_public =
+document.getElementById("visibility").value;
+
+const password =
+document.getElementById("password").value;
+
+await fetch(
+"/api/quizzes",
+{
+method:"POST",
+
+headers:{
+"Content-Type":"application/json",
+Authorization:`Bearer ${token}`
+},
+
+body: JSON.stringify({
+title,
+is_public,
+password
+})
+}
+);
+
+document.getElementById(
+"title"
+).value = "";
+
+document.getElementById(
+"password"
+).value = "";
+
+carregarQuizzes();
+
+}
+
+
+
+async function editarQuiz(id){
+
+const title =
+document.getElementById(
+`title-${id}`
+).value;
+
+await fetch(
+`/api/quizzes/${id}`,
+{
+method:"PUT",
+
+headers:{
+"Content-Type":"application/json",
+Authorization:`Bearer ${token}`
+},
+
+body: JSON.stringify({
+title
+})
+}
+);
+
+alert("Quiz atualizado");
+
+}
+
+
+
+async function deletar(id){
+
+const confirmar =
+confirm("Excluir quiz?");
+
+if(!confirmar) return;
+
+await fetch(
+`/api/quizzes/${id}`,
+{
+method:"DELETE",
+
+headers:{
+Authorization:`Bearer ${token}`
+}
+}
+);
+
+carregarQuizzes();
+
+}
+
+
+
+function copiar(link){
+
+navigator.clipboard.writeText(link);
+
+alert("Link copiado!");
+
+}
+
+
+
+function logout(){
+
+localStorage.removeItem("token");
+
+localStorage.removeItem("user");
+
+window.location.href =
+"/login.html";
+
+}
+
+
+
+carregarQuizzes();
+
+</script>
+
+</body>
+</html>

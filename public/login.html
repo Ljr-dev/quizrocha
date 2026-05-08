@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login - Quiz Rocha</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial;
+  background:#020617;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.box{
+  background:#1e293b;
+  padding:30px;
+  border-radius:12px;
+  width:100%;
+  max-width:400px;
+}
+
+h1{
+  margin-bottom:20px;
+  text-align:center;
+}
+
+input{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+button{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:10px;
+  background:#22c55e;
+  margin-top:20px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:0.9;
+}
+
+.link{
+  text-align:center;
+  margin-top:20px;
+}
+
+a{
+  color:#22c55e;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+  <h1>Login</h1>
+
+  <input
+    type="email"
+    id="email"
+    placeholder="Seu email"
+  >
+
+  <input
+    type="password"
+    id="password"
+    placeholder="Sua senha"
+  >
+
+  <button onclick="login()">
+    Entrar
+  </button>
+
+  <div class="link">
+    <a href="/register.html">
+      Criar conta
+    </a>
+  </div>
+
+</div>
+
+<script>
+
+async function login(){
+
+  const email =
+    document.getElementById("email").value;
+
+  const password =
+    document.getElementById("password").value;
+
+  const res = await fetch(
+    "/api/auth/login",
+    {
+      method:"POST",
+
+      headers:{
+        "Content-Type":"application/json"
+      },
+
+      body: JSON.stringify({
+        email,
+        password
+      })
+    }
+  );
+
+  const data = await res.json();
+
+  if(data.error){
+    return alert(data.error);
+  }
+
+  localStorage.setItem(
+    "token",
+    data.token
+  );
+
+  localStorage.setItem(
+    "user",
+    JSON.stringify(data.user)
+  );
+
+  window.location.href =
+    "/dashboard.html";
+
+}
+
+</script>
+
+</body>
+</html>
