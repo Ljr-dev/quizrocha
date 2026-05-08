@@ -24,6 +24,7 @@ db.serialize(() => {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       user_id INTEGER,
       title TEXT,
+      slug TEXT UNIQUE,
       is_public INTEGER DEFAULT 1,
       password TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP

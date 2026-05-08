@@ -2,18 +2,13 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>Responder Quiz</title>
 
 <style>
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
 
 body{
   font-family:Arial;
@@ -23,7 +18,7 @@ body{
 }
 
 .container{
-  max-width:900px;
+  max-width:800px;
   margin:auto;
 }
 
@@ -36,37 +31,34 @@ body{
   margin-top:10px;
 }
 
-
-
-/* TIMER */
-
 .timer{
   margin-top:15px;
-  font-size:18px;
-  font-weight:bold;
   color:#22c55e;
+  font-weight:bold;
 }
 
 
 
-/* PASSWORD */
+/* PROGRESS */
 
-.password-area{
-  display:none;
+.progress{
+  width:100%;
+  height:12px;
   background:#1e293b;
-  padding:25px;
-  border-radius:16px;
-  margin-bottom:20px;
+  border-radius:20px;
+  margin-top:25px;
+  overflow:hidden;
 }
 
-.password-area p{
-  margin-top:10px;
-  color:#94a3b8;
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:#22c55e;
 }
 
 
 
-/* INPUT */
+/* PLAYER */
 
 input{
   width:100%;
@@ -74,41 +66,26 @@ input{
   border:none;
   border-radius:10px;
   margin-top:20px;
-  background:#f1f5f9;
-  font-size:16px;
 }
 
 
 
-/* QUESTIONS */
+/* QUESTION */
 
 .question{
   background:#1e293b;
-  padding:20px;
-  border-radius:16px;
-  margin-top:20px;
+  padding:25px;
+  border-radius:20px;
+  margin-top:25px;
 }
-
-.question h2{
-  margin-bottom:15px;
-}
-
-
-
-/* OPTIONS */
 
 .option{
   background:#0f172a;
   padding:15px;
   border-radius:10px;
-  margin-top:10px;
+  margin-top:12px;
   cursor:pointer;
   border:2px solid transparent;
-  transition:0.2s;
-}
-
-.option:hover{
-  background:#1e293b;
 }
 
 .selected{
@@ -125,14 +102,9 @@ button{
   border:none;
   border-radius:12px;
   background:#22c55e;
-  margin-top:20px;
+  margin-top:25px;
   font-weight:bold;
   cursor:pointer;
-  font-size:16px;
-}
-
-button:hover{
-  opacity:0.9;
 }
 
 
@@ -143,47 +115,18 @@ button:hover{
   margin-top:40px;
 }
 
-.score-box{
-  background:#1e293b;
-  padding:25px;
-  border-radius:16px;
-  text-align:center;
-}
-
-.score{
-  font-size:40px;
-  margin-top:10px;
-  color:#22c55e;
-}
-
-
-
-/* REVIEW */
-
 .review{
   padding:15px;
   border-radius:12px;
   margin-top:15px;
 }
 
-.correct-review{
+.correct{
   background:#052e16;
 }
 
-.wrong-review{
+.wrong{
   background:#450a0a;
-}
-
-.review h3{
-  margin-bottom:10px;
-}
-
-
-
-/* RANKING */
-
-.ranking{
-  margin-top:30px;
 }
 
 .ranking-item{
@@ -193,8 +136,12 @@ button:hover{
   margin-top:10px;
 }
 
-.top1{
-  border:2px solid gold;
+.password-area{
+  display:none;
+  background:#1e293b;
+  padding:25px;
+  border-radius:20px;
+  margin-bottom:20px;
 }
 
 </style>
@@ -206,105 +153,100 @@ button:hover{
 
 
 
-  <!-- PASSWORD -->
+<div
+id="password-area"
+class="password-area"
+>
 
-  <div
-    id="password-area"
-    class="password-area"
-  >
+<h2>
+🔒 Quiz Privado
+</h2>
 
-    <h2>
-      🔒 Quiz Privado
-    </h2>
+<input
+type="password"
+id="quiz-password"
+placeholder="Senha do quiz"
+>
 
-    <p>
-      Digite a senha para acessar
-    </p>
+<button onclick="validarSenha()">
+Entrar
+</button>
 
-    <input
-      type="password"
-      id="quiz-password"
-      placeholder="Senha do quiz"
-    >
-
-    <button onclick="validarSenha()">
-      Entrar no Quiz
-    </button>
-
-  </div>
+</div>
 
 
 
-  <!-- TOP -->
+<div class="top">
 
-  <div class="top">
+<h1 id="quiz-title">
+Carregando...
+</h1>
 
-    <h1 id="quiz-title">
-      Carregando Quiz...
-    </h1>
+<p class="subtitle">
+Responda uma pergunta por vez
+</p>
 
-    <p class="subtitle">
-      Responda as perguntas e veja seu resultado
-    </p>
-
-    <div
-      id="timer"
-      class="timer"
-    >
-      ⏱️ 00:00
-    </div>
-
-  </div>
+<div
+id="timer"
+class="timer"
+>
+⏱️ 00:00
+</div>
 
 
 
-  <!-- PLAYER -->
+<div class="progress">
 
-  <input
-    type="text"
-    id="player"
-    placeholder="Digite seu nome"
-  >
+<div
+id="progress-bar"
+class="progress-bar"
+></div>
 
+</div>
 
-
-  <!-- QUIZ -->
-
-  <div id="quiz"></div>
+</div>
 
 
 
-  <!-- BUTTON -->
+<input
+type="text"
+id="player"
+placeholder="Seu nome"
+>
 
-  <button onclick="finalizarQuiz()">
-    Finalizar Quiz
-  </button>
+
+
+<div id="quiz"></div>
 
 
 
-  <!-- RESULT -->
+<button
+id="next-btn"
+onclick="proximaPergunta()"
+>
+Próxima Pergunta
+</button>
 
-  <div id="resultado"></div>
+
+
+<div id="resultado"></div>
 
 </div>
 
 <script>
 
-const params =
-  new URLSearchParams(
-    window.location.search
-  );
+const slug =
+window.location.pathname
+.split("/")
+.pop();
 
-const quizId =
-  params.get("id");
+let quizId = null;
 
+let perguntas = [];
 
+let perguntaAtual = 0;
 
 let respostas = {};
-
-let perguntasGlobais = [];
-
-let quizPrivado = false;
 
 let segundos = 0;
 
@@ -318,436 +260,461 @@ let intervalo;
 
 function iniciarTimer(){
 
-  intervalo = setInterval(() => {
+intervalo = setInterval(() => {
 
-    segundos++;
+segundos++;
 
-    const minutos =
-      String(
-        Math.floor(segundos / 60)
-      ).padStart(2,"0");
+const minutos =
+String(
+Math.floor(segundos / 60)
+).padStart(2,"0");
 
-    const secs =
-      String(
-        segundos % 60
-      ).padStart(2,"0");
+const secs =
+String(
+segundos % 60
+).padStart(2,"0");
 
-    document.getElementById(
-      "timer"
-    ).innerText =
-      `⏱️ ${minutos}:${secs}`;
+document.getElementById(
+"timer"
+).innerText =
+`⏱️ ${minutos}:${secs}`;
 
-  },1000);
+},1000);
 
 }
 
 
 
 /* =========================
-   TÍTULO
+   LOAD QUIZ
 ========================= */
 
-async function carregarTitulo(){
+async function carregarQuizPorSlug(){
 
-  const res = await fetch(
-    `/api/quizzes/quiz/${quizId}`
-  );
+const res = await fetch(
+`/api/quizzes/slug/${slug}`
+);
 
-  const quiz = await res.json();
+const quiz = await res.json();
 
-  document.getElementById(
-    "quiz-title"
-  ).innerText = quiz.title;
+quizId = quiz.id;
+
+document.getElementById(
+"quiz-title"
+).innerText = quiz.title;
+
+if(quiz.is_public == 0){
+
+document.getElementById(
+"password-area"
+).style.display = "block";
+
+return;
+
+}
+
+carregarPerguntas();
 
 }
 
 
 
 /* =========================
-   PRIVACIDADE
-========================= */
-
-async function verificarPrivacidade(){
-
-  const res = await fetch(
-    `/api/quizzes/quiz/${quizId}`
-  );
-
-  const quiz = await res.json();
-
-  if(quiz.is_public == 0){
-
-    quizPrivado = true;
-
-    document.getElementById(
-      "password-area"
-    ).style.display = "block";
-
-    document.getElementById(
-      "quiz"
-    ).style.display = "none";
-
-    return false;
-
-  }
-
-  return true;
-
-}
-
-
-
-/* =========================
-   VALIDAR SENHA
+   PASSWORD
 ========================= */
 
 async function validarSenha(){
 
-  const password =
-    document.getElementById(
-      "quiz-password"
-    ).value;
+const password =
+document.getElementById(
+"quiz-password"
+).value;
 
-  const res = await fetch(
-    `/api/quizzes/${quizId}/validate-password`,
-    {
-      method:"POST",
+const res = await fetch(
+`/api/quizzes/${quizId}/validate-password`,
+{
+method:"POST",
 
-      headers:{
-        "Content-Type":"application/json"
-      },
+headers:{
+"Content-Type":"application/json"
+},
 
-      body: JSON.stringify({
-        password
-      })
-    }
-  );
+body: JSON.stringify({
+password
+})
+}
+);
 
-  const data = await res.json();
+const data = await res.json();
 
-  if(!data.success){
+if(!data.success){
 
-    return alert(
-      "Senha incorreta"
-    );
+return alert(
+"Senha incorreta"
+);
 
-  }
+}
 
-  document.getElementById(
-    "password-area"
-  ).style.display = "none";
+document.getElementById(
+"password-area"
+).style.display = "none";
 
-  document.getElementById(
-    "quiz"
-  ).style.display = "block";
-
-  carregarQuiz();
+carregarPerguntas();
 
 }
 
 
 
 /* =========================
-   CARREGAR QUIZ
+   PERGUNTAS
 ========================= */
 
-async function carregarQuiz(){
+async function carregarPerguntas(){
 
-  const res = await fetch(
-    `/api/quizzes/${quizId}/full`
-  );
+const res = await fetch(
+`/api/quizzes/${quizId}/full`
+);
 
-  const perguntas =
-    await res.json();
+perguntas =
+await res.json();
 
-  perguntasGlobais =
-    perguntas;
-
-  const quiz =
-    document.getElementById("quiz");
-
-  quiz.innerHTML = "";
-
-
-
-  perguntas.forEach(p => {
-
-    quiz.innerHTML += `
-
-      <div class="question">
-
-        <h2>
-          ${p.question}
-        </h2>
-
-        <div id="options-${p.id}">
-
-          ${p.options.map(op => `
-
-            <div
-              class="option"
-              onclick="
-                selecionar(
-                  ${p.id},
-                  ${op.id},
-                  this
-                )
-              "
-            >
-              ${op.text}
-            </div>
-
-          `).join("")}
-
-        </div>
-
-      </div>
-
-    `;
-
-  });
+mostrarPergunta();
 
 }
 
 
 
 /* =========================
-   SELECIONAR
+   MOSTRAR
+========================= */
+
+function mostrarPergunta(){
+
+const p =
+perguntas[perguntaAtual];
+
+const porcentagem =
+((perguntaAtual + 1)
+/
+perguntas.length)
+* 100;
+
+document.getElementById(
+"progress-bar"
+).style.width =
+`${porcentagem}%`;
+
+document.getElementById(
+"quiz"
+).innerHTML = `
+
+<div class="question">
+
+<h2>
+Pergunta
+${perguntaAtual + 1}
+de
+${perguntas.length}
+</h2>
+
+<br>
+
+<h3>
+${p.question}
+</h3>
+
+<div id="options">
+
+${p.options.map(op => `
+
+<div
+class="option"
+onclick="
+selecionar(
+${p.id},
+${op.id},
+this
+)
+"
+>
+
+${op.text}
+
+</div>
+
+`).join("")}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+
+/* =========================
+   SELECT
 ========================= */
 
 function selecionar(
-  questionId,
-  optionId,
-  el
+questionId,
+optionId,
+el
 ){
 
-  respostas[questionId] =
-    optionId;
+respostas[questionId] =
+optionId;
 
-  const container =
-    document.getElementById(
-      `options-${questionId}`
-    );
+document
+.querySelectorAll(".option")
+.forEach(op => {
+op.classList.remove(
+"selected"
+);
+});
 
-  container
-    .querySelectorAll(".option")
-    .forEach(op => {
-      op.classList.remove(
-        "selected"
-      );
-    });
-
-  el.classList.add("selected");
+el.classList.add("selected");
 
 }
 
 
 
 /* =========================
-   FINALIZAR
+   NEXT
+========================= */
+
+function proximaPergunta(){
+
+const p =
+perguntas[perguntaAtual];
+
+if(
+!respostas[p.id]
+){
+
+return alert(
+"Selecione uma resposta"
+);
+
+}
+
+perguntaAtual++;
+
+if(
+perguntaAtual
+<
+perguntas.length
+){
+
+mostrarPergunta();
+
+}else{
+
+finalizarQuiz();
+
+}
+
+}
+
+
+
+/* =========================
+   FINAL
 ========================= */
 
 async function finalizarQuiz(){
 
-  clearInterval(intervalo);
+clearInterval(intervalo);
 
-  const player_name =
-    document.getElementById(
-      "player"
-    ).value;
+let score = 0;
 
-  if(!player_name){
+let detalhes = "";
 
-    return alert(
-      "Digite seu nome"
-    );
 
-  }
 
-  let score = 0;
+for(
+const questionId
+in respostas
+){
 
-  let detalhes = "";
+const optionId =
+respostas[questionId];
 
 
 
-  for(const questionId in respostas){
+const check =
+await fetch(
+`/api/quizzes/check/${optionId}`
+);
 
-    const optionId =
-      respostas[questionId];
+const checkData =
+await check.json();
 
 
 
-    const check =
-      await fetch(
-        `/api/quizzes/check/${optionId}`
-      );
+const correta =
+await fetch(
+`/api/quizzes/questions/${questionId}/correct`
+);
 
-    const checkData =
-      await check.json();
+const corretaData =
+await correta.json();
 
 
 
-    const correta =
-      await fetch(
-        `/api/quizzes/questions/${questionId}/correct`
-      );
+const pergunta =
+perguntas.find(
+p => p.id == questionId
+);
 
-    const corretaData =
-      await correta.json();
 
 
+const respostaUsuario =
+pergunta.options.find(
+o => o.id == optionId
+);
 
-    const pergunta =
-      perguntasGlobais.find(
-        p => p.id == questionId
-      );
 
 
+if(checkData.correct){
 
-    const respostaUsuario =
-      pergunta.options.find(
-        o => o.id == optionId
-      );
+score++;
 
+detalhes += `
 
+<div class="
+review
+correct
+">
 
-    if(checkData.correct){
+✅ ${pergunta.question}
 
-      score++;
+<br><br>
 
-      detalhes += `
+Sua resposta:
+${respostaUsuario.text}
 
-        <div class="
-          review
-          correct-review
-        ">
+</div>
 
-          <h3>
-            ✅ ${pergunta.question}
-          </h3>
+`;
 
-          <p>
-            Sua resposta:
-            ${respostaUsuario.text}
-          </p>
+}else{
 
-        </div>
+detalhes += `
 
-      `;
+<div class="
+review
+wrong
+">
 
-    }else{
+❌ ${pergunta.question}
 
-      detalhes += `
+<br><br>
 
-        <div class="
-          review
-          wrong-review
-        ">
+Sua resposta:
+${respostaUsuario.text}
 
-          <h3>
-            ❌ ${pergunta.question}
-          </h3>
+<br><br>
 
-          <p>
-            Sua resposta:
-            ${respostaUsuario.text}
-          </p>
+Resposta correta:
+${corretaData.text}
 
-          <p>
-            Resposta correta:
-            ${corretaData.text}
-          </p>
+</div>
 
-        </div>
+`;
 
-      `;
+}
 
-    }
+}
 
-  }
 
 
+const player_name =
+document.getElementById(
+"player"
+).value;
 
-  await fetch(
-    `/api/quizzes/${quizId}/result`,
-    {
-      method:"POST",
 
-      headers:{
-        "Content-Type":"application/json"
-      },
 
-      body: JSON.stringify({
-        player_name,
-        score
-      })
-    }
-  );
+await fetch(
+`/api/quizzes/${quizId}/result`,
+{
+method:"POST",
 
+headers:{
+"Content-Type":"application/json"
+},
 
+body: JSON.stringify({
+player_name,
+score
+})
+}
+);
 
-  document.getElementById(
-    "resultado"
-  ).innerHTML = `
 
-    <div class="result">
 
-      <div class="score-box">
+document.getElementById(
+"quiz"
+).innerHTML = "";
 
-        <h2>
-          ${player_name},
-          seu resultado
-        </h2>
+document.getElementById(
+"next-btn"
+).style.display = "none";
 
-        <div class="score">
-          ${score}
-        </div>
 
-        <p
-          style="
-            margin-top:15px;
-            color:#94a3b8;
-          "
-        >
-          ⏱️ Tempo:
-          ${Math.floor(segundos / 60)}
-          min e
-          ${segundos % 60}
-          seg
-        </p>
 
-      </div>
+document.getElementById(
+"resultado"
+).innerHTML = `
 
+<div class="result">
 
+<h2>
+${player_name},
+você acertou
+${score}
+perguntas
+</h2>
 
-      <div
-        id="ranking"
-        class="ranking"
-      ></div>
+<p style="margin-top:10px">
 
+⏱️ Tempo:
+${Math.floor(segundos / 60)}
+min e
+${segundos % 60}
+seg
 
+</p>
 
-      <div
-        style="
-          margin-top:30px;
-        "
-      >
 
-        <h2>
-          Revisão das Respostas
-        </h2>
 
-        ${detalhes}
+<div
+id="ranking"
+style="margin-top:30px"
+></div>
 
-      </div>
 
-    </div>
 
-  `;
+<div style="margin-top:30px">
 
+<h2>
+Revisão
+</h2>
 
+${detalhes}
 
-  carregarRanking();
+</div>
+
+</div>
+
+`;
+
+
+
+carregarRanking();
 
 }
 
@@ -759,50 +726,44 @@ async function finalizarQuiz(){
 
 async function carregarRanking(){
 
-  const res = await fetch(
-    `/api/quizzes/${quizId}/ranking`
-  );
+const res = await fetch(
+`/api/quizzes/${quizId}/ranking`
+);
 
-  const ranking =
-    await res.json();
+const ranking =
+await res.json();
 
-  const div =
-    document.getElementById(
-      "ranking"
-    );
+const div =
+document.getElementById(
+"ranking"
+);
 
-  div.innerHTML = `
-    <h2>
-      Ranking
-    </h2>
-  `;
+div.innerHTML =
+"<h2>Ranking</h2>";
 
 
 
-  ranking.forEach((r,index) => {
+ranking.forEach((r,index)=>{
 
-    div.innerHTML += `
+div.innerHTML += `
 
-      <div class="
-        ranking-item
-        ${index === 0 ? 'top1' : ''}
-      ">
+<div class="ranking-item">
 
-        <strong>
-          #${index + 1}
-        </strong>
+<strong>
+#${index + 1}
+</strong>
 
-        — ${r.player_name}
+- ${r.player_name}
 
-        <br><br>
+<br><br>
 
-        ${r.score} pontos
+${r.score} pontos
 
-      </div>
+</div>
 
-    `;
+`;
 
-  });
+});
 
 }
 
@@ -814,18 +775,9 @@ async function carregarRanking(){
 
 async function iniciar(){
 
-  carregarTitulo();
+await carregarQuizPorSlug();
 
-  const liberar =
-    await verificarPrivacidade();
-
-  if(liberar){
-
-    carregarQuiz();
-
-  }
-
-  iniciarTimer();
+iniciarTimer();
 
 }
 
