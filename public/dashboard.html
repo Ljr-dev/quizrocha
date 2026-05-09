@@ -72,7 +72,7 @@ body{
 
   color:white;
 
-  padding:25px;
+  padding:20px;
 
 }
 
@@ -80,8 +80,6 @@ body{
   max-width:1450px;
   margin:auto;
 }
-
-
 
 /* ======================
 TOPBAR
@@ -99,7 +97,7 @@ TOPBAR
 
   flex-wrap:wrap;
 
-  margin-bottom:35px;
+  margin-bottom:30px;
 
 }
 
@@ -115,10 +113,10 @@ TOPBAR
 
 .logo{
 
-  width:80px;
-  height:80px;
+  width:75px;
+  height:75px;
 
-  border-radius:24px;
+  border-radius:22px;
 
   display:flex;
   align-items:center;
@@ -140,13 +138,13 @@ TOPBAR
 }
 
 .brand h1{
-  font-size:40px;
+  font-size:38px;
   font-weight:800;
 }
 
 .brand p{
   color:#94a3b8;
-  margin-top:6px;
+  margin-top:5px;
 }
 
 .user-area{
@@ -205,8 +203,6 @@ TOPBAR
 
 }
 
-
-
 /* ======================
 GRID
 ====================== */
@@ -216,13 +212,11 @@ GRID
   display:grid;
 
   grid-template-columns:
-    370px 1fr;
+    360px 1fr;
 
-  gap:28px;
+  gap:25px;
 
 }
-
-
 
 /* ======================
 CARD
@@ -237,11 +231,11 @@ CARD
       rgba(15,23,42,.98)
     );
 
-  border-radius:32px;
+  border-radius:30px;
 
   border:1px solid rgba(255,255,255,.06);
 
-  padding:28px;
+  padding:26px;
 
   box-shadow:
     0 20px 50px rgba(0,0,0,.3);
@@ -249,14 +243,12 @@ CARD
 }
 
 .card-title{
-  margin-bottom:25px;
+  margin-bottom:24px;
 }
 
 .card-title h2{
-  font-size:30px;
+  font-size:28px;
 }
-
-
 
 /* ======================
 INPUTS
@@ -287,7 +279,7 @@ select{
 
   outline:none;
 
-  padding:18px;
+  padding:17px;
 
   border-radius:18px;
 
@@ -297,10 +289,8 @@ select{
 
 }
 
-
-
 /* ======================
-CREATE BUTTON
+BUTTON
 ====================== */
 
 .create-btn{
@@ -331,8 +321,6 @@ CREATE BUTTON
 
 }
 
-
-
 /* ======================
 STATS
 ====================== */
@@ -357,12 +345,12 @@ STATS
 
   border-radius:24px;
 
-  padding:24px;
+  padding:22px;
 
 }
 
 .stat-number{
-  font-size:38px;
+  font-size:36px;
   font-weight:800;
 }
 
@@ -370,8 +358,6 @@ STATS
   color:#94a3b8;
   margin-top:8px;
 }
-
-
 
 /* ======================
 QUIZ GRID
@@ -382,13 +368,11 @@ QUIZ GRID
   display:grid;
 
   grid-template-columns:
-    repeat(auto-fit,minmax(380px,1fr));
+    repeat(auto-fit,minmax(320px,1fr));
 
-  gap:28px;
+  gap:24px;
 
 }
-
-
 
 /* ======================
 QUIZ CARD
@@ -405,16 +389,16 @@ QUIZ CARD
 
   border:1px solid rgba(255,255,255,.05);
 
-  border-radius:32px;
+  border-radius:28px;
 
-  padding:28px;
+  padding:24px;
 
   transition:.25s;
 
 }
 
 .quiz-card:hover{
-  transform:translateY(-5px);
+  transform:translateY(-4px);
   border-color:rgba(59,130,246,.5);
 }
 
@@ -428,19 +412,20 @@ QUIZ CARD
 
   gap:15px;
 
+  flex-wrap:wrap;
+
 }
 
 .quiz-title{
-  font-size:28px;
+  font-size:26px;
   font-weight:800;
+  line-height:1.2;
 }
 
 .quiz-id{
   margin-top:8px;
   color:#94a3b8;
 }
-
-
 
 /* ======================
 BADGES
@@ -467,8 +452,6 @@ BADGES
   color:#fca5a5;
 }
 
-
-
 /* ======================
 SHARE
 ====================== */
@@ -487,6 +470,8 @@ SHARE
   display:flex;
 
   gap:10px;
+
+  flex-wrap:wrap;
 
 }
 
@@ -525,8 +510,6 @@ SHARE
 
 }
 
-
-
 /* ======================
 META
 ====================== */
@@ -547,7 +530,7 @@ META
 }
 
 .meta-value{
-  font-size:36px;
+  font-size:34px;
   font-weight:800;
 }
 
@@ -555,8 +538,6 @@ META
   margin-top:6px;
   color:#94a3b8;
 }
-
-
 
 /* ======================
 ACTIONS
@@ -579,7 +560,7 @@ ACTIONS
 
   border:none;
 
-  padding:16px;
+  padding:15px;
 
   border-radius:18px;
 
@@ -590,6 +571,8 @@ ACTIONS
   font-weight:700;
 
   cursor:pointer;
+
+  font-size:14px;
 
 }
 
@@ -613,15 +596,13 @@ ACTIONS
   color:white;
 }
 
-
-
 /* ======================
 EMPTY
 ====================== */
 
 .empty{
 
-  padding:70px;
+  padding:60px 20px;
 
   text-align:center;
 
@@ -635,8 +616,6 @@ EMPTY
   margin-bottom:10px;
 }
 
-
-
 /* ======================
 RESPONSIVO
 ====================== */
@@ -649,10 +628,61 @@ RESPONSIVO
 
 }
 
-@media(max-width:700px){
+@media(max-width:768px){
 
   body{
-    padding:15px;
+    padding:14px;
+  }
+
+  .topbar{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:18px;
+
+  }
+
+  .brand{
+    width:100%;
+  }
+
+  .logo{
+
+    width:60px;
+    height:60px;
+
+    font-size:28px;
+
+    border-radius:18px;
+
+  }
+
+  .brand h1{
+    font-size:30px;
+  }
+
+  .brand p{
+    font-size:14px;
+  }
+
+  .user-area{
+
+    width:100%;
+
+    flex-direction:column;
+
+    align-items:stretch;
+
+  }
+
+  .logout{
+    width:100%;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
   }
 
   .stats{
@@ -671,12 +701,57 @@ RESPONSIVO
     flex-direction:column;
   }
 
-  .quiz-top{
-    flex-direction:column;
+  .copy-btn{
+    width:100%;
+  }
+
+  .quiz-title{
+    font-size:22px;
+  }
+
+  .card{
+    padding:22px;
+  }
+
+}
+
+@media(max-width:480px){
+
+  body{
+    padding:12px;
+  }
+
+  .brand{
+    gap:12px;
   }
 
   .brand h1{
-    font-size:32px;
+    font-size:26px;
+  }
+
+  .logo{
+
+    width:54px;
+    height:54px;
+
+    font-size:24px;
+
+  }
+
+  .card{
+    padding:18px;
+  }
+
+  .card-title h2{
+    font-size:24px;
+  }
+
+  .stat-number{
+    font-size:30px;
+  }
+
+  .meta-value{
+    font-size:28px;
   }
 
 }

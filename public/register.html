@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cadastro - Quiz Rocha</title>
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+/>
+
+<title>
+Cadastro - Quiz Rocha
+</title>
+
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+/>
+
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+/>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+  rel="stylesheet"
+/>
 
 <style>
 
@@ -14,96 +37,638 @@
   box-sizing:border-box;
 }
 
-body{
-  font-family:Arial;
-  background:#020617;
-  color:white;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
+:root{
+
+  --bg:#020617;
+
+  --card:#0f172a;
+
+  --card2:#1e293b;
+
+  --border:rgba(255,255,255,.06);
+
+  --text:#ffffff;
+
+  --muted:#94a3b8;
+
+  --green:#22c55e;
+
+  --green-dark:#16a34a;
+
+  --blue:#3b82f6;
+
 }
+
+body{
+
+  font-family:'Inter',sans-serif;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #0f172a 0%,
+      #020617 65%
+    );
+
+  min-height:100vh;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  padding:20px;
+
+  color:white;
+
+  overflow:hidden;
+
+}
+
+/* =========================
+BACKGROUND
+========================= */
+
+.bg-effect{
+
+  position:absolute;
+
+  width:700px;
+  height:700px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(34,197,94,.18),
+      transparent 70%
+    );
+
+  top:-250px;
+  left:-250px;
+
+}
+
+/* =========================
+WRAPPER
+========================= */
+
+.register-wrapper{
+
+  position:relative;
+
+  z-index:2;
+
+  width:100%;
+
+  max-width:500px;
+
+}
+
+/* =========================
+BOX
+========================= */
 
 .box{
-  background:#1e293b;
-  padding:30px;
-  border-radius:12px;
-  width:100%;
-  max-width:400px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(30,41,59,.98),
+      rgba(15,23,42,.98)
+    );
+
+  border:
+    1px solid rgba(255,255,255,.06);
+
+  border-radius:36px;
+
+  padding:42px;
+
+  box-shadow:
+    0 30px 70px rgba(0,0,0,.35);
+
+  backdrop-filter:blur(12px);
+
 }
 
+/* =========================
+LOGO
+========================= */
+
+.logo{
+
+  width:84px;
+  height:84px;
+
+  border-radius:24px;
+
+  margin:auto;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:40px;
+
+  font-weight:900;
+
+  background:
+    linear-gradient(
+      135deg,
+      #22c55e,
+      #2563eb
+    );
+
+  box-shadow:
+    0 15px 40px rgba(37,99,235,.35);
+
+}
+
+/* =========================
+TEXT
+========================= */
+
 h1{
-  margin-bottom:20px;
+
   text-align:center;
+
+  margin-top:28px;
+
+  font-size:42px;
+
+  font-weight:900;
+
+}
+
+.subtitle{
+
+  text-align:center;
+
+  color:#94a3b8;
+
+  margin-top:12px;
+
+  line-height:1.7;
+
+  font-size:15px;
+
+}
+
+/* =========================
+TRIAL
+========================= */
+
+.trial{
+
+  margin-top:26px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(34,197,94,.15),
+      rgba(37,99,235,.15)
+    );
+
+  border:
+    1px solid rgba(34,197,94,.2);
+
+  padding:18px;
+
+  border-radius:20px;
+
+  text-align:center;
+
+}
+
+.trial strong{
+
+  display:block;
+
+  font-size:18px;
+
+  margin-bottom:6px;
+
+}
+
+.trial span{
+
+  color:#cbd5e1;
+
+  font-size:14px;
+
+}
+
+/* =========================
+FORM
+========================= */
+
+.form{
+  margin-top:32px;
+}
+
+.input-group{
+  margin-bottom:20px;
+}
+
+.label{
+
+  display:block;
+
+  margin-bottom:10px;
+
+  color:#cbd5e1;
+
+  font-size:14px;
+
+  font-weight:600;
+
 }
 
 input{
+
   width:100%;
-  padding:15px;
+
   border:none;
-  border-radius:10px;
-  margin-top:10px;
+
+  outline:none;
+
+  border-radius:18px;
+
+  padding:18px;
+
+  background:#f8fafc;
+
+  font-size:16px;
+
+  transition:.2s;
+
 }
 
+input:focus{
+  transform:scale(1.01);
+}
+
+/* =========================
+BUTTON
+========================= */
+
 button{
+
   width:100%;
-  padding:15px;
+
   border:none;
-  border-radius:10px;
-  background:#22c55e;
-  margin-top:20px;
-  font-weight:bold;
+
   cursor:pointer;
+
+  border-radius:18px;
+
+  padding:18px;
+
+  margin-top:14px;
+
+  font-size:16px;
+
+  font-weight:800;
+
+  transition:.2s;
+
+  background:
+    linear-gradient(
+      135deg,
+      #22c55e,
+      #16a34a
+    );
+
+  color:black;
+
 }
 
 button:hover{
-  opacity:0.9;
+  transform:translateY(-2px);
 }
 
-a{
-  color:#22c55e;
+/* =========================
+FEATURES
+========================= */
+
+.features{
+
+  margin-top:30px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:14px;
+
 }
 
-.link{
+.feature{
+
+  background:
+    rgba(255,255,255,.04);
+
+  border-radius:18px;
+
+  padding:18px;
+
   text-align:center;
-  margin-top:20px;
+
+}
+
+.feature strong{
+
+  display:block;
+
+  margin-top:8px;
+
+  font-size:14px;
+
+}
+
+.feature span{
+
+  display:block;
+
+  margin-top:5px;
+
+  color:#94a3b8;
+
+  font-size:12px;
+
+  line-height:1.5;
+
+}
+
+/* =========================
+BOTTOM
+========================= */
+
+.bottom{
+
+  margin-top:30px;
+
+  text-align:center;
+
+  color:#94a3b8;
+
+  font-size:15px;
+
+}
+
+.bottom a{
+
+  color:#4ade80;
+
+  text-decoration:none;
+
+  font-weight:700;
+
+}
+
+/* =========================
+RESPONSIVO
+========================= */
+
+@media(max-width:768px){
+
+  .box{
+
+    padding:32px 24px;
+
+    border-radius:30px;
+
+  }
+
+  h1{
+    font-size:36px;
+  }
+
+  .logo{
+
+    width:74px;
+    height:74px;
+
+    font-size:34px;
+
+  }
+
+}
+
+@media(max-width:480px){
+
+  body{
+    padding:14px;
+  }
+
+  .box{
+    padding:28px 20px;
+  }
+
+  h1{
+    font-size:30px;
+  }
+
+  .subtitle{
+    font-size:14px;
+  }
+
+  input{
+    padding:16px;
+    font-size:15px;
+  }
+
+  button{
+    padding:16px;
+  }
+
+  .features{
+    grid-template-columns:1fr;
+  }
+
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div class="box">
+<div class="bg-effect"></div>
 
-  <h1>Criar Conta</h1>
+<div class="register-wrapper">
 
-  <input
-    type="text"
-    id="name"
-    placeholder="Seu nome"
-  >
+  <div class="box">
 
-  <input
-    type="email"
-    id="email"
-    placeholder="Seu email"
-  >
+    <!-- LOGO -->
 
-  <input
-    type="password"
-    id="password"
-    placeholder="Sua senha"
-  >
+    <div class="logo">
+      Q
+    </div>
 
-  <button onclick="register()">
-    Criar Conta
-  </button>
+    <!-- TITLE -->
 
-  <div class="link">
-    <a href="/login.html">
-      Já tenho conta
-    </a>
+    <h1>
+      Criar Conta
+    </h1>
+
+    <div class="subtitle">
+
+      Comece agora gratuitamente
+      e crie quizzes profissionais
+      em poucos minutos.
+
+    </div>
+
+    <!-- TRIAL -->
+
+    <div class="trial">
+
+      <strong>
+        🎁 7 dias grátis
+      </strong>
+
+      <span>
+
+        Teste todos os recursos
+        da plataforma sem limites.
+
+      </span>
+
+    </div>
+
+    <!-- FORM -->
+
+    <div class="form">
+
+      <div class="input-group">
+
+        <label class="label">
+          Seu nome
+        </label>
+
+        <input
+          type="text"
+          id="name"
+          placeholder="Digite seu nome"
+        >
+
+      </div>
+
+      <div class="input-group">
+
+        <label class="label">
+          Seu email
+        </label>
+
+        <input
+          type="email"
+          id="email"
+          placeholder="Digite seu email"
+        >
+
+      </div>
+
+      <div class="input-group">
+
+        <label class="label">
+          Sua senha
+        </label>
+
+        <input
+          type="password"
+          id="password"
+          placeholder="Digite sua senha"
+        >
+
+      </div>
+
+      <button onclick="register()">
+        🚀 Criar Conta
+      </button>
+
+    </div>
+
+    <!-- FEATURES -->
+
+    <div class="features">
+
+      <div class="feature">
+
+        📚
+
+        <strong>
+          Quizzes
+        </strong>
+
+        <span>
+          Criação ilimitada
+        </span>
+
+      </div>
+
+      <div class="feature">
+
+        🏆
+
+        <strong>
+          Ranking
+        </strong>
+
+        <span>
+          Resultados em tempo real
+        </span>
+
+      </div>
+
+      <div class="feature">
+
+        📊
+
+        <strong>
+          Relatórios
+        </strong>
+
+        <span>
+          Estatísticas avançadas
+        </span>
+
+      </div>
+
+      <div class="feature">
+
+        🔒
+
+        <strong>
+          Privacidade
+        </strong>
+
+        <span>
+          Proteção por senha
+        </span>
+
+      </div>
+
+    </div>
+
+    <!-- BOTTOM -->
+
+    <div class="bottom">
+
+      Já possui conta?
+
+      <a href="/login.html">
+        Fazer login
+      </a>
+
+    </div>
+
   </div>
 
 </div>
@@ -113,41 +678,78 @@ a{
 async function register(){
 
   const name =
-    document.getElementById("name").value;
+    document.getElementById(
+      "name"
+    ).value;
 
   const email =
-    document.getElementById("email").value;
+    document.getElementById(
+      "email"
+    ).value;
 
   const password =
-    document.getElementById("password").value;
+    document.getElementById(
+      "password"
+    ).value;
 
-  const res = await fetch(
-    "/api/auth/register",
-    {
-      method:"POST",
+  if(!name || !email || !password){
 
-      headers:{
-        "Content-Type":"application/json"
-      },
+    return alert(
+      "Preencha todos os campos"
+    );
 
-      body: JSON.stringify({
-        name,
-        email,
-        password
-      })
-    }
-  );
-
-  const data = await res.json();
-
-  if(data.error){
-    return alert(data.error);
   }
 
-  alert("Conta criada!");
+  try{
 
-  window.location.href =
-    "/login.html";
+    const res =
+      await fetch(
+        "/api/auth/register",
+        {
+
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+            name,
+            email,
+            password
+          })
+
+        }
+      );
+
+    const data =
+      await res.json();
+
+    if(data.error){
+
+      return alert(
+        data.error
+      );
+
+    }
+
+    alert(
+      "Conta criada com sucesso!"
+    );
+
+    window.location.href =
+      "/login.html";
+
+  }catch(err){
+
+    console.error(err);
+
+    alert(
+      "Erro ao criar conta"
+    );
+
+  }
 
 }
 

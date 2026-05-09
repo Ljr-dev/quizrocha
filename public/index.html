@@ -1,131 +1,1022 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+/>
 
 <!-- SEO -->
+
 <title>
 Quiz Rocha - Plataforma de Quiz Inteligente
 </title>
 
 <meta
-name="description"
-content="
-Crie quizzes profissionais,
-gere leads e compartilhe
-com qualquer pessoa.
-"
+  name="description"
+  content="
+  Crie quizzes profissionais,
+  gere leads e compartilhe
+  com qualquer pessoa.
 />
 
-<link rel="stylesheet" href="style.css">
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+/>
+
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+/>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+  rel="stylesheet"
+/>
 
 <style>
 
-.login-buttons{
-  margin-top:30px;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+
+  --bg:#020617;
+
+  --card:#0f172a;
+
+  --card2:#1e293b;
+
+  --border:rgba(255,255,255,.06);
+
+  --text:#ffffff;
+
+  --muted:#94a3b8;
+
+  --green:#22c55e;
+
+  --green-dark:#16a34a;
+
+  --blue:#3b82f6;
+
+  --blue-dark:#2563eb;
+
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  font-family:'Inter',sans-serif;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #0f172a 0%,
+      #020617 65%
+    );
+
+  color:white;
+
+  overflow-x:hidden;
+
+}
+
+/* =========================
+CONTAINER
+========================= */
+
+.container{
+  max-width:1300px;
+  margin:auto;
+  padding:0 20px;
+}
+
+/* =========================
+HEADER
+========================= */
+
+.header{
+
+  width:100%;
+
+  position:sticky;
+
+  top:0;
+
+  z-index:1000;
+
+  backdrop-filter:blur(14px);
+
+  background:
+    rgba(2,6,23,.7);
+
+  border-bottom:
+    1px solid rgba(255,255,255,.05);
+
+}
+
+.header-content{
+
+  max-width:1300px;
+
+  margin:auto;
+
+  padding:18px 20px;
 
   display:flex;
-  gap:15px;
-  flex-wrap:wrap;
-}
 
-.login-btn{
-  padding:15px 25px;
-  border-radius:10px;
-  text-decoration:none;
-  font-weight:bold;
-  transition:0.2s;
-}
+  justify-content:space-between;
 
-.login{
-  background:#22c55e;
-  color:black;
-}
-
-.register{
-  background:#1e293b;
-  color:white;
-}
-
-.login-btn:hover{
-  transform:scale(1.03);
-}
-
-
-
-/* FEATURES */
-
-.features{
-  padding:80px 20px;
-  text-align:center;
-}
-
-.feature-grid{
-  display:grid;
-  grid-template-columns:
-    repeat(auto-fit,minmax(250px,1fr));
+  align-items:center;
 
   gap:20px;
 
-  margin-top:30px;
+}
+
+.logo{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:14px;
+
+}
+
+.logo-icon{
+
+  width:52px;
+  height:52px;
+
+  border-radius:16px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-weight:900;
+
+  font-size:24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #22c55e,
+      #2563eb
+    );
+
+  box-shadow:
+    0 10px 35px rgba(37,99,235,.35);
+
+}
+
+.logo-text h2{
+
+  font-size:24px;
+
+  font-weight:800;
+
+}
+
+.logo-text span{
+
+  color:#94a3b8;
+
+  font-size:13px;
+
+}
+
+.header-actions{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+
+  flex-wrap:wrap;
+
+}
+
+.header-btn{
+
+  text-decoration:none;
+
+  padding:14px 20px;
+
+  border-radius:14px;
+
+  font-weight:700;
+
+  transition:.2s;
+
+}
+
+.header-login{
+
+  background:
+    rgba(255,255,255,.05);
+
+  color:white;
+
+}
+
+.header-register{
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--green),
+      var(--green-dark)
+    );
+
+  color:black;
+
+}
+
+.header-btn:hover{
+  transform:translateY(-2px);
+}
+
+/* =========================
+HERO
+========================= */
+
+.hero{
+
+  position:relative;
+
+  padding:110px 20px 90px;
+
+  overflow:hidden;
+
+}
+
+.hero::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:700px;
+  height:700px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(37,99,235,.15),
+      transparent 70%
+    );
+
+  top:-250px;
+  right:-250px;
+
+}
+
+.hero-content{
+
+  max-width:1300px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:
+    1.1fr .9fr;
+
+  gap:60px;
+
+  align-items:center;
+
+}
+
+.hero-text{
+  position:relative;
+  z-index:2;
+}
+
+.hero-text h1{
+
+  font-size:72px;
+
+  line-height:1.08;
+
+  font-weight:900;
+
+  margin-bottom:28px;
+
+}
+
+.gradient{
+
+  background:
+    linear-gradient(
+      135deg,
+      #22c55e,
+      #60a5fa
+    );
+
+  -webkit-background-clip:text;
+
+  -webkit-text-fill-color:transparent;
+
+}
+
+.hero-text p{
+
+  font-size:20px;
+
+  color:#cbd5e1;
+
+  line-height:1.8;
+
+  max-width:720px;
+
+}
+
+.login-buttons{
+
+  margin-top:38px;
+
+  display:flex;
+
+  gap:16px;
+
+  flex-wrap:wrap;
+
+}
+
+.login-btn{
+
+  text-decoration:none;
+
+  padding:18px 28px;
+
+  border-radius:18px;
+
+  font-weight:800;
+
+  transition:.2s;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:10px;
+
+}
+
+.login{
+
+  background:
+    linear-gradient(
+      135deg,
+      #22c55e,
+      #16a34a
+    );
+
+  color:black;
+
+}
+
+.register{
+
+  background:
+    rgba(255,255,255,.05);
+
+  border:
+    1px solid rgba(255,255,255,.08);
+
+  color:white;
+
+}
+
+.login-btn:hover{
+  transform:translateY(-3px);
+}
+
+.micro-copy{
+
+  display:block;
+
+  margin-top:26px;
+
+  color:#94a3b8;
+
+  font-size:15px;
+
+}
+
+.hero-card{
+
+  position:relative;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(30,41,59,.98),
+      rgba(15,23,42,.98)
+    );
+
+  border:1px solid rgba(255,255,255,.06);
+
+  border-radius:34px;
+
+  padding:35px;
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.35);
+
+}
+
+.hero-stats{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:18px;
+
+}
+
+.stat{
+
+  background:
+    rgba(255,255,255,.04);
+
+  border-radius:24px;
+
+  padding:24px;
+
+}
+
+.stat-number{
+
+  font-size:38px;
+
+  font-weight:900;
+
+}
+
+.stat-label{
+
+  margin-top:8px;
+
+  color:#94a3b8;
+
+}
+
+.hero-card-bottom{
+
+  margin-top:24px;
+
+  background:
+    rgba(255,255,255,.04);
+
+  border-radius:24px;
+
+  padding:24px;
+
+}
+
+.hero-card-bottom h3{
+
+  margin-bottom:14px;
+
+  font-size:22px;
+
+}
+
+.hero-card-bottom p{
+
+  color:#cbd5e1;
+
+  line-height:1.7;
+
+}
+
+/* =========================
+PLANS
+========================= */
+
+.plans{
+
+  padding:90px 20px;
+
+}
+
+.section-title{
+
+  text-align:center;
+
+  font-size:48px;
+
+  font-weight:900;
+
+}
+
+.section-subtitle{
+
+  text-align:center;
+
+  color:#94a3b8;
+
+  margin-top:14px;
+
+  font-size:18px;
+
+}
+
+.plan-grid{
+
+  max-width:1200px;
+
+  margin:50px auto 0;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(320px,1fr));
+
+  gap:30px;
+
+}
+
+.plan{
+
+  position:relative;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(30,41,59,.98),
+      rgba(15,23,42,.98)
+    );
+
+  border:1px solid rgba(255,255,255,.06);
+
+  border-radius:34px;
+
+  padding:38px;
+
+}
+
+.plan-popular{
+
+  border:
+    2px solid rgba(34,197,94,.4);
+
+  transform:scale(1.03);
+
+}
+
+.badge{
+
+  position:absolute;
+
+  top:22px;
+  right:22px;
+
+  background:#2563eb;
+
+  padding:8px 14px;
+
+  border-radius:999px;
+
+  font-size:12px;
+
+  font-weight:800;
+
+}
+
+.plan h3{
+
+  font-size:34px;
+
+  margin-bottom:20px;
+
+}
+
+.price{
+
+  font-size:58px;
+
+  font-weight:900;
+
+  margin-bottom:24px;
+
+}
+
+.price span{
+
+  font-size:18px;
+
+  color:#94a3b8;
+
+}
+
+.plan ul{
+
+  list-style:none;
+
+}
+
+.plan li{
+
+  margin-bottom:18px;
+
+  color:#cbd5e1;
+
+  line-height:1.6;
+
+}
+
+.plan a{
+
+  display:block;
+
+  text-align:center;
+
+  text-decoration:none;
+
+  margin-top:34px;
+
+  padding:18px;
+
+  border-radius:18px;
+
+  font-weight:800;
+
+}
+
+.free-btn{
+
+  background:
+    rgba(255,255,255,.05);
+
+  color:white;
+
+}
+
+.pro-btn{
+
+  background:
+    linear-gradient(
+      135deg,
+      #22c55e,
+      #16a34a
+    );
+
+  color:black;
+
+}
+
+/* =========================
+FEATURES
+========================= */
+
+.features{
+
+  padding:90px 20px;
+
+}
+
+.feature-grid{
+
+  max-width:1200px;
+
+  margin:50px auto 0;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(260px,1fr));
+
+  gap:24px;
+
 }
 
 .feature{
-  background:#1e293b;
-  padding:25px;
-  border-radius:16px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(30,41,59,.98),
+      rgba(15,23,42,.98)
+    );
+
+  border:1px solid rgba(255,255,255,.05);
+
+  padding:32px;
+
+  border-radius:30px;
+
+  transition:.2s;
+
+}
+
+.feature:hover{
+  transform:translateY(-5px);
+}
+
+.feature-icon{
+
+  font-size:42px;
+
+  margin-bottom:20px;
+
 }
 
 .feature h3{
-  margin-bottom:10px;
+
+  font-size:24px;
+
+  margin-bottom:14px;
+
 }
 
+.feature p{
 
+  color:#cbd5e1;
 
-/* PLATFORM */
+  line-height:1.8;
+
+}
+
+/* =========================
+PLATFORM
+========================= */
 
 .platform{
-  padding:80px 20px;
-  text-align:center;
+
+  padding:90px 20px;
+
 }
 
 .platform-box{
-  max-width:900px;
+
+  max-width:1000px;
+
   margin:auto;
-  background:#1e293b;
-  padding:40px;
-  border-radius:20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(30,41,59,.98),
+      rgba(15,23,42,.98)
+    );
+
+  border-radius:36px;
+
+  border:1px solid rgba(255,255,255,.06);
+
+  padding:55px;
+
+  text-align:center;
+
 }
 
 .platform-box h2{
-  margin-bottom:20px;
+
+  font-size:46px;
+
+  margin-bottom:24px;
+
 }
 
 .platform-box p{
+
   color:#cbd5e1;
-  line-height:1.7;
+
+  line-height:2;
+
+  font-size:18px;
+
 }
 
-
-
-/* CTA FINAL */
+/* =========================
+FINAL CTA
+========================= */
 
 .final-cta{
-  padding:80px 20px;
+
+  padding:100px 20px;
+
   text-align:center;
+
+}
+
+.final-cta h2{
+
+  font-size:56px;
+
+  line-height:1.2;
+
+  margin-bottom:20px;
+
+}
+
+.final-cta p{
+
+  color:#94a3b8;
+
+  font-size:18px;
+
+  line-height:1.8;
+
 }
 
 .final-cta a{
-  display:inline-block;
-  margin-top:20px;
-  background:#22c55e;
-  color:black;
-  padding:16px 30px;
-  border-radius:12px;
+
+  display:inline-flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  margin-top:35px;
+
   text-decoration:none;
-  font-weight:bold;
+
+  padding:20px 34px;
+
+  border-radius:20px;
+
+  font-weight:800;
+
+  background:
+    linear-gradient(
+      135deg,
+      #22c55e,
+      #16a34a
+    );
+
+  color:black;
+
+  transition:.2s;
+
+}
+
+.final-cta a:hover{
+  transform:translateY(-3px);
+}
+
+/* =========================
+FOOTER
+========================= */
+
+.footer{
+
+  padding:40px 20px;
+
+  border-top:
+    1px solid rgba(255,255,255,.05);
+
+  text-align:center;
+
+  color:#94a3b8;
+
+}
+
+/* =========================
+RESPONSIVO
+========================= */
+
+@media(max-width:1100px){
+
+  .hero-content{
+    grid-template-columns:1fr;
+  }
+
+  .hero-text h1{
+    font-size:58px;
+  }
+
+}
+
+@media(max-width:768px){
+
+  .header-content{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+  }
+
+  .header-actions{
+    width:100%;
+  }
+
+  .header-btn{
+    flex:1;
+    text-align:center;
+  }
+
+  .hero{
+
+    padding:80px 20px 60px;
+
+  }
+
+  .hero-text h1{
+    font-size:42px;
+  }
+
+  .hero-text p{
+    font-size:17px;
+  }
+
+  .hero-stats{
+    grid-template-columns:1fr;
+  }
+
+  .section-title{
+    font-size:36px;
+  }
+
+  .platform-box{
+    padding:35px;
+  }
+
+  .platform-box h2{
+    font-size:34px;
+  }
+
+  .final-cta h2{
+    font-size:40px;
+  }
+
+  .plan-popular{
+    transform:none;
+  }
+
+}
+
+@media(max-width:480px){
+
+  .container{
+    padding:0 14px;
+  }
+
+  .hero-text h1{
+    font-size:34px;
+  }
+
+  .hero-text p{
+    font-size:16px;
+  }
+
+  .login-buttons{
+    flex-direction:column;
+  }
+
+  .login-btn{
+    width:100%;
+  }
+
+  .hero-card{
+    padding:24px;
+  }
+
+  .section-title{
+    font-size:30px;
+  }
+
+  .platform-box{
+    padding:28px 22px;
+  }
+
+  .platform-box h2{
+    font-size:28px;
+  }
+
+  .platform-box p{
+    font-size:16px;
+  }
+
+  .final-cta h2{
+    font-size:32px;
+  }
+
+  .price{
+    font-size:48px;
+  }
+
 }
 
 </style>
@@ -134,148 +1025,402 @@ com qualquer pessoa.
 
 <body>
 
-
+<!-- HEADER -->
 
 <header class="header">
 
-  <h2>
-    Quiz Rocha
-  </h2>
+  <div class="header-content">
+
+    <div class="logo">
+
+      <div class="logo-icon">
+        Q
+      </div>
+
+      <div class="logo-text">
+
+        <h2>
+          Quiz Rocha
+        </h2>
+
+        <span>
+          Plataforma Inteligente de Quizzes
+        </span>
+
+      </div>
+
+    </div>
+
+    <div class="header-actions">
+
+      <a
+        href="/login.html"
+        class="header-btn header-login"
+      >
+        Entrar
+      </a>
+
+      <a
+        href="/register.html"
+        class="header-btn header-register"
+      >
+        Criar Conta
+      </a>
+
+    </div>
+
+  </div>
 
 </header>
-
-
 
 <!-- HERO -->
 
 <section class="hero">
 
-  <div class="hero-text">
+  <div class="hero-content">
 
-    <h1>
-      Crie quizzes profissionais
-      e compartilhe com qualquer pessoa
-    </h1>
+    <div class="hero-text">
 
-    <p>
-      Plataforma moderna para criar
-      quizzes públicos, privados,
-      educativos e interativos.
-    </p>
+      <h1>
 
+        Crie
+        <span class="gradient">
+          quizzes profissionais
+        </span>
 
+        e compartilhe
+        com qualquer pessoa
 
-    <div class="login-buttons">
+      </h1>
 
-      <a
-        href="/login.html"
-        class="login-btn login"
-      >
-        🚀 Entrar
-      </a>
+      <p>
 
+        Plataforma moderna para criar
+        quizzes públicos, privados,
+        educativos e interativos com
+        ranking, timer, relatórios
+        avançados e painel completo.
 
+      </p>
 
-      <a
-        href="/register.html"
-        class="login-btn register"
-      >
-        👤 Criar Conta
-      </a>
+      <div class="login-buttons">
+
+        <a
+          href="/login.html"
+          class="login-btn login"
+        >
+          🚀 Entrar
+        </a>
+
+        <a
+          href="/register.html"
+          class="login-btn register"
+        >
+          👤 Criar Conta
+        </a>
+
+      </div>
+
+      <span class="micro-copy">
+
+        ⚡ Plataforma online • Ranking • Timer • Privacidade
+
+      </span>
 
     </div>
 
+    <div class="hero-card">
 
+      <div class="hero-stats">
 
-    <span class="micro-copy">
-      ⚡ Plataforma online • Ranking • Timer • Privacidade
-    </span>
+        <div class="stat">
+
+          <div class="stat-number">
+            +10k
+          </div>
+
+          <div class="stat-label">
+            Respostas processadas
+          </div>
+
+        </div>
+
+        <div class="stat">
+
+          <div class="stat-number">
+            99.9%
+          </div>
+
+          <div class="stat-label">
+            Disponibilidade online
+          </div>
+
+        </div>
+
+        <div class="stat">
+
+          <div class="stat-number">
+            +500
+          </div>
+
+          <div class="stat-label">
+            Quizzes criados
+          </div>
+
+        </div>
+
+        <div class="stat">
+
+          <div class="stat-number">
+            24h
+          </div>
+
+          <div class="stat-label">
+            Plataforma ativa
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="hero-card-bottom">
+
+        <h3>
+          Plataforma SaaS moderna
+        </h3>
+
+        <p>
+
+          Transforme visitantes em
+          participantes e acompanhe
+          desempenho em tempo real.
+
+        </p>
+
+      </div>
+
+    </div>
 
   </div>
 
 </section>
 
+<!-- PLANOS -->
 
+<section class="plans">
+
+  <h2 class="section-title">
+    Escolha seu plano
+  </h2>
+
+  <p class="section-subtitle">
+
+    Comece grátis e evolua quando quiser
+
+  </p>
+
+  <div class="plan-grid">
+
+    <div class="plan">
+
+      <h3>
+        Free
+      </h3>
+
+      <div class="price">
+        R$0
+      </div>
+
+      <ul>
+
+        <li>
+          ✅ Até 2 quizzes
+        </li>
+
+        <li>
+          ✅ Até 20 perguntas
+        </li>
+
+        <li>
+          ✅ Compartilhamento público
+        </li>
+
+        <li>
+          ✅ Ranking básico
+        </li>
+
+        <li>
+          ✅ 7 dias grátis
+        </li>
+
+      </ul>
+
+      <a
+        href="/register.html"
+        class="free-btn"
+      >
+        Começar grátis
+      </a>
+
+    </div>
+
+    <div class="plan plan-popular">
+
+      <div class="badge">
+        MAIS VENDIDO
+      </div>
+
+      <h3>
+        Pro
+      </h3>
+
+      <div class="price">
+        R$29
+        <span>/mês</span>
+      </div>
+
+      <ul>
+
+        <li>
+          ✅ Quizzes ilimitados
+        </li>
+
+        <li>
+          ✅ Perguntas ilimitadas
+        </li>
+
+        <li>
+          ✅ Relatórios avançados
+        </li>
+
+        <li>
+          ✅ Perguntas mais erradas
+        </li>
+
+        <li>
+          ✅ Quiz privado com senha
+        </li>
+
+        <li>
+          ✅ Ranking completo
+        </li>
+
+        <li>
+          ✅ Sem limites
+        </li>
+
+      </ul>
+
+      <a
+        href="/register.html"
+        class="pro-btn"
+      >
+        Assinar agora
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
 
 <!-- FEATURES -->
 
 <section class="features">
 
-  <h2>
+  <h2 class="section-title">
     Recursos da Plataforma
   </h2>
 
+  <p class="section-subtitle">
+
+    Tudo o que você precisa para criar quizzes modernos
+
+  </p>
+
   <div class="feature-grid">
-
-
 
     <div class="feature">
 
+      <div class="feature-icon">
+        📚
+      </div>
+
       <h3>
-        📚 Quiz Educacional
+        Quiz Educacional
       </h3>
 
       <p>
+
         Ideal para escolas,
         igrejas e cursos online.
+
       </p>
 
     </div>
 
-
-
     <div class="feature">
 
+      <div class="feature-icon">
+        🔒
+      </div>
+
       <h3>
-        🔒 Quiz Privado
+        Quiz Privado
       </h3>
 
       <p>
+
         Proteja quizzes com senha
         e compartilhe apenas com
         quem quiser.
+
       </p>
 
     </div>
 
-
-
     <div class="feature">
 
+      <div class="feature-icon">
+        🏆
+      </div>
+
       <h3>
-        🏆 Ranking
+        Ranking
       </h3>
 
       <p>
+
         Veja quem teve melhor
         desempenho em tempo real.
+
       </p>
 
     </div>
 
-
-
     <div class="feature">
 
+      <div class="feature-icon">
+        ⏱️
+      </div>
+
       <h3>
-        ⏱️ Timer
+        Timer
       </h3>
 
       <p>
+
         Cronômetro automático
         para tornar o quiz mais
         competitivo.
+
       </p>
 
     </div>
-
-
 
   </div>
 
 </section>
-
-
 
 <!-- PLATFORM -->
 
@@ -308,17 +1453,17 @@ com qualquer pessoa.
 
 </section>
 
-
-
-<!-- CTA -->
+<!-- FINAL CTA -->
 
 <section class="final-cta">
 
   <h2>
-    Comece Agora Gratuitamente
+
+    Comece gratuitamente hoje mesmo
+
   </h2>
 
-  <p style="margin-top:15px;color:#94a3b8;">
+  <p>
 
     Crie sua conta e publique
     seu primeiro quiz em minutos.
@@ -326,10 +1471,20 @@ com qualquer pessoa.
   </p>
 
   <a href="/register.html">
+
     Criar Conta
+
   </a>
 
 </section>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+  © 2026 Quiz Rocha • Todos os direitos reservados
+
+</footer>
 
 </body>
 </html>
