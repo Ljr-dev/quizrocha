@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
 
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 
 <meta
   name="viewport"
@@ -10,6 +10,22 @@
 />
 
 <title>Dashboard - Quiz Rocha</title>
+
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+>
+
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+>
 
 <style>
 
@@ -19,123 +35,653 @@
   box-sizing:border-box;
 }
 
-body{
-  background:#020617;
-  color:white;
-  font-family:Arial;
+:root{
+
+  --bg:#020617;
+  --card:#0f172a;
+  --card2:#111c34;
+  --border:rgba(255,255,255,0.06);
+
+  --text:#ffffff;
+  --muted:#94a3b8;
+
+  --green:#22c55e;
+  --green-dark:#16a34a;
+
+  --blue:#3b82f6;
+  --blue-dark:#2563eb;
+
+  --red:#ef4444;
+  --red-dark:#dc2626;
+
 }
+
+body{
+
+  background:
+    radial-gradient(
+      circle at top,
+      #0f1b3d 0%,
+      #020617 60%
+    );
+
+  color:var(--text);
+
+  font-family:'Inter',sans-serif;
+
+  min-height:100vh;
+
+  padding:30px;
+
+}
+
+
+
+/* ======================
+CONTAINER
+====================== */
 
 .container{
-  width:100%;
-  max-width:1200px;
+  max-width:1400px;
   margin:auto;
-  padding:40px 20px;
 }
 
-.top{
+
+
+/* ======================
+TOPBAR
+====================== */
+
+.topbar{
+
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:30px;
+
+  gap:20px;
+
+  margin-bottom:35px;
+
+  flex-wrap:wrap;
+
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.logo{
+
+  width:76px;
+  height:76px;
+
+  border-radius:24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #2563eb,
+      #22c55e
+    );
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:30px;
+  font-weight:800;
+
+  box-shadow:
+    0 20px 40px rgba(37,99,235,.25);
+
+}
+
+.brand-text h1{
+  font-size:38px;
+  font-weight:800;
+}
+
+.brand-text p{
+  color:var(--muted);
+  margin-top:6px;
+}
+
+
+
+/* ======================
+USER
+====================== */
+
+.user-area{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.user-card{
+
+  background:
+    rgba(255,255,255,0.04);
+
+  border:1px solid var(--border);
+
+  padding:14px 20px;
+
+  border-radius:20px;
+
+  backdrop-filter:blur(10px);
+
+}
+
+.user-card span{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.user-name{
+  margin-top:4px;
+  font-size:18px;
+  font-weight:700;
 }
 
 .logout{
-  background:#ef4444;
+
   border:none;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--red),
+      var(--red-dark)
+    );
+
   color:white;
-  padding:12px 18px;
-  border-radius:10px;
+
+  padding:16px 22px;
+
+  border-radius:18px;
+
+  font-weight:700;
+
   cursor:pointer;
+
+  transition:.2s;
+
 }
+
+.logout:hover{
+  transform:translateY(-2px);
+}
+
+
+
+/* ======================
+GRID
+====================== */
+
+.grid{
+
+  display:grid;
+
+  grid-template-columns:
+    380px 1fr;
+
+  gap:24px;
+
+}
+
+
+
+/* ======================
+CARD
+====================== */
 
 .card{
-  background:#1e293b;
-  padding:25px;
-  border-radius:15px;
-  margin-bottom:30px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(17,28,52,0.98),
+      rgba(15,23,42,0.98)
+    );
+
+  border:1px solid var(--border);
+
+  border-radius:30px;
+
+  padding:28px;
+
+  box-shadow:
+    0 20px 45px rgba(0,0,0,.25);
+
 }
 
-.card h2{
-  margin-bottom:20px;
+.card-title{
+  margin-bottom:25px;
+}
+
+.card-title h2{
+  font-size:28px;
+  font-weight:800;
+}
+
+
+
+/* ======================
+INPUTS
+====================== */
+
+.input-group{
+  margin-bottom:18px;
+}
+
+.input-label{
+
+  display:block;
+
+  margin-bottom:10px;
+
+  color:var(--muted);
+
+  font-size:14px;
+
 }
 
 input,
 select{
+
   width:100%;
-  padding:15px;
+
   border:none;
-  border-radius:10px;
-  margin-bottom:15px;
+  outline:none;
+
+  padding:18px;
+
+  border-radius:18px;
+
+  font-size:15px;
+
+  background:#f8fafc;
+
 }
 
-button{
+
+
+/* ======================
+BUTTON CREATE
+====================== */
+
+.create-btn{
+
   width:100%;
-  padding:15px;
+
   border:none;
-  border-radius:10px;
-  background:#22c55e;
-  font-weight:bold;
+
+  padding:18px;
+
+  margin-top:10px;
+
+  border-radius:18px;
+
+  font-size:16px;
+  font-weight:800;
+
   cursor:pointer;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--green),
+      var(--green-dark)
+    );
+
+  color:#04130a;
+
+  transition:.2s;
+
 }
+
+.create-btn:hover{
+  transform:translateY(-2px);
+}
+
+
+
+/* ======================
+STATS
+====================== */
+
+.stats{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:18px;
+
+  margin-bottom:24px;
+
+}
+
+.stat{
+
+  background:
+    rgba(255,255,255,0.04);
+
+  border:1px solid rgba(255,255,255,0.05);
+
+  border-radius:24px;
+
+  padding:24px;
+
+}
+
+.stat-number{
+  font-size:34px;
+  font-weight:800;
+}
+
+.stat-label{
+  margin-top:8px;
+  color:var(--muted);
+}
+
+
+
+/* ======================
+QUIZ GRID
+====================== */
 
 .quiz-grid{
+
   display:grid;
+
   grid-template-columns:
-  repeat(auto-fit,minmax(280px,1fr));
+    repeat(auto-fit,minmax(350px,1fr));
+
+  gap:22px;
+
+}
+
+
+
+/* ======================
+QUIZ CARD
+====================== */
+
+.quiz-card{
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.04),
+      rgba(255,255,255,0.02)
+    );
+
+  border:1px solid rgba(255,255,255,0.05);
+
+  border-radius:28px;
+
+  padding:24px;
+
+}
+
+.quiz-top{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+
   gap:20px;
+
 }
 
-.quiz{
-  background:#1e293b;
-  padding:20px;
-  border-radius:15px;
+.quiz-title{
+  font-size:28px;
+  font-weight:800;
 }
 
-.quiz h3{
-  margin-bottom:10px;
+.quiz-id{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:14px;
 }
 
-.quiz p{
-  color:#94a3b8;
-  margin-bottom:15px;
+
+
+/* ======================
+BADGE
+====================== */
+
+.badge{
+
+  padding:10px 16px;
+
+  border-radius:999px;
+
+  font-size:12px;
+  font-weight:700;
+
 }
 
-.actions{
+.public{
+  background:rgba(34,197,94,0.15);
+  color:#86efac;
+}
+
+.private{
+  background:rgba(239,68,68,0.15);
+  color:#fca5a5;
+}
+
+
+
+/* ======================
+SHARE
+====================== */
+
+.share-area{
+  margin-top:22px;
+}
+
+.share-label{
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+.share-box{
+
   display:flex;
   gap:10px;
-  flex-wrap:wrap;
+
 }
 
-.actions a{
+.share-input{
+
   flex:1;
+
+  background:#020617;
+
+  color:white;
+
+  border:1px solid rgba(255,255,255,0.05);
+
+}
+
+.copy-btn{
+
+  border:none;
+
+  padding:14px 20px;
+
+  border-radius:16px;
+
+  cursor:pointer;
+
+  font-weight:700;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--green),
+      var(--green-dark)
+    );
+
+  color:#04130a;
+
+}
+
+
+
+/* ======================
+META
+====================== */
+
+.meta{
+  margin-top:22px;
+}
+
+.meta-card{
+
+  background:
+    rgba(255,255,255,0.04);
+
+  border-radius:22px;
+
+  padding:20px;
+
+}
+
+.meta-value{
+  font-size:32px;
+  font-weight:800;
+}
+
+.meta-label{
+  margin-top:6px;
+  color:var(--muted);
+}
+
+
+
+/* ======================
+ACTIONS
+====================== */
+
+.actions{
+
+  display:flex;
+
+  gap:12px;
+
+  margin-top:24px;
+
+}
+
+.action{
+
+  flex:1;
+
+  border:none;
+
+  padding:16px;
+
+  border-radius:18px;
+
+  font-weight:700;
+
   text-align:center;
+
   text-decoration:none;
-  padding:10px;
-  border-radius:8px;
-  font-weight:bold;
+
+  cursor:pointer;
+
+}
+
+.open{
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:#04130a;
 }
 
 .edit{
-  background:#334155;
+  background:linear-gradient(135deg,#3b82f6,#2563eb);
   color:white;
 }
 
-.play{
-  background:#22c55e;
-  color:black;
-}
-
-.copy{
-  background:#0f172a;
+.delete{
+  background:linear-gradient(135deg,#ef4444,#dc2626);
   color:white;
 }
+
+
+
+/* ======================
+EMPTY
+====================== */
 
 .empty{
-  background:#1e293b;
-  padding:20px;
-  border-radius:15px;
+
+  padding:60px;
+
+  border-radius:26px;
+
   text-align:center;
-  color:#94a3b8;
+
+  background:
+    rgba(255,255,255,0.03);
+
+  border:1px dashed rgba(255,255,255,0.08);
+
+}
+
+.empty h3{
+  margin-bottom:10px;
+}
+
+
+
+/* ======================
+RESPONSIVO
+====================== */
+
+@media(max-width:1100px){
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:700px){
+
+  body{
+    padding:18px;
+  }
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+
+  .share-box{
+    flex-direction:column;
+  }
+
+  .quiz-top{
+    flex-direction:column;
+  }
+
+  .brand-text h1{
+    font-size:30px;
+  }
+
 }
 
 </style>
@@ -146,86 +692,241 @@ button{
 
 <div class="container">
 
-  <div class="top">
 
-    <div>
 
-      <h1>Quiz Rocha</h1>
+  <!-- TOPBAR -->
 
-      <p id="welcome"></p>
+  <div class="topbar">
+
+    <div class="brand">
+
+      <div class="logo">
+        Q
+      </div>
+
+      <div class="brand-text">
+
+        <h1>
+          Quiz Rocha
+        </h1>
+
+        <p>
+          Plataforma de criação de quizzes
+        </p>
+
+      </div>
 
     </div>
 
-    <button
-      class="logout"
-      onclick="logout()"
-    >
-      Sair
-    </button>
+
+
+    <div class="user-area">
+
+      <div class="user-card">
+
+        <span>
+          Conectado como
+        </span>
+
+        <div
+          class="user-name"
+          id="welcome"
+        >
+          Usuário
+        </div>
+
+      </div>
+
+
+
+      <button
+        class="logout"
+        onclick="logout()"
+      >
+        Sair
+      </button>
+
+    </div>
 
   </div>
 
 
 
-  <div class="card">
+  <!-- GRID -->
 
-    <h2>Criar Quiz</h2>
+  <div class="grid">
 
-    <input
-      type="text"
-      id="title"
-      placeholder="Título do quiz"
-    >
 
-    <select id="visibility">
 
-      <option value="1">
-        🌎 Público
-      </option>
+    <!-- CREATE -->
 
-      <option value="0">
-        🔒 Privado
-      </option>
+    <div class="card">
 
-    </select>
+      <div class="card-title">
 
-    <input
-      type="password"
-      id="password"
-      placeholder="Senha do quiz (opcional)"
-    >
+        <h2>
+          Criar Quiz
+        </h2>
 
-    <button onclick="criarQuiz()">
-      Criar Quiz
-    </button>
+      </div>
+
+
+
+      <div class="input-group">
+
+        <label class="input-label">
+          Título do quiz
+        </label>
+
+        <input
+          type="text"
+          id="title"
+          placeholder="Ex: Matemática ENEM"
+        >
+
+      </div>
+
+
+
+      <div class="input-group">
+
+        <label class="input-label">
+          Visibilidade
+        </label>
+
+        <select id="visibility">
+
+          <option value="1">
+            🌎 Público
+          </option>
+
+          <option value="0">
+            🔒 Privado
+          </option>
+
+        </select>
+
+      </div>
+
+
+
+      <div class="input-group">
+
+        <label class="input-label">
+          Senha do quiz
+        </label>
+
+        <input
+          type="text"
+          id="password"
+          placeholder="Opcional"
+        >
+
+      </div>
+
+
+
+      <button
+        class="create-btn"
+        onclick="criarQuiz()"
+      >
+        Criar Quiz
+      </button>
+
+    </div>
+
+
+
+    <!-- RIGHT -->
+
+    <div>
+
+
+
+      <!-- STATS -->
+
+      <div class="stats">
+
+        <div class="stat">
+
+          <div
+            class="stat-number"
+            id="total-quizzes"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            Quizzes
+          </div>
+
+        </div>
+
+
+
+        <div class="stat">
+
+          <div
+            class="stat-number"
+            id="total-questions"
+          >
+            0
+          </div>
+
+          <div class="stat-label">
+            Perguntas
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- QUIZZES -->
+
+      <div class="card">
+
+        <div class="card-title">
+
+          <h2>
+            Meus Quizzes
+          </h2>
+
+        </div>
+
+
+
+        <div
+          class="quiz-grid"
+          id="quizList"
+        ></div>
+
+      </div>
+
+    </div>
 
   </div>
-
-
-
-  <div
-    id="lista"
-    class="quiz-grid"
-  ></div>
 
 </div>
 
+
+
 <script>
 
-const user =
-JSON.parse(
-  localStorage.getItem("user")
-);
-
 const token =
-localStorage.getItem("token");
+  localStorage.getItem("token");
+
+const user =
+  JSON.parse(
+    localStorage.getItem("user")
+  );
 
 
 
-if(!user || !token){
+if(!token){
 
-  window.location.href =
-  "/login.html";
+  window.location.href = "/";
 
 }
 
@@ -234,140 +935,329 @@ if(!user || !token){
 document.getElementById(
   "welcome"
 ).innerHTML =
-`👋 Olá, ${user.name}`;
+  user?.name || "Usuário";
 
 
 
-async function carregarQuizzes(){
+/* ======================
+LOGOUT
+====================== */
 
-  const res = await fetch(
+function logout(){
 
-    `/api/quizzes/${user.id}`,
+  localStorage.removeItem("token");
 
-    {
-      headers:{
-        Authorization:
-        `Bearer ${token}`
-      }
-    }
+  localStorage.removeItem("user");
 
-  );
-
-
-
-  const quizzes =
-    await res.json();
-
-
-
-  const lista =
-    document.getElementById("lista");
-
-
-
-  lista.innerHTML = "";
-
-
-
-  if(!Array.isArray(quizzes)){
-
-    lista.innerHTML = `
-      <div class="empty">
-        Erro ao carregar quizzes
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-
-  if(quizzes.length === 0){
-
-    lista.innerHTML = `
-      <div class="empty">
-        Nenhum quiz criado ainda
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-
-  quizzes.forEach(q => {
-
-    const playLink =
-    `${window.location.origin}/play/${q.slug}`;
-
-    lista.innerHTML += `
-
-      <div class="quiz">
-
-        <h3>${q.title}</h3>
-
-        <p>
-          Slug: ${q.slug}
-        </p>
-
-        <div class="actions">
-
-          <a
-            class="edit"
-            href="/quiz.html?id=${q.id}"
-          >
-            ✏️ Editar
-          </a>
-
-          <a
-            class="play"
-            href="${playLink}"
-          >
-            ▶️ Jogar
-          </a>
-
-          <a
-            class="copy"
-            href="#"
-            onclick="copiar('${playLink}')"
-          >
-            🔗 Copiar
-          </a>
-
-        </div>
-
-      </div>
-
-    `;
-
-  });
+  window.location.href = "/";
 
 }
 
 
 
+/* ======================
+COPY LINK
+====================== */
+
+function copiarLink(id){
+
+  const input =
+    document.getElementById(
+      `link-${id}`
+    );
+
+  input.select();
+
+  input.setSelectionRange(
+    0,
+    99999
+  );
+
+  navigator.clipboard.writeText(
+    input.value
+  );
+
+  alert("Link copiado!");
+
+}
+
+
+
+/* ======================
+LOAD QUIZZES
+====================== */
+
+async function carregarQuizzes(){
+
+  try{
+
+    const res =
+      await fetch(
+        "/api/quizzes",
+        {
+          headers:{
+            Authorization:
+              `Bearer ${token}`
+          }
+        }
+      );
+
+
+
+    if(!res.ok){
+
+      throw new Error(
+        "Erro ao carregar quizzes"
+      );
+
+    }
+
+
+
+    const quizzes =
+      await res.json();
+
+
+
+    const lista =
+      document.getElementById(
+        "quizList"
+      );
+
+
+
+    lista.innerHTML = "";
+
+
+
+    document.getElementById(
+      "total-quizzes"
+    ).innerHTML =
+      quizzes.length;
+
+
+
+    let totalQuestions = 0;
+
+
+
+    quizzes.forEach((quiz)=>{
+
+      totalQuestions +=
+        quiz.total_questions || 0;
+
+    });
+
+
+
+    document.getElementById(
+      "total-questions"
+    ).innerHTML =
+      totalQuestions;
+
+
+
+    if(!quizzes.length){
+
+      lista.innerHTML = `
+
+        <div class="empty">
+
+          <h3>
+            Nenhum quiz criado
+          </h3>
+
+          <p>
+            Crie seu primeiro quiz agora.
+          </p>
+
+        </div>
+
+      `;
+
+      return;
+
+    }
+
+
+
+    quizzes.forEach((quiz)=>{
+
+      const slug =
+        quiz.slug ||
+        `quiz-${quiz.id}`;
+
+      const shareLink =
+        `${window.location.origin}/play/${slug}`;
+
+
+
+      lista.innerHTML += `
+
+        <div class="quiz-card">
+
+          <div class="quiz-top">
+
+            <div>
+
+              <div class="quiz-title">
+                ${quiz.title}
+              </div>
+
+              <div class="quiz-id">
+                ID #${quiz.id}
+              </div>
+
+            </div>
+
+
+
+            <div class="
+              badge
+              ${
+                quiz.is_public == 1
+                ? "public"
+                : "private"
+              }
+            ">
+
+              ${
+                quiz.is_public == 1
+                ? "Público"
+                : "Privado"
+              }
+
+            </div>
+
+          </div>
+
+
+
+          <div class="share-area">
+
+            <div class="share-label">
+              Link para compartilhar
+            </div>
+
+
+
+            <div class="share-box">
+
+              <input
+                type="text"
+                readonly
+                id="link-${quiz.id}"
+                value="${shareLink}"
+                class="share-input"
+              >
+
+
+
+              <button
+                class="copy-btn"
+                onclick="
+                  copiarLink(${quiz.id})
+                "
+              >
+                Copiar
+              </button>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="meta">
+
+            <div class="meta-card">
+
+              <div class="meta-value">
+                ${quiz.total_questions}
+              </div>
+
+              <div class="meta-label">
+                Perguntas
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="actions">
+
+            <a
+              href="/play/${slug}"
+              target="_blank"
+              class="action open"
+            >
+              Abrir
+            </a>
+
+
+
+            <a
+              href="/editor.html?id=${quiz.id}"
+              class="action edit"
+            >
+              Editar
+            </a>
+
+
+
+            <button
+              class="action delete"
+              onclick="
+                deletarQuiz(${quiz.id})
+              "
+            >
+              Excluir
+            </button>
+
+          </div>
+
+        </div>
+
+      `;
+
+    });
+
+  }catch(err){
+
+    console.error(err);
+
+    alert(
+      "Erro ao carregar quizzes"
+    );
+
+  }
+
+}
+
+
+
+/* ======================
+CREATE QUIZ
+====================== */
+
 async function criarQuiz(){
 
   const title =
-  document.getElementById(
-    "title"
-  ).value;
-
-
+    document.getElementById(
+      "title"
+    ).value;
 
   const is_public =
-  document.getElementById(
-    "visibility"
-  ).value;
-
-
+    document.getElementById(
+      "visibility"
+    ).value;
 
   const password =
-  document.getElementById(
-    "password"
-  ).value;
+    document.getElementById(
+      "password"
+    ).value;
 
 
 
@@ -381,77 +1271,143 @@ async function criarQuiz(){
 
 
 
-  await fetch(
+  try{
 
-    "/api/quizzes",
+    const res =
+      await fetch(
+        "/api/quizzes",
+        {
 
-    {
+          method:"POST",
 
-      method:"POST",
+          headers:{
+            "Content-Type":
+              "application/json",
 
-      headers:{
+            Authorization:
+              `Bearer ${token}`
+          },
 
-        "Content-Type":
-        "application/json",
+          body:JSON.stringify({
+            title,
+            is_public,
+            password
+          })
 
-        Authorization:
-        `Bearer ${token}`
+        }
+      );
 
-      },
 
-      body:JSON.stringify({
 
-        user_id:user.id,
+    const data =
+      await res.json();
 
-        title,
 
-        is_public,
 
-        password
+    if(data.error){
 
-      })
+      return alert(
+        data.error
+      );
 
     }
 
-  );
+
+
+    alert(
+      data.message
+    );
 
 
 
-  document.getElementById(
-    "title"
-  ).value = "";
+    document.getElementById(
+      "title"
+    ).value = "";
 
 
 
-  document.getElementById(
-    "password"
-  ).value = "";
+    document.getElementById(
+      "password"
+    ).value = "";
 
 
 
-  carregarQuizzes();
+    carregarQuizzes();
+
+  }catch(err){
+
+    console.error(err);
+
+    alert(
+      "Erro ao criar quiz"
+    );
+
+  }
 
 }
 
 
 
-function copiar(link){
+/* ======================
+DELETE QUIZ
+====================== */
 
-  navigator.clipboard
-  .writeText(link);
+async function deletarQuiz(id){
 
-  alert("Link copiado");
+  const confirmar =
+    confirm(
+      "Deseja excluir este quiz?"
+    );
 
-}
+
+
+  if(!confirmar){
+    return;
+  }
 
 
 
-function logout(){
+  try{
 
-  localStorage.clear();
+    const res =
+      await fetch(
+        `/api/quizzes/${id}`,
+        {
 
-  window.location.href =
-  "/login.html";
+          method:"DELETE",
+
+          headers:{
+            Authorization:
+              `Bearer ${token}`
+          }
+
+        }
+      );
+
+
+
+    const data =
+      await res.json();
+
+
+
+    alert(
+      data.message
+    );
+
+
+
+    carregarQuizzes();
+
+  }catch(err){
+
+    console.error(err);
+
+    alert(
+      "Erro ao excluir quiz"
+    );
+
+  }
 
 }
 

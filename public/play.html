@@ -1,124 +1,247 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
+
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
-<title>Responder Quiz</title>
+<title>Quiz Rocha</title>
 
 <style>
 
-body{
-  font-family:Arial;
-  background:#020617;
-  color:white;
-  padding:20px;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
+body{
+  font-family:Arial, sans-serif;
+  background:#020617;
+  color:white;
+  min-height:100vh;
+  padding:25px;
+}
+
+
+
+/* =========================
+   LAYOUT
+========================= */
+
 .container{
-  max-width:800px;
+  max-width:850px;
   margin:auto;
 }
+
+
+
+/* =========================
+   TOP
+========================= */
 
 .top{
   margin-bottom:30px;
 }
 
-.subtitle{
-  color:#94a3b8;
-  margin-top:10px;
+.quiz-title{
+  font-size:42px;
+  margin-bottom:10px;
 }
 
-.timer{
-  margin-top:15px;
-  color:#22c55e;
+.subtitle{
+  color:#94a3b8;
+  font-size:16px;
+}
+
+.info-bar{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-top:25px;
+}
+
+.info-card{
+  background:#1e293b;
+  padding:14px 18px;
+  border-radius:14px;
   font-weight:bold;
 }
 
 
 
-/* PROGRESS */
+/* =========================
+   PROGRESS
+========================= */
 
 .progress{
   width:100%;
-  height:12px;
+  height:14px;
   background:#1e293b;
-  border-radius:20px;
-  margin-top:25px;
+  border-radius:30px;
   overflow:hidden;
+  margin-top:25px;
 }
 
 .progress-bar{
-  height:100%;
   width:0%;
+  height:100%;
   background:#22c55e;
+  transition:0.3s;
 }
 
 
 
-/* PLAYER */
+/* =========================
+   PASSWORD
+========================= */
+
+.password-area{
+  display:none;
+  background:#1e293b;
+  padding:30px;
+  border-radius:24px;
+  margin-bottom:25px;
+}
+
+.password-area h2{
+  margin-bottom:15px;
+}
+
+
+
+/* =========================
+   PLAYER
+========================= */
+
+.player-card{
+  background:#1e293b;
+  padding:25px;
+  border-radius:24px;
+  margin-bottom:25px;
+}
+
+
+
+/* =========================
+   INPUT
+========================= */
 
 input{
   width:100%;
-  padding:15px;
+  padding:16px;
   border:none;
-  border-radius:10px;
-  margin-top:20px;
+  border-radius:14px;
+  outline:none;
+  background:#f1f5f9;
+  font-size:16px;
 }
 
 
 
-/* QUESTION */
+/* =========================
+   QUESTION
+========================= */
 
-.question{
+.question-card{
   background:#1e293b;
-  padding:25px;
-  border-radius:20px;
+  padding:30px;
+  border-radius:24px;
   margin-top:25px;
+}
+
+.question-number{
+  color:#94a3b8;
+  margin-bottom:15px;
+  font-size:15px;
+}
+
+.question-title{
+  font-size:28px;
+  line-height:1.4;
+}
+
+
+
+/* =========================
+   OPTIONS
+========================= */
+
+.options{
+  margin-top:30px;
 }
 
 .option{
   background:#0f172a;
-  padding:15px;
-  border-radius:10px;
-  margin-top:12px;
-  cursor:pointer;
   border:2px solid transparent;
+  padding:18px;
+  border-radius:18px;
+  margin-top:14px;
+  cursor:pointer;
+  transition:0.2s;
+  font-size:17px;
+}
+
+.option:hover{
+  border-color:#334155;
 }
 
 .selected{
-  border:2px solid #22c55e;
+  border-color:#22c55e;
+  background:#052e16;
 }
 
 
 
-/* BUTTON */
+/* =========================
+   BUTTONS
+========================= */
 
 button{
   width:100%;
-  padding:16px;
   border:none;
-  border-radius:12px;
-  background:#22c55e;
+  padding:18px;
+  border-radius:16px;
   margin-top:25px;
+  background:#22c55e;
+  color:black;
+  font-size:16px;
   font-weight:bold;
   cursor:pointer;
+  transition:0.2s;
+}
+
+button:hover{
+  opacity:0.9;
 }
 
 
 
-/* RESULT */
+/* =========================
+   RESULT
+========================= */
 
-.result{
-  margin-top:40px;
+.result-card{
+  background:#1e293b;
+  padding:30px;
+  border-radius:24px;
+  margin-top:30px;
+}
+
+.score{
+  font-size:42px;
+  margin-top:15px;
+  color:#22c55e;
 }
 
 .review{
-  padding:15px;
-  border-radius:12px;
-  margin-top:15px;
+  padding:20px;
+  border-radius:18px;
+  margin-top:18px;
 }
 
 .correct{
@@ -129,22 +252,48 @@ button{
   background:#450a0a;
 }
 
-.ranking-item{
-  background:#1e293b;
-  padding:15px;
-  border-radius:10px;
-  margin-top:10px;
+
+
+/* =========================
+   RANKING
+========================= */
+
+.ranking-title{
+  margin-top:35px;
+  margin-bottom:15px;
 }
 
-.password-area{
-  display:none;
-  background:#1e293b;
-  padding:25px;
-  border-radius:20px;
-  margin-bottom:20px;
+.ranking-item{
+  background:#0f172a;
+  padding:18px;
+  border-radius:16px;
+  margin-top:12px;
+}
+
+
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media(max-width:700px){
+
+  body{
+    padding:15px;
+  }
+
+  .quiz-title{
+    font-size:32px;
+  }
+
+  .question-title{
+    font-size:22px;
+  }
+
 }
 
 </style>
+
 </head>
 
 <body>
@@ -153,81 +302,113 @@ button{
 
 
 
+<!-- PASSWORD -->
+
 <div
-id="password-area"
-class="password-area"
+  id="password-area"
+  class="password-area"
 >
 
-<h2>
-🔒 Quiz Privado
-</h2>
+  <h2>
+    🔒 Quiz Privado
+  </h2>
 
-<input
-type="password"
-id="quiz-password"
-placeholder="Senha do quiz"
->
+  <input
+    type="password"
+    id="quiz-password"
+    placeholder="Digite a senha"
+  >
 
-<button onclick="validarSenha()">
-Entrar
-</button>
+  <button onclick="validarSenha()">
+    Entrar no Quiz
+  </button>
 
 </div>
 
 
+
+<!-- TOP -->
 
 <div class="top">
 
-<h1 id="quiz-title">
-Carregando...
-</h1>
+  <h1
+    id="quiz-title"
+    class="quiz-title"
+  >
+    Carregando...
+  </h1>
 
-<p class="subtitle">
-Responda uma pergunta por vez
-</p>
+  <p class="subtitle">
+    Responda uma pergunta por vez
+  </p>
 
-<div
-id="timer"
-class="timer"
->
-⏱️ 00:00
+
+
+  <div class="info-bar">
+
+    <div
+      class="info-card"
+      id="timer"
+    >
+      ⏱️ 00:00
+    </div>
+
+    <div
+      class="info-card"
+      id="progress-text"
+    >
+      Pergunta 0/0
+    </div>
+
+  </div>
+
+
+
+  <div class="progress">
+
+    <div
+      id="progress-bar"
+      class="progress-bar"
+    ></div>
+
+  </div>
+
 </div>
 
 
 
-<div class="progress">
+<!-- PLAYER -->
 
-<div
-id="progress-bar"
-class="progress-bar"
-></div>
+<div class="player-card">
+
+  <input
+    type="text"
+    id="player"
+    placeholder="Digite seu nome"
+  >
 
 </div>
 
-</div>
 
 
-
-<input
-type="text"
-id="player"
-placeholder="Seu nome"
->
-
-
+<!-- QUIZ -->
 
 <div id="quiz"></div>
 
 
 
+<!-- BUTTON -->
+
 <button
-id="next-btn"
-onclick="proximaPergunta()"
+  id="next-btn"
+  onclick="proximaPergunta()"
 >
-Próxima Pergunta
+  Próxima Pergunta
 </button>
 
 
+
+<!-- RESULT -->
 
 <div id="resultado"></div>
 
@@ -236,9 +417,11 @@ Próxima Pergunta
 <script>
 
 const slug =
-window.location.pathname
-.split("/")
-.pop();
+  window.location.pathname
+  .split("/")
+  .pop();
+
+
 
 let quizId = null;
 
@@ -260,26 +443,28 @@ let intervalo;
 
 function iniciarTimer(){
 
-intervalo = setInterval(() => {
+  intervalo = setInterval(() => {
 
-segundos++;
+    segundos++;
 
-const minutos =
-String(
-Math.floor(segundos / 60)
-).padStart(2,"0");
+    const minutos =
+      String(
+        Math.floor(segundos / 60)
+      ).padStart(2,"0");
 
-const secs =
-String(
-segundos % 60
-).padStart(2,"0");
+    const secs =
+      String(
+        segundos % 60
+      ).padStart(2,"0");
 
-document.getElementById(
-"timer"
-).innerText =
-`⏱️ ${minutos}:${secs}`;
 
-},1000);
+
+    document.getElementById(
+      "timer"
+    ).innerHTML =
+      `⏱️ ${minutos}:${secs}`;
+
+  },1000);
 
 }
 
@@ -291,29 +476,85 @@ document.getElementById(
 
 async function carregarQuizPorSlug(){
 
-const res = await fetch(
-`/api/quizzes/slug/${slug}`
-);
+  try{
 
-const quiz = await res.json();
+    const res = await fetch(
+      `/api/quizzes/slug/${slug}`
+    );
 
-quizId = quiz.id;
 
-document.getElementById(
-"quiz-title"
-).innerText = quiz.title;
 
-if(quiz.is_public == 0){
+    if(!res.ok){
 
-document.getElementById(
-"password-area"
-).style.display = "block";
+      throw new Error(
+        "Quiz não encontrado"
+      );
 
-return;
+    }
 
-}
 
-carregarPerguntas();
+
+    const quiz =
+      await res.json();
+
+
+
+    if(!quiz || !quiz.id){
+
+      throw new Error(
+        "Quiz inválido"
+      );
+
+    }
+
+
+
+    quizId = quiz.id;
+
+
+
+    document.getElementById(
+      "quiz-title"
+    ).innerText =
+      quiz.title;
+
+
+
+    if(quiz.is_public == 0){
+
+      document.getElementById(
+        "password-area"
+      ).style.display = "block";
+
+      return;
+
+    }
+
+
+
+    carregarPerguntas();
+
+  }catch(err){
+
+    console.error(err);
+
+    document.body.innerHTML = `
+      <div
+        style="
+          padding:40px;
+          text-align:center;
+          color:white;
+        "
+      >
+
+        <h1>
+          Quiz não encontrado
+        </h1>
+
+      </div>
+    `;
+
+  }
 
 }
 
@@ -325,130 +566,196 @@ carregarPerguntas();
 
 async function validarSenha(){
 
-const password =
-document.getElementById(
-"quiz-password"
-).value;
+  const password =
+    document.getElementById(
+      "quiz-password"
+    ).value;
 
-const res = await fetch(
-`/api/quizzes/${quizId}/validate-password`,
-{
-method:"POST",
 
-headers:{
-"Content-Type":"application/json"
-},
 
-body: JSON.stringify({
-password
-})
-}
-);
+  const res =
+    await fetch(
+      `/api/quizzes/${quizId}/validate-password`,
+      {
 
-const data = await res.json();
+        method:"POST",
 
-if(!data.success){
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
 
-return alert(
-"Senha incorreta"
-);
+        body:JSON.stringify({
+          password
+        })
 
-}
+      }
+    );
 
-document.getElementById(
-"password-area"
-).style.display = "none";
 
-carregarPerguntas();
+
+  const data =
+    await res.json();
+
+
+
+  if(!data.success){
+
+    return alert(
+      "Senha incorreta"
+    );
+
+  }
+
+
+
+  document.getElementById(
+    "password-area"
+  ).style.display = "none";
+
+
+
+  carregarPerguntas();
 
 }
 
 
 
 /* =========================
-   PERGUNTAS
+   LOAD QUESTIONS
 ========================= */
 
 async function carregarPerguntas(){
 
-const res = await fetch(
-`/api/quizzes/${quizId}/full`
-);
+  const res =
+    await fetch(
+      `/api/quizzes/${quizId}/full`
+    );
 
-perguntas =
-await res.json();
 
-mostrarPergunta();
+
+  perguntas =
+    await res.json();
+
+
+
+  if(!perguntas.length){
+
+    document.getElementById(
+      "quiz"
+    ).innerHTML = `
+      <div class="question-card">
+
+        <h2>
+          Este quiz ainda não possui perguntas.
+        </h2>
+
+      </div>
+    `;
+
+    document.getElementById(
+      "next-btn"
+    ).style.display = "none";
+
+    return;
+
+  }
+
+
+
+  mostrarPergunta();
 
 }
 
 
 
 /* =========================
-   MOSTRAR
+   SHOW QUESTION
 ========================= */
 
 function mostrarPergunta(){
 
-const p =
-perguntas[perguntaAtual];
+  const p =
+    perguntas[perguntaAtual];
 
-const porcentagem =
-((perguntaAtual + 1)
-/
-perguntas.length)
-* 100;
 
-document.getElementById(
-"progress-bar"
-).style.width =
-`${porcentagem}%`;
 
-document.getElementById(
-"quiz"
-).innerHTML = `
+  if(!p){
+    return;
+  }
 
-<div class="question">
 
-<h2>
-Pergunta
-${perguntaAtual + 1}
-de
-${perguntas.length}
-</h2>
 
-<br>
+  const porcentagem =
+    (
+      (perguntaAtual + 1)
+      /
+      perguntas.length
+    ) * 100;
 
-<h3>
-${p.question}
-</h3>
 
-<div id="options">
 
-${p.options.map(op => `
+  document.getElementById(
+    "progress-bar"
+  ).style.width =
+    `${porcentagem}%`;
 
-<div
-class="option"
-onclick="
-selecionar(
-${p.id},
-${op.id},
-this
-)
-"
->
 
-${op.text}
 
-</div>
+  document.getElementById(
+    "progress-text"
+  ).innerHTML =
+    `Pergunta ${perguntaAtual + 1}/${perguntas.length}`;
 
-`).join("")}
 
-</div>
 
-</div>
+  document.getElementById(
+    "quiz"
+  ).innerHTML = `
 
-`;
+    <div class="question-card">
+
+      <div class="question-number">
+
+        Pergunta
+        ${perguntaAtual + 1}
+
+      </div>
+
+      <div class="question-title">
+
+        ${p.question}
+
+      </div>
+
+
+
+      <div class="options">
+
+        ${p.options.map(op => `
+
+          <div
+            class="option"
+            onclick="
+              selecionar(
+                ${p.id},
+                ${op.id},
+                this
+              )
+            "
+          >
+
+            ${op.text}
+
+          </div>
+
+        `).join("")}
+
+      </div>
+
+    </div>
+
+  `;
 
 }
 
@@ -459,23 +766,31 @@ ${op.text}
 ========================= */
 
 function selecionar(
-questionId,
-optionId,
-el
+  questionId,
+  optionId,
+  el
 ){
 
-respostas[questionId] =
-optionId;
+  respostas[questionId] =
+    optionId;
 
-document
-.querySelectorAll(".option")
-.forEach(op => {
-op.classList.remove(
-"selected"
-);
-});
 
-el.classList.add("selected");
+
+  document
+    .querySelectorAll(".option")
+    .forEach(op => {
+
+      op.classList.remove(
+        "selected"
+      );
+
+    });
+
+
+
+  el.classList.add(
+    "selected"
+  );
 
 }
 
@@ -487,234 +802,244 @@ el.classList.add("selected");
 
 function proximaPergunta(){
 
-const p =
-perguntas[perguntaAtual];
+  const p =
+    perguntas[perguntaAtual];
 
-if(
-!respostas[p.id]
-){
 
-return alert(
-"Selecione uma resposta"
-);
 
-}
+  if(!respostas[p.id]){
 
-perguntaAtual++;
+    return alert(
+      "Selecione uma resposta"
+    );
 
-if(
-perguntaAtual
-<
-perguntas.length
-){
+  }
 
-mostrarPergunta();
 
-}else{
 
-finalizarQuiz();
+  perguntaAtual++;
 
-}
+
+
+  if(
+    perguntaAtual
+    <
+    perguntas.length
+  ){
+
+    mostrarPergunta();
+
+  }else{
+
+    finalizarQuiz();
+
+  }
 
 }
 
 
 
 /* =========================
-   FINAL
+   FINISH
 ========================= */
 
 async function finalizarQuiz(){
 
-clearInterval(intervalo);
+  clearInterval(intervalo);
 
-let score = 0;
+  let score = 0;
 
-let detalhes = "";
+  let detalhes = "";
 
 
 
-for(
-const questionId
-in respostas
-){
+  for(
+    const questionId
+    in respostas
+  ){
 
-const optionId =
-respostas[questionId];
+    const optionId =
+      respostas[questionId];
 
 
 
-const check =
-await fetch(
-`/api/quizzes/check/${optionId}`
-);
+    const check =
+      await fetch(
+        `/api/quizzes/check/${optionId}`
+      );
 
-const checkData =
-await check.json();
 
 
+    const checkData =
+      await check.json();
 
-const correta =
-await fetch(
-`/api/quizzes/questions/${questionId}/correct`
-);
 
-const corretaData =
-await correta.json();
 
+    const correta =
+      await fetch(
+        `/api/quizzes/questions/${questionId}/correct`
+      );
 
 
-const pergunta =
-perguntas.find(
-p => p.id == questionId
-);
 
+    const corretaData =
+      await correta.json();
 
 
-const respostaUsuario =
-pergunta.options.find(
-o => o.id == optionId
-);
 
+    const pergunta =
+      perguntas.find(
+        p => p.id == questionId
+      );
 
 
-if(checkData.correct){
 
-score++;
+    const respostaUsuario =
+      pergunta.options.find(
+        o => o.id == optionId
+      );
 
-detalhes += `
 
-<div class="
-review
-correct
-">
 
-✅ ${pergunta.question}
+    if(checkData.correct){
 
-<br><br>
+      score++;
 
-Sua resposta:
-${respostaUsuario.text}
+      detalhes += `
 
-</div>
+        <div class="review correct">
 
-`;
+          <strong>
+            ✅ ${pergunta.question}
+          </strong>
 
-}else{
+          <br><br>
 
-detalhes += `
+          Sua resposta:
+          ${respostaUsuario.text}
 
-<div class="
-review
-wrong
-">
+        </div>
 
-❌ ${pergunta.question}
+      `;
 
-<br><br>
+    }else{
 
-Sua resposta:
-${respostaUsuario.text}
+      detalhes += `
 
-<br><br>
+        <div class="review wrong">
 
-Resposta correta:
-${corretaData.text}
+          <strong>
+            ❌ ${pergunta.question}
+          </strong>
 
-</div>
+          <br><br>
 
-`;
+          Sua resposta:
+          ${respostaUsuario.text}
 
-}
+          <br><br>
 
-}
+          Correta:
+          ${corretaData.text}
 
+        </div>
 
+      `;
 
-const player_name =
-document.getElementById(
-"player"
-).value;
+    }
 
+  }
 
 
-await fetch(
-`/api/quizzes/${quizId}/result`,
-{
-method:"POST",
 
-headers:{
-"Content-Type":"application/json"
-},
+  const player_name =
+    document.getElementById(
+      "player"
+    ).value || "Jogador";
 
-body: JSON.stringify({
-player_name,
-score
-})
-}
-);
 
 
+  await fetch(
+    `/api/quizzes/${quizId}/result`,
+    {
 
-document.getElementById(
-"quiz"
-).innerHTML = "";
+      method:"POST",
 
-document.getElementById(
-"next-btn"
-).style.display = "none";
+      headers:{
+        "Content-Type":
+          "application/json"
+      },
 
+      body:JSON.stringify({
+        player_name,
+        score
+      })
 
+    }
+  );
 
-document.getElementById(
-"resultado"
-).innerHTML = `
 
-<div class="result">
 
-<h2>
-${player_name},
-você acertou
-${score}
-perguntas
-</h2>
+  document.getElementById(
+    "quiz"
+  ).innerHTML = "";
 
-<p style="margin-top:10px">
 
-⏱️ Tempo:
-${Math.floor(segundos / 60)}
-min e
-${segundos % 60}
-seg
 
-</p>
+  document.getElementById(
+    "next-btn"
+  ).style.display = "none";
 
 
 
-<div
-id="ranking"
-style="margin-top:30px"
-></div>
+  document.getElementById(
+    "resultado"
+  ).innerHTML = `
 
+    <div class="result-card">
 
+      <h2>
+        Quiz Finalizado
+      </h2>
 
-<div style="margin-top:30px">
+      <div class="score">
 
-<h2>
-Revisão
-</h2>
+        ${score}/${perguntas.length}
 
-${detalhes}
+      </div>
 
-</div>
+      <p style="margin-top:15px">
 
-</div>
+        ⏱️ Tempo:
+        ${Math.floor(segundos / 60)}
+        min e
+        ${segundos % 60}
+        seg
 
-`;
+      </p>
 
 
 
-carregarRanking();
+      <h2 class="ranking-title">
+        Revisão
+      </h2>
+
+      ${detalhes}
+
+
+
+      <div
+        id="ranking"
+        style="margin-top:35px"
+      ></div>
+
+    </div>
+
+  `;
+
+
+
+  carregarRanking();
 
 }
 
@@ -726,44 +1051,55 @@ carregarRanking();
 
 async function carregarRanking(){
 
-const res = await fetch(
-`/api/quizzes/${quizId}/ranking`
-);
-
-const ranking =
-await res.json();
-
-const div =
-document.getElementById(
-"ranking"
-);
-
-div.innerHTML =
-"<h2>Ranking</h2>";
+  const res =
+    await fetch(
+      `/api/quizzes/${quizId}/ranking`
+    );
 
 
 
-ranking.forEach((r,index)=>{
+  const ranking =
+    await res.json();
 
-div.innerHTML += `
 
-<div class="ranking-item">
 
-<strong>
-#${index + 1}
-</strong>
+  const div =
+    document.getElementById(
+      "ranking"
+    );
 
-- ${r.player_name}
 
-<br><br>
 
-${r.score} pontos
+  div.innerHTML =
+    `
+      <h2>
+        Ranking
+      </h2>
+    `;
 
-</div>
 
-`;
 
-});
+  ranking.forEach((r,index)=>{
+
+    div.innerHTML += `
+
+      <div class="ranking-item">
+
+        <strong>
+          #${index + 1}
+        </strong>
+
+        — ${r.player_name}
+
+        <br><br>
+
+        ${r.score} pontos
+
+      </div>
+
+    `;
+
+  });
 
 }
 
@@ -775,11 +1111,13 @@ ${r.score} pontos
 
 async function iniciar(){
 
-await carregarQuizPorSlug();
+  await carregarQuizPorSlug();
 
-iniciarTimer();
+  iniciarTimer();
 
 }
+
+
 
 iniciar();
 

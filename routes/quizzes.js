@@ -75,6 +75,329 @@ router.get("/", auth, (req, res) => {
 
 
 /* =========================
+   CHECK OWNER
+========================= */
+
+router.get(
+  "/:quizId/check-owner",
+  auth,
+  (req, res) => {
+
+    db.get(
+      `
+      SELECT *
+      FROM quizzes
+      WHERE id = ?
+      AND user_id = ?
+      `,
+      [
+        req.params.quizId,
+        req.user.id
+      ],
+
+      (err, quiz) => {
+
+        if(err){
+
+          return res.status(500).json({
+            error: err.message
+          });
+
+        }
+
+        res.json({
+          owner: !!quiz
+        });
+
+      }
+    );
+
+});
+
+
+
+/* =========================
+   LISTAR PERGUNTAS
+========================= */
+
+router.get(
+  "/:quizId/questions",
+  (req, res) => {
+
+    db.all(
+      `
+      SELECT *
+      FROM questions
+      WHERE quiz_id = ?
+      ORDER BY id DESC
+      `,
+      [req.params.quizId],
+
+      (err, rows) => {
+
+        if(err){
+
+          return res.status(500).json({
+            error: err.message
+          });
+
+        }
+
+        res.json(rows);
+
+      }
+    );
+
+});
+
+
+
+/* =========================
+   ADICIONAR PERGUNTA
+========================= */
+
+router.post(
+  "/:quizId/questions",
+  auth,
+  (req, res) => {
+
+    const { question } =
+      req.body;
+
+    db.run(
+      `
+      INSERT INTO questions
+      (
+        quiz_id,
+        question
+      )
+      VALUES (?, ?)
+      `,
+      [
+        req.params.quizId,
+        question
+      ],
+
+      function(err){
+
+        if(err){
+
+          return res.status(500).json({
+            error: err.message
+          });
+
+        }
+
+        res.json({
+          message:"Pergunta adicionada"
+        });
+
+      }
+    );
+
+});
+
+
+
+/* =========================
+   DELETAR PERGUNTA
+========================= */
+
+router.delete(
+  "/questions/:id",
+  auth,
+  (req, res) => {
+
+    db.run(
+      `
+      DELETE FROM options
+      WHERE question_id = ?
+      `,
+      [req.params.id],
+
+      (err) => {
+
+        if(err){
+
+          return res.status(500).json({
+            error: err.message
+          });
+
+        }
+
+        db.run(
+          `
+          DELETE FROM questions
+          WHERE id = ?
+          `,
+          [req.params.id],
+
+          function(err){
+
+            if(err){
+
+              return res.status(500).json({
+                error: err.message
+              });
+
+            }
+
+            res.json({
+              message:"Pergunta deletada"
+            });
+
+          }
+        );
+
+      }
+    );
+
+});
+
+
+
+/* =========================
+   LISTAR ALTERNATIVAS
+========================= */
+
+router.get(
+  "/questions/:questionId/options",
+  (req, res) => {
+
+    db.all(
+      `
+      SELECT *
+      FROM options
+      WHERE question_id = ?
+      ORDER BY id DESC
+      `,
+      [req.params.questionId],
+
+      (err, rows) => {
+
+        if(err){
+
+          return res.status(500).json({
+            error: err.message
+          });
+
+        }
+
+        res.json(rows);
+
+      }
+    );
+
+});
+
+
+
+/* =========================
+   ADICIONAR ALTERNATIVA
+========================= */
+
+router.post(
+  "/questions/:questionId/options",
+  auth,
+  (req, res) => {
+
+    const {
+      text,
+      is_correct
+    } = req.body;
+
+
+
+    if(is_correct){
+
+      db.run(
+        `
+        UPDATE options
+        SET is_correct = 0
+        WHERE question_id = ?
+        `,
+        [req.params.questionId]
+      );
+
+    }
+
+
+
+    db.run(
+      `
+      INSERT INTO options
+      (
+        question_id,
+        text,
+        is_correct
+      )
+      VALUES (?, ?, ?)
+      `,
+      [
+        req.params.questionId,
+        text,
+        is_correct
+      ],
+
+      function(err){
+
+        if(err){
+
+          return res.status(500).json({
+            error: err.message
+          });
+
+        }
+
+        res.json({
+          message:"Alternativa adicionada"
+        });
+
+      }
+    );
+
+});
+
+
+
+/* =========================
+   DELETAR ALTERNATIVA
+========================= */
+
+router.delete(
+  "/options/:id",
+  auth,
+  (req, res) => {
+
+    db.run(
+      `
+      DELETE FROM options
+      WHERE id = ?
+      `,
+      [req.params.id],
+
+      function(err){
+
+        if(err){
+
+          return res.status(500).json({
+            error: err.message
+          });
+
+        }
+
+        res.json({
+          message:"Alternativa deletada"
+        });
+
+      }
+    );
+
+});
+
+
+
+/* =========================
    BUSCAR POR SLUG
 ========================= */
 
