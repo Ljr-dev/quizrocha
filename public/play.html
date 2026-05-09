@@ -11,6 +11,22 @@
 
 <title>Quiz Rocha</title>
 
+<link
+  rel="preconnect"
+  href="https://fonts.googleapis.com"
+>
+
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin
+>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+  rel="stylesheet"
+>
+
 <style>
 
 *{
@@ -19,29 +35,46 @@
   box-sizing:border-box;
 }
 
-body{
-  font-family:Arial, sans-serif;
-  background:#020617;
-  color:white;
-  min-height:100vh;
-  padding:25px;
+:root{
+
+  --bg:#020617;
+  --card:#111827;
+  --card2:#1e293b;
+  --border:rgba(255,255,255,.06);
+  --text:#ffffff;
+  --muted:#94a3b8;
+  --green:#22c55e;
+  --red:#ef4444;
+  --blue:#2563eb;
+
 }
 
+body{
 
+  font-family:'Inter',sans-serif;
 
-/* =========================
-   LAYOUT
-========================= */
+  background:
+    radial-gradient(
+      circle at top,
+      #0f172a 0%,
+      #020617 65%
+    );
+
+  color:white;
+
+  min-height:100vh;
+
+  padding:25px;
+
+}
 
 .container{
-  max-width:850px;
+  max-width:900px;
   margin:auto;
 }
 
-
-
 /* =========================
-   TOP
+TOP
 ========================= */
 
 .top{
@@ -49,7 +82,8 @@ body{
 }
 
 .quiz-title{
-  font-size:42px;
+  font-size:46px;
+  font-weight:800;
   margin-bottom:10px;
 }
 
@@ -59,116 +93,187 @@ body{
 }
 
 .info-bar{
+
   display:flex;
   gap:15px;
   flex-wrap:wrap;
   margin-top:25px;
+
 }
 
 .info-card{
-  background:#1e293b;
-  padding:14px 18px;
-  border-radius:14px;
-  font-weight:bold;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(30,41,59,.98),
+      rgba(15,23,42,.98)
+    );
+
+  border:1px solid var(--border);
+
+  padding:16px 22px;
+
+  border-radius:18px;
+
+  font-weight:700;
+
 }
 
-
-
 /* =========================
-   PROGRESS
+PROGRESS
 ========================= */
 
 .progress{
+
   width:100%;
   height:14px;
+
   background:#1e293b;
+
   border-radius:30px;
+
   overflow:hidden;
+
   margin-top:25px;
+
 }
 
 .progress-bar{
+
   width:0%;
   height:100%;
-  background:#22c55e;
+
+  background:
+    linear-gradient(
+      90deg,
+      #22c55e,
+      #16a34a
+    );
+
   transition:0.3s;
+
 }
 
-
-
 /* =========================
-   PASSWORD
+PASSWORD
 ========================= */
 
 .password-area{
+
   display:none;
-  background:#1e293b;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(30,41,59,.98),
+      rgba(15,23,42,.98)
+    );
+
+  border:1px solid var(--border);
+
   padding:30px;
-  border-radius:24px;
+
+  border-radius:28px;
+
   margin-bottom:25px;
+
 }
 
 .password-area h2{
   margin-bottom:15px;
 }
 
-
-
 /* =========================
-   PLAYER
+PLAYER
 ========================= */
 
 .player-card{
-  background:#1e293b;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(30,41,59,.98),
+      rgba(15,23,42,.98)
+    );
+
+  border:1px solid var(--border);
+
   padding:25px;
-  border-radius:24px;
+
+  border-radius:28px;
+
   margin-bottom:25px;
+
 }
 
-
-
 /* =========================
-   INPUT
+INPUT
 ========================= */
 
 input{
+
   width:100%;
-  padding:16px;
+
+  padding:18px;
+
   border:none;
-  border-radius:14px;
+
+  border-radius:16px;
+
   outline:none;
+
   background:#f1f5f9;
+
   font-size:16px;
+
 }
 
-
-
 /* =========================
-   QUESTION
+QUESTION
 ========================= */
 
 .question-card{
-  background:#1e293b;
-  padding:30px;
-  border-radius:24px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(30,41,59,.98),
+      rgba(15,23,42,.98)
+    );
+
+  border:1px solid var(--border);
+
+  padding:35px;
+
+  border-radius:30px;
+
   margin-top:25px;
+
 }
 
 .question-number{
+
   color:#94a3b8;
+
   margin-bottom:15px;
+
   font-size:15px;
+
 }
 
 .question-title{
-  font-size:28px;
-  line-height:1.4;
+
+  font-size:30px;
+
+  line-height:1.5;
+
+  font-weight:700;
+
 }
 
-
-
 /* =========================
-   OPTIONS
+OPTIONS
 ========================= */
 
 .options{
@@ -176,14 +281,23 @@ input{
 }
 
 .option{
+
   background:#0f172a;
+
   border:2px solid transparent;
-  padding:18px;
-  border-radius:18px;
-  margin-top:14px;
+
+  padding:20px;
+
+  border-radius:20px;
+
+  margin-top:16px;
+
   cursor:pointer;
+
   transition:0.2s;
+
   font-size:17px;
+
 }
 
 .option:hover{
@@ -191,57 +305,97 @@ input{
 }
 
 .selected{
+
   border-color:#22c55e;
+
   background:#052e16;
+
 }
 
-
-
 /* =========================
-   BUTTONS
+BUTTON
 ========================= */
 
 button{
+
   width:100%;
+
   border:none;
-  padding:18px;
-  border-radius:16px;
+
+  padding:20px;
+
+  border-radius:18px;
+
   margin-top:25px;
-  background:#22c55e;
+
+  background:
+    linear-gradient(
+      135deg,
+      #22c55e,
+      #16a34a
+    );
+
   color:black;
-  font-size:16px;
-  font-weight:bold;
+
+  font-size:17px;
+
+  font-weight:800;
+
   cursor:pointer;
+
   transition:0.2s;
+
 }
 
 button:hover{
-  opacity:0.9;
+  transform:translateY(-2px);
 }
 
-
-
 /* =========================
-   RESULT
+RESULT
 ========================= */
 
 .result-card{
-  background:#1e293b;
-  padding:30px;
-  border-radius:24px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(30,41,59,.98),
+      rgba(15,23,42,.98)
+    );
+
+  border:1px solid var(--border);
+
+  padding:35px;
+
+  border-radius:30px;
+
   margin-top:30px;
+
 }
 
 .score{
-  font-size:42px;
-  margin-top:15px;
+
+  font-size:54px;
+
+  margin-top:20px;
+
   color:#22c55e;
+
+  font-weight:800;
+
 }
 
 .review{
-  padding:20px;
-  border-radius:18px;
+
+  padding:22px;
+
+  border-radius:20px;
+
   margin-top:18px;
+
+  line-height:1.7;
+
 }
 
 .correct{
@@ -252,28 +406,31 @@ button:hover{
   background:#450a0a;
 }
 
-
-
 /* =========================
-   RANKING
+RANKING
 ========================= */
 
 .ranking-title{
-  margin-top:35px;
-  margin-bottom:15px;
+  margin-top:40px;
+  margin-bottom:20px;
 }
 
 .ranking-item{
+
   background:#0f172a;
-  padding:18px;
-  border-radius:16px;
-  margin-top:12px;
+
+  border:1px solid rgba(255,255,255,.04);
+
+  padding:22px;
+
+  border-radius:20px;
+
+  margin-top:14px;
+
 }
 
-
-
 /* =========================
-   RESPONSIVO
+RESPONSIVO
 ========================= */
 
 @media(max-width:700px){
@@ -283,11 +440,11 @@ button:hover{
   }
 
   .quiz-title{
-    font-size:32px;
+    font-size:34px;
   }
 
   .question-title{
-    font-size:22px;
+    font-size:24px;
   }
 
 }
@@ -299,8 +456,6 @@ button:hover{
 <body>
 
 <div class="container">
-
-
 
 <!-- PASSWORD -->
 
@@ -325,8 +480,6 @@ button:hover{
 
 </div>
 
-
-
 <!-- TOP -->
 
 <div class="top">
@@ -341,8 +494,6 @@ button:hover{
   <p class="subtitle">
     Responda uma pergunta por vez
   </p>
-
-
 
   <div class="info-bar">
 
@@ -362,8 +513,6 @@ button:hover{
 
   </div>
 
-
-
   <div class="progress">
 
     <div
@@ -374,8 +523,6 @@ button:hover{
   </div>
 
 </div>
-
-
 
 <!-- PLAYER -->
 
@@ -389,13 +536,9 @@ button:hover{
 
 </div>
 
-
-
 <!-- QUIZ -->
 
 <div id="quiz"></div>
-
-
 
 <!-- BUTTON -->
 
@@ -405,8 +548,6 @@ button:hover{
 >
   Próxima Pergunta
 </button>
-
-
 
 <!-- RESULT -->
 
@@ -421,8 +562,6 @@ const slug =
   .split("/")
   .pop();
 
-
-
 let quizId = null;
 
 let perguntas = [];
@@ -435,10 +574,8 @@ let segundos = 0;
 
 let intervalo;
 
-
-
 /* =========================
-   TIMER
+TIMER
 ========================= */
 
 function iniciarTimer(){
@@ -457,8 +594,6 @@ function iniciarTimer(){
         segundos % 60
       ).padStart(2,"0");
 
-
-
     document.getElementById(
       "timer"
     ).innerHTML =
@@ -468,21 +603,18 @@ function iniciarTimer(){
 
 }
 
-
-
 /* =========================
-   LOAD QUIZ
+LOAD QUIZ
 ========================= */
 
 async function carregarQuizPorSlug(){
 
   try{
 
-    const res = await fetch(
-      `/api/quizzes/slug/${slug}`
-    );
-
-
+    const res =
+      await fetch(
+        `/api/quizzes/slug/${slug}`
+      );
 
     if(!res.ok){
 
@@ -492,12 +624,8 @@ async function carregarQuizPorSlug(){
 
     }
 
-
-
     const quiz =
       await res.json();
-
-
 
     if(!quiz || !quiz.id){
 
@@ -507,18 +635,12 @@ async function carregarQuizPorSlug(){
 
     }
 
-
-
     quizId = quiz.id;
-
-
 
     document.getElementById(
       "quiz-title"
     ).innerText =
       quiz.title;
-
-
 
     if(quiz.is_public == 0){
 
@@ -530,8 +652,6 @@ async function carregarQuizPorSlug(){
 
     }
 
-
-
     carregarPerguntas();
 
   }catch(err){
@@ -539,6 +659,7 @@ async function carregarQuizPorSlug(){
     console.error(err);
 
     document.body.innerHTML = `
+
       <div
         style="
           padding:40px;
@@ -552,16 +673,15 @@ async function carregarQuizPorSlug(){
         </h1>
 
       </div>
+
     `;
 
   }
 
 }
 
-
-
 /* =========================
-   PASSWORD
+PASSWORD
 ========================= */
 
 async function validarSenha(){
@@ -570,8 +690,6 @@ async function validarSenha(){
     document.getElementById(
       "quiz-password"
     ).value;
-
-
 
   const res =
     await fetch(
@@ -592,12 +710,8 @@ async function validarSenha(){
       }
     );
 
-
-
   const data =
     await res.json();
-
-
 
   if(!data.success){
 
@@ -607,22 +721,16 @@ async function validarSenha(){
 
   }
 
-
-
   document.getElementById(
     "password-area"
   ).style.display = "none";
-
-
 
   carregarPerguntas();
 
 }
 
-
-
 /* =========================
-   LOAD QUESTIONS
+LOAD QUESTIONS
 ========================= */
 
 async function carregarPerguntas(){
@@ -632,18 +740,15 @@ async function carregarPerguntas(){
       `/api/quizzes/${quizId}/full`
     );
 
-
-
   perguntas =
     await res.json();
-
-
 
   if(!perguntas.length){
 
     document.getElementById(
       "quiz"
     ).innerHTML = `
+
       <div class="question-card">
 
         <h2>
@@ -651,6 +756,7 @@ async function carregarPerguntas(){
         </h2>
 
       </div>
+
     `;
 
     document.getElementById(
@@ -661,16 +767,12 @@ async function carregarPerguntas(){
 
   }
 
-
-
   mostrarPergunta();
 
 }
 
-
-
 /* =========================
-   SHOW QUESTION
+SHOW QUESTION
 ========================= */
 
 function mostrarPergunta(){
@@ -678,13 +780,9 @@ function mostrarPergunta(){
   const p =
     perguntas[perguntaAtual];
 
-
-
   if(!p){
     return;
   }
-
-
 
   const porcentagem =
     (
@@ -693,21 +791,15 @@ function mostrarPergunta(){
       perguntas.length
     ) * 100;
 
-
-
   document.getElementById(
     "progress-bar"
   ).style.width =
     `${porcentagem}%`;
 
-
-
   document.getElementById(
     "progress-text"
   ).innerHTML =
     `Pergunta ${perguntaAtual + 1}/${perguntas.length}`;
-
-
 
   document.getElementById(
     "quiz"
@@ -727,8 +819,6 @@ function mostrarPergunta(){
         ${p.question}
 
       </div>
-
-
 
       <div class="options">
 
@@ -759,10 +849,8 @@ function mostrarPergunta(){
 
 }
 
-
-
 /* =========================
-   SELECT
+SELECT
 ========================= */
 
 function selecionar(
@@ -774,8 +862,6 @@ function selecionar(
   respostas[questionId] =
     optionId;
 
-
-
   document
     .querySelectorAll(".option")
     .forEach(op => {
@@ -786,26 +872,20 @@ function selecionar(
 
     });
 
-
-
   el.classList.add(
     "selected"
   );
 
 }
 
-
-
 /* =========================
-   NEXT
+NEXT
 ========================= */
 
 function proximaPergunta(){
 
   const p =
     perguntas[perguntaAtual];
-
-
 
   if(!respostas[p.id]){
 
@@ -815,11 +895,7 @@ function proximaPergunta(){
 
   }
 
-
-
   perguntaAtual++;
-
-
 
   if(
     perguntaAtual
@@ -837,10 +913,8 @@ function proximaPergunta(){
 
 }
 
-
-
 /* =========================
-   FINISH
+FINISH
 ========================= */
 
 async function finalizarQuiz(){
@@ -851,7 +925,7 @@ async function finalizarQuiz(){
 
   let detalhes = "";
 
-
+  const respostasDetalhadas = [];
 
   for(
     const questionId
@@ -861,47 +935,52 @@ async function finalizarQuiz(){
     const optionId =
       respostas[questionId];
 
-
-
     const check =
       await fetch(
         `/api/quizzes/check/${optionId}`
       );
 
-
-
     const checkData =
       await check.json();
-
-
 
     const correta =
       await fetch(
         `/api/quizzes/questions/${questionId}/correct`
       );
 
-
-
     const corretaData =
       await correta.json();
-
-
 
     const pergunta =
       perguntas.find(
         p => p.id == questionId
       );
 
-
-
     const respostaUsuario =
       pergunta.options.find(
         o => o.id == optionId
       );
 
+    const acertou =
+      checkData.correct;
 
+    respostasDetalhadas.push({
 
-    if(checkData.correct){
+      question:
+        pergunta.question,
+
+      answer:
+        respostaUsuario.text,
+
+      correct:
+        acertou,
+
+      correct_answer:
+        corretaData.text
+
+    });
+
+    if(acertou){
 
       score++;
 
@@ -950,14 +1029,10 @@ async function finalizarQuiz(){
 
   }
 
-
-
   const player_name =
     document.getElementById(
       "player"
     ).value || "Jogador";
-
-
 
   await fetch(
     `/api/quizzes/${quizId}/result`,
@@ -971,26 +1046,26 @@ async function finalizarQuiz(){
       },
 
       body:JSON.stringify({
+
         player_name,
-        score
+
+        score,
+
+        answers:
+          respostasDetalhadas
+
       })
 
     }
   );
 
-
-
   document.getElementById(
     "quiz"
   ).innerHTML = "";
 
-
-
   document.getElementById(
     "next-btn"
   ).style.display = "none";
-
-
 
   document.getElementById(
     "resultado"
@@ -1018,15 +1093,11 @@ async function finalizarQuiz(){
 
       </p>
 
-
-
       <h2 class="ranking-title">
         Revisão
       </h2>
 
       ${detalhes}
-
-
 
       <div
         id="ranking"
@@ -1037,16 +1108,12 @@ async function finalizarQuiz(){
 
   `;
 
-
-
   carregarRanking();
 
 }
 
-
-
 /* =========================
-   RANKING
+RANKING
 ========================= */
 
 async function carregarRanking(){
@@ -1056,19 +1123,13 @@ async function carregarRanking(){
       `/api/quizzes/${quizId}/ranking`
     );
 
-
-
   const ranking =
     await res.json();
-
-
 
   const div =
     document.getElementById(
       "ranking"
     );
-
-
 
   div.innerHTML =
     `
@@ -1076,8 +1137,6 @@ async function carregarRanking(){
         Ranking
       </h2>
     `;
-
-
 
   ranking.forEach((r,index)=>{
 
@@ -1103,10 +1162,8 @@ async function carregarRanking(){
 
 }
 
-
-
 /* =========================
-   START
+START
 ========================= */
 
 async function iniciar(){
@@ -1116,8 +1173,6 @@ async function iniciar(){
   iniciarTimer();
 
 }
-
-
 
 iniciar();
 

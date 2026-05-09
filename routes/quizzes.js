@@ -6,7 +6,9 @@ const db = require("../database/db");
 
 const auth = require("../middlewares/auth");
 
-
+/* =========================
+   SLUG
+========================= */
 
 function gerarSlug(texto){
 
@@ -18,8 +20,6 @@ function gerarSlug(texto){
     .replace(/^-|-$/g,"");
 
 }
-
-
 
 /* =========================
    LISTAR QUIZZES
@@ -72,8 +72,6 @@ router.get("/", auth, (req, res) => {
 
 });
 
-
-
 /* =========================
    CHECK OWNER
 ========================= */
@@ -114,8 +112,6 @@ router.get(
 
 });
 
-
-
 /* =========================
    LISTAR PERGUNTAS
 ========================= */
@@ -149,8 +145,6 @@ router.get(
     );
 
 });
-
-
 
 /* =========================
    ADICIONAR PERGUNTA
@@ -196,8 +190,6 @@ router.post(
     );
 
 });
-
-
 
 /* =========================
    DELETAR PERGUNTA
@@ -254,8 +246,6 @@ router.delete(
 
 });
 
-
-
 /* =========================
    LISTAR ALTERNATIVAS
 ========================= */
@@ -290,8 +280,6 @@ router.get(
 
 });
 
-
-
 /* =========================
    ADICIONAR ALTERNATIVA
 ========================= */
@@ -306,8 +294,6 @@ router.post(
       is_correct
     } = req.body;
 
-
-
     if(is_correct){
 
       db.run(
@@ -320,8 +306,6 @@ router.post(
       );
 
     }
-
-
 
     db.run(
       `
@@ -358,8 +342,6 @@ router.post(
 
 });
 
-
-
 /* =========================
    DELETAR ALTERNATIVA
 ========================= */
@@ -395,8 +377,6 @@ router.delete(
 
 });
 
-
-
 /* =========================
    BUSCAR POR SLUG
 ========================= */
@@ -428,8 +408,6 @@ router.get("/slug/:slug", (req, res) => {
 
 });
 
-
-
 /* =========================
    BUSCAR QUIZ
 ========================= */
@@ -460,8 +438,6 @@ router.get("/quiz/:id", (req, res) => {
   );
 
 });
-
-
 
 /* =========================
    CRIAR QUIZ
@@ -517,8 +493,6 @@ router.post("/", auth, (req, res) => {
 
 });
 
-
-
 /* =========================
    QUIZ COMPLETO
 ========================= */
@@ -545,8 +519,6 @@ router.get("/:quizId/full", (req, res) => {
 
       const resultado = [];
 
-
-
       for(const q of questions){
 
         const options =
@@ -569,8 +541,6 @@ router.get("/:quizId/full", (req, res) => {
 
           });
 
-
-
         resultado.push({
           ...q,
           options
@@ -584,8 +554,6 @@ router.get("/:quizId/full", (req, res) => {
   );
 
 });
-
-
 
 /* =========================
    CHECK
@@ -621,8 +589,6 @@ router.get("/check/:optionId", (req, res) => {
 
 });
 
-
-
 /* =========================
    CORRETA
 ========================= */
@@ -656,8 +622,6 @@ router.get(
     );
 
 });
-
-
 
 /* =========================
    VALIDAR SENHA
@@ -712,8 +676,6 @@ router.post(
 
 });
 
-
-
 /* =========================
    RESULTADO
 ========================= */
@@ -722,7 +684,8 @@ router.post("/:quizId/result", (req, res) => {
 
   const {
     player_name,
-    score
+    score,
+    answers
   } = req.body;
 
   db.run(
@@ -751,8 +714,68 @@ router.post("/:quizId/result", (req, res) => {
 
       }
 
-      res.json({
-        message:"Resultado salvo"
+      const resultId =
+        this.lastID;
+
+      if(
+        !answers ||
+        !answers.length
+      ){
+
+        return res.json({
+          message:"Resultado salvo"
+        });
+
+      }
+
+      let total =
+        answers.length;
+
+      let saved = 0;
+
+      answers.forEach((a)=>{
+
+        db.run(
+          `
+          INSERT INTO answer_logs
+          (
+            result_id,
+            question,
+            answer,
+            correct,
+            correct_answer
+          )
+          VALUES (?, ?, ?, ?, ?)
+          `,
+          [
+            resultId,
+            a.question,
+            a.answer,
+            a.correct ? 1 : 0,
+            a.correct_answer
+          ],
+
+          (err)=>{
+
+            if(err){
+
+              console.log(err);
+
+            }
+
+            saved++;
+
+            if(saved === total){
+
+              res.json({
+                message:"Resultado salvo"
+              });
+
+            }
+
+          }
+        );
+
       });
 
     }
@@ -760,41 +783,276 @@ router.post("/:quizId/result", (req, res) => {
 
 });
 
-
-
 /* =========================
    RANKING
 ========================= */
 
-router.get("/:quizId/ranking", (req, res) => {
+router.get(
+  "/:quizId/ranking",
+  (req, res) => {
 
-  db.all(
-    `
-    SELECT *
-    FROM results
-    WHERE quiz_id = ?
-    ORDER BY score DESC
-    LIMIT 10
-    `,
-    [req.params.quizId],
+    db.all(
+      `
+      SELECT *
+      FROM results
+      WHERE quiz_id = ?
+      ORDER BY score DESC
+      LIMIT 10
+      `,
+      [req.params.quizId],
 
-    (err, ranking) => {
+      (err, ranking) => {
 
-      if(err){
+        if(err){
 
-        return res.status(500).json({
-          error: err.message
+          return res.status(500).json({
+            error: err.message
+          });
+
+        }
+
+        res.json(ranking);
+
+      }
+    );
+
+});
+
+/* =========================
+   RELATORIO
+========================= */
+
+router.get(
+  "/report/:quizId",
+  auth,
+  async (req, res) => {
+
+    const quizId =
+      req.params.quizId;
+
+    try{
+
+      /* =========================
+         STATS
+      ========================= */
+
+      const stats =
+        await new Promise((resolve,reject)=>{
+
+          db.get(
+            `
+            SELECT
+              quizzes.title,
+
+              (
+                SELECT COUNT(*)
+                FROM results
+                WHERE quiz_id = quizzes.id
+              ) as total_players,
+
+              (
+                SELECT AVG(score)
+                FROM results
+                WHERE quiz_id = quizzes.id
+              ) as average_score,
+
+              (
+                SELECT MAX(score)
+                FROM results
+                WHERE quiz_id = quizzes.id
+              ) as best_score
+
+            FROM quizzes
+
+            WHERE quizzes.id = ?
+            `,
+            [quizId],
+
+            (err,row)=>{
+
+              if(err){
+                reject(err);
+              }else{
+                resolve(row);
+              }
+
+            }
+          );
+
+        });
+
+      /* =========================
+         RANKING
+      ========================= */
+
+      const rankingRows =
+        await new Promise((resolve,reject)=>{
+
+          db.all(
+            `
+            SELECT *
+            FROM results
+            WHERE quiz_id = ?
+            ORDER BY score DESC
+            LIMIT 20
+            `,
+            [quizId],
+
+            (err,rows)=>{
+
+              if(err){
+                reject(err);
+              }else{
+                resolve(rows);
+              }
+
+            }
+          );
+
+        });
+
+      const ranking = [];
+
+      for(const player of rankingRows){
+
+        const answers =
+          await new Promise((resolve,reject)=>{
+
+            db.all(
+              `
+              SELECT
+                question,
+                answer,
+                correct,
+                correct_answer
+              FROM answer_logs
+              WHERE result_id = ?
+              `,
+              [player.id],
+
+              (err,rows)=>{
+
+                if(err){
+                  reject(err);
+                }else{
+                  resolve(rows);
+                }
+
+              }
+            );
+
+          });
+
+        ranking.push({
+
+          player_name:
+            player.player_name,
+
+          score:
+            player.score,
+
+          answers:
+            answers.map(a=>({
+
+              question:
+                a.question,
+
+              answer:
+                a.answer,
+
+              correct:
+                a.correct === 1,
+
+              correct_answer:
+                a.correct_answer
+
+            }))
+
         });
 
       }
 
-      res.json(ranking);
+      /* =========================
+         PERGUNTAS MAIS ERRADAS
+      ========================= */
+
+const wrongQuestions =
+  await new Promise((resolve,reject)=>{
+
+    db.all(
+      `
+      SELECT
+
+        answer_logs.question,
+
+        SUM(
+          CASE
+            WHEN answer_logs.correct = 0
+            THEN 1
+            ELSE 0
+          END
+        ) as errors,
+
+        SUM(
+          CASE
+            WHEN answer_logs.correct = 1
+            THEN 1
+            ELSE 0
+          END
+        ) as hits
+
+      FROM answer_logs
+
+      INNER JOIN results
+      ON results.id = answer_logs.result_id
+
+      WHERE results.quiz_id = ?
+
+      GROUP BY answer_logs.question
+
+      ORDER BY errors DESC
+
+      LIMIT 10
+      `,
+      [quizId],
+
+      (err,rows)=>{
+
+        if(err){
+          reject(err);
+        }else{
+          resolve(rows);
+        }
+
+      }
+    );
+
+  });
+      /* =========================
+         RESPONSE
+      ========================= */
+
+      res.json({
+
+        stats,
+
+        ranking,
+
+        wrong_questions:
+          wrongQuestions
+
+      });
+
+    }catch(err){
+
+      console.log(err);
+
+      res.status(500).json({
+        error:"Erro ao gerar relatório"
+      });
 
     }
-  );
 
 });
-
-
 
 module.exports = router;

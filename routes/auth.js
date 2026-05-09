@@ -10,8 +10,6 @@ const db = require("../database/db");
 
 const SECRET = "quizrocha_secret";
 
-
-
 /* =========================
    REGISTER
 ========================= */
@@ -28,8 +26,6 @@ router.post(
         password
       } = req.body;
 
-
-
       if(!name || !email || !password){
 
         return res.status(400).json({
@@ -37,8 +33,6 @@ router.post(
         });
 
       }
-
-
 
       db.get(
         `
@@ -58,8 +52,6 @@ router.post(
 
           }
 
-
-
           if(user){
 
             return res.status(400).json({
@@ -68,15 +60,22 @@ router.post(
 
           }
 
-
-
           const hash =
             await bcrypt.hash(
               password,
               10
             );
 
+          /* =========================
+             TESTE GRATIS 7 DIAS
+          ========================= */
 
+          const trialDate =
+            new Date();
+
+          trialDate.setDate(
+            trialDate.getDate() + 7
+          );
 
           db.run(
             `
@@ -84,14 +83,18 @@ router.post(
             (
               name,
               email,
-              password
+              password,
+              plan,
+              trial_ends_at
             )
-            VALUES (?, ?, ?)
+            VALUES (?, ?, ?, ?, ?)
             `,
             [
               name,
               email,
-              hash
+              hash,
+              "free",
+              trialDate.toISOString()
             ],
 
             function(err){
@@ -103,8 +106,6 @@ router.post(
                 });
 
               }
-
-
 
               const token =
                 jwt.sign(
@@ -118,8 +119,6 @@ router.post(
                   }
                 );
 
-
-
               return res.json({
 
                 token,
@@ -127,7 +126,10 @@ router.post(
                 user:{
                   id:this.lastID,
                   name,
-                  email
+                  email,
+                  plan:"free",
+                  trial_ends_at:
+                    trialDate
                 }
 
               });
@@ -148,8 +150,6 @@ router.post(
 
 });
 
-
-
 /* =========================
    LOGIN
 ========================= */
@@ -165,8 +165,6 @@ router.post(
         password
       } = req.body;
 
-
-
       if(!email || !password){
 
         return res.status(400).json({
@@ -174,8 +172,6 @@ router.post(
         });
 
       }
-
-
 
       db.get(
         `
@@ -195,8 +191,6 @@ router.post(
 
           }
 
-
-
           if(!user){
 
             return res.status(400).json({
@@ -205,15 +199,11 @@ router.post(
 
           }
 
-
-
           const valid =
             await bcrypt.compare(
               password,
               user.password
             );
-
-
 
           if(!valid){
 
@@ -223,7 +213,62 @@ router.post(
 
           }
 
+          /* =========================
+             VALIDAR TESTE GRATIS
+          ========================= */
 
+ if(user.plan === "free"){
+
+  /* =========================
+     USUARIO ANTIGO
+  ========================= */
+
+  if(!user.trial_ends_at){
+
+    const novaData =
+      new Date();
+
+    novaData.setDate(
+      novaData.getDate() + 7
+    );
+
+    db.run(
+      `
+      UPDATE users
+      SET trial_ends_at = ?
+      WHERE id = ?
+      `,
+      [
+        novaData.toISOString(),
+        user.id
+      ]
+    );
+
+    user.trial_ends_at =
+      novaData.toISOString();
+
+  }
+
+  const agora =
+    new Date();
+
+  const fimTeste =
+    new Date(
+      user.trial_ends_at
+    );
+
+  if(agora > fimTeste){
+
+    return res.status(403).json({
+
+      error:
+        "Seu período de teste expirou"
+
+    });
+
+  }
+
+}
 
           const token =
             jwt.sign(
@@ -237,8 +282,6 @@ router.post(
               }
             );
 
-
-
           return res.json({
 
             token,
@@ -246,7 +289,10 @@ router.post(
             user:{
               id:user.id,
               name:user.name,
-              email:user.email
+              email:user.email,
+              plan:user.plan,
+              trial_ends_at:
+                user.trial_ends_at
             }
 
           });
@@ -264,6 +310,80 @@ router.post(
 
 });
 
+/* =========================
+   USER INFO
+========================= */
 
+router.get(
+  "/me",
+  (req,res)=>{
+
+    const authHeader =
+      req.headers.authorization;
+
+    if(!authHeader){
+
+      return res.status(401).json({
+        error:"Token não enviado"
+      });
+
+    }
+
+    const token =
+      authHeader.split(" ")[1];
+
+    try{
+
+      const decoded =
+        jwt.verify(
+          token,
+          SECRET
+        );
+
+      db.get(
+        `
+        SELECT
+          id,
+          name,
+          email,
+          plan,
+          trial_ends_at
+        FROM users
+        WHERE id = ?
+        `,
+        [decoded.id],
+
+        (err,user)=>{
+
+          if(err){
+
+            return res.status(500).json({
+              error:err.message
+            });
+
+          }
+
+          if(!user){
+
+            return res.status(404).json({
+              error:"Usuário não encontrado"
+            });
+
+          }
+
+          return res.json(user);
+
+        }
+      );
+
+    }catch(err){
+
+      return res.status(401).json({
+        error:"Token inválido"
+      });
+
+    }
+
+});
 
 module.exports = router;

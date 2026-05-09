@@ -6,7 +6,23 @@ new sqlite3.Database(
 "./database/database.sqlite"
 );
 
+db.run(`
+CREATE TABLE IF NOT EXISTS answer_logs (
 
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+  result_id INTEGER,
+
+  question TEXT,
+
+  answer TEXT,
+
+  correct INTEGER,
+
+  correct_answer TEXT
+
+)
+`);
 
 db.serialize(() => {
 
@@ -70,6 +86,7 @@ db.serialize(() => {
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )
   `);
+  
 
 });
 
