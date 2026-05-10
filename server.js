@@ -95,7 +95,13 @@ app.use((err, req, res, next) => {
   });
 
 });
+// server.js
 
+const adminRoutes = require('./routes/admin');
+
+app.use(express.json());
+
+app.use('/admin', adminRoutes);
 
 
 const PORT = process.env.PORT || 3000;
