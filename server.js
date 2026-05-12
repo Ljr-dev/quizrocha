@@ -1,3 +1,5 @@
+// server.js
+
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
@@ -6,61 +8,57 @@ require("./database/db");
 
 const authRoutes = require("./routes/auth");
 const quizRoutes = require("./routes/quizzes");
+const adminRoutes = require("./routes/admin");
 
 const app = express();
 
+const PORT = process.env.PORT || 3000;
+
+
+
+/* =========================================
+   MIDDLEWARES
+========================================= */
+
 app.use(cors());
+
 app.use(express.json());
 
+app.use(express.urlencoded({
+  extended:true
+}));
 
 
-// arquivos estáticos
+
+/* =========================================
+   STATIC FILES
+========================================= */
+
 app.use(
   express.static(
-    path.join(__dirname, "public")
+    path.join(__dirname,"public")
   )
 );
 
 
 
-// rotas da API
+/* =========================================
+   API ROUTES
+========================================= */
+
 app.use("/api/auth", authRoutes);
+
 app.use("/api/quizzes", quizRoutes);
 
-
-
-// rota play
-app.get("/play/:slug", (req, res) => {
-
-  res.sendFile(
-    path.join(
-      __dirname,
-      "public",
-      "play.html"
-    )
-  );
-
-});
+app.use("/admin", adminRoutes);
 
 
 
-// dashboard
-app.get("/dashboard", (req, res) => {
+/* =========================================
+   HTML ROUTES
+========================================= */
 
-  res.sendFile(
-    path.join(
-      __dirname,
-      "public",
-      "dashboard.html"
-    )
-  );
-
-});
-
-
-
-// index
-app.get("/", (req, res) => {
+app.get("/",(req,res)=>{
 
   res.sendFile(
     path.join(
@@ -74,42 +72,105 @@ app.get("/", (req, res) => {
 
 
 
-// tratamento 404 API
-app.use("/api/*", (req, res) => {
+app.get("/dashboard",(req,res)=>{
 
-  res.status(404).json({
-    error: "Rota da API não encontrada"
-  });
+  res.sendFile(
+    path.join(
+      __dirname,
+      "public",
+      "dashboard.html"
+    )
+  );
 
 });
 
 
 
-// tratamento geral de erro
-app.use((err, req, res, next) => {
+app.get("/play/:slug",(req,res)=>{
+
+  res.sendFile(
+    path.join(
+      __dirname,
+      "public",
+      "play.html"
+    )
+  );
+
+});
+
+
+
+app.get("/admin-panel",(req,res)=>{
+
+  res.sendFile(
+    path.join(
+      __dirname,
+      "public",
+      "admin.html"
+    )
+  );
+
+});
+
+
+
+/* =========================================
+   404
+========================================= */
+
+app.use((req,res)=>{
+
+  res.status(404).send(`
+    <h1
+      style="
+        font-family:Arial;
+        text-align:center;
+        margin-top:40px;
+      "
+    >
+      404 | Página não encontrada
+    </h1>
+  `);
+
+});
+
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+app.use((err,req,res,next)=>{
 
   console.error(err);
 
   res.status(500).json({
-    error: "Erro interno do servidor"
+    success:false,
+    error:"Erro interno"
   });
 
 });
-// server.js
-
-const adminRoutes = require('./routes/admin');
-
-app.use(express.json());
-
-app.use('/admin', adminRoutes);
 
 
-const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
+/* =========================================
+   START
+========================================= */
 
-  console.log(
-    `🚀 Servidor rodando em http://localhost:${PORT}`
-  );
+app.listen(PORT,()=>{
+
+  console.log(`
+===================================
+🚀 QUIZ ROCHA ONLINE
+===================================
+
+🌎 URL:
+http://localhost:${PORT}
+
+🛡 ADMIN:
+http://localhost:${PORT}/admin-panel
+
+===================================
+  `);
 
 });
